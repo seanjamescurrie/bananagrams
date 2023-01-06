@@ -28,3 +28,18 @@ Getting children excited about both learning and eating healthy can be challengi
 - Allow users to comment on user generated anagrams after complete (hide comments until complete)
 - Expand to other topics (capital cities, history, books, art etc)
 
+## Domain Model
+
+```mermaid
+erDiagram
+  DailyBrainTeaser ||--|| BrainTeaser
+  TeaserType ||--|| BrainTeaser
+  Solution ||--|| BrainTeaser
+  BrainTeaser ||--|| Attempts
+  BrainTeaser ||--|| Battle
+  Attempts ||--|| User
+  User ||--|| Stats
+  User ||--|| UserBattle
+  Battle ||--|| BrainTeaser
+  Battle ||--|| UserBattle
+```
