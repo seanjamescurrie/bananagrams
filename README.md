@@ -32,14 +32,13 @@ Getting children excited about both learning and eating healthy can be challengi
 
 ```mermaid
 erDiagram
-  DailyBrainTeaser ||--|| BrainTeaser
-  TeaserType ||--|| BrainTeaser
-  Solution ||--|| BrainTeaser
-  BrainTeaser ||--|| Attempts
-  BrainTeaser ||--|| Battle
-  Attempts ||--|| User
-  User ||--|| Stats
-  User ||--|| UserBattle
-  Battle ||--|| BrainTeaser
-  Battle ||--|| UserBattle
+  DailyBrainTeaser ||--|| BrainTeaser : ""
+  TeaserType ||--|| BrainTeaser : ""
+  Solution ||--|| BrainTeaser : ""
+  BrainTeaser ||--|{ Attempts : ""
+  BrainTeaser }|--|| Battle : ""
+  Attempts }o--|| User : ""
+  User ||--|| Stats : ""
+  User ||--o{ UserBattle : ""
+  Battle ||--|{ UserBattle : ""
 ```
