@@ -6,7 +6,7 @@ An e-learning app designed to improve the pattern recognition and language skill
 
 The app is based around two themes. A brain teaser, the anagram, and tropical fruit. Designed to aid in the brain development of children by presenting users with anagrams of tropical fruit.
 
-Using gamification, the intent is bi-functional in that it will promote language development and encourage an interest in fruit by showcasing the wierd and wonderful world of tropical fruit, sharing images of their peculiar shapes and descriptions of their enticing, and often strange flavours.
+Using gamification, the intent is bi-functional in that it will promote language development and encourage an interest in fruit by showcasing the wierd and wonderful world of tropical fruit, sharing images of their peculiar shapes along with descriptions of their enticing, and often strange, flavours.
 
 ## Why
 
@@ -25,6 +25,6 @@ Getting children excited about both learning and eating healthy can be challengi
 ## Stretch Goals
 
 - Allow users to create their own anagrams for friends to solve
-- Allow users to comment on anagrams
+- Allow users to comment on user generated anagrams after complete (hide comments until complete)
 - Expand to other topics (capital cities, history, books, art etc)
 
