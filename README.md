@@ -33,12 +33,107 @@ Getting children excited about both learning and eating healthy can be challengi
 ```mermaid
 erDiagram
   DailyBrainTeaser ||--|| BrainTeaser : ""
-  TeaserType ||--|| BrainTeaser : ""
+  BrainTeaserType ||--|| BrainTeaser : ""
   Solution ||--|| BrainTeaser : ""
   BrainTeaser ||--|{ Attempts : ""
-  BrainTeaser }|--|| Battle : ""
+  BrainTeaser ||--|{ BattleBrainTeaser : ""
   Attempts }o--|| User : ""
   User ||--|| Stats : ""
   User ||--o{ UserBattle : ""
+  BattleBrainTeaser }|--|| Battle : ""
   Battle ||--|{ UserBattle : ""
+```
+
+## Entity Relationship Model
+
+```mermaid
+erDiagram
+
+  DailyBrainTeaser ||--|| BrainTeaser : ""  
+  BrainTeaserType ||--|| BrainTeaser : ""
+  Solution ||--|| BrainTeaser : ""
+  BrainTeaser ||--|{ Attempts : ""
+  BrainTeaser ||--|{ BattleBrainTeaser : ""
+  Attempts }o--|| User : ""
+  User ||--|| Stats : ""
+  User ||--o{ UserBattle : ""
+  BattleBrainTeaser }|--|| Battle : ""
+  Battle ||--|{ UserBattle : ""
+  
+  DailyBrainTeaser {
+    int id PK
+    time_stamp created_on
+    int brain_teaser_id FK
+  }
+  
+  BrainTeaserType {
+    int id PK
+    string name
+  }
+  
+  Solution {
+    int id PK
+    string solution
+    int brain_teaser_id FK
+  }
+  
+  BrainTeaser {
+    int id PK
+    string anagram
+    int brain_teaser_type_id FK
+    int solution_id FK
+    array attempts
+    array battle_brain_teasers
+  }
+  
+  Attempts {
+    int id PK
+    int total_attempts
+    bool solved
+    int brain_teaser_id FK
+    int user_id FK
+  }
+  
+  User {
+    int id PK
+    string first_name
+    string last_name
+    string email_address
+    string password
+    time_stamp dob
+    time_stamp created_on
+    array user_battles
+    array attempts
+  }
+  
+  Stats {
+    int id PK
+    int total_brain_teasers_solved
+    int total_challenges_played
+    int total_challenges_won
+    int total_challenges_lost
+    int total_daily_brain_teasers_played
+    int longest_daily_brain_teasers_streak
+  }
+  
+  Battle {
+    int id PK
+    array battle_brain_teasers
+    array user_battles
+  }
+  
+  BattleBrainTeaser {
+    int id PK
+    int battle FK
+    int brain_teaser FK
+  }
+  
+  UserBattle {
+    int id PK
+    int user_id FK
+    int battle_id FK
+  }
+  
+  
+
 ```
