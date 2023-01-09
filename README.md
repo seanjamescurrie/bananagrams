@@ -31,20 +31,17 @@ Getting children excited about both learning and eating healthy can be challengi
 ## Domain Model
 
 ```mermaid
-erDiagram
-  DailyBrainTeaser ||--|| BrainTeaser : ""
-  BrainTeaserType ||--|| BrainTeaser : ""
-  Solution ||--|| BrainTeaser : ""
-  BrainTeaser ||--|{ Attempts : ""
-  BrainTeaser ||--|{ BattleBrainTeaser : ""
-  Attempts }o--|| User : ""
-  User ||--|| Stats : ""
-  User ||--o{ UserBattle : ""
-  BattleBrainTeaser }|--|| Battle : ""
-  Battle ||--|{ UserBattle : ""
+flowchart
+  DailyBrainTeaser --- BrainTeaser
+  Solution --- BrainTeaser
+  BrainTeaser --- Attempts
+  BrainTeaser --- BattleBrainTeaser
+  Attempts --- User
+  User --- UserBattle
+  Battle --- UserBattle
 ```
 
-## Entity Relationship Diargram
+## Entity Relationship Diargram v-1
 
 ```mermaid
 erDiagram
@@ -141,6 +138,72 @@ erDiagram
     int id PK
     int user_id FK
     int battle_id FK
+  }
+  
+  
+
+```
+
+## Entity Relationship Diargram v-2
+
+```mermaid
+erDiagram
+
+  bt_anagram }o--|| brain_teaser : ""  
+  bt_anagram }o--|| bt_anagram_type : ""
+  bt_user_anagram ||--|| bt_user : ""
+  bt_user_anagram ||--|| bt_anagram : ""
+  battle_user_anagram }|--|| battle : ""
+  battle_user_anagram }o--|| bt_user_anagram : ""
+  
+  brain_teaser {
+    int id PK
+    string name
+    string description
+  }
+  
+  bt_anagram {
+    int id PK
+    string anagram_word
+    date_time date_created
+    string image_location
+    int length
+    string word
+    int bt_anagram_type FK
+    int brain_teaser_id FK
+  }
+  
+  bt_anagram_type {
+    int id PK
+    string name
+    int max_attempts
+  }
+  
+  bt_user_anagram {
+    int id PK
+    int attempts
+    date_time date_played
+    int bt_anagram_id FK
+    int user_id FK
+  }
+  
+  battle {
+    int id PK
+    string name
+    date_time date_created
+  }
+  
+  bt_user {
+    int id PK
+    string first_name
+    string last_name
+    string email_address
+    time_stamp created_on
+  }
+  
+  battle_user_anagram {
+    int battle_id FK
+    int bt_user_anagram FK
   }
   
   
