@@ -44,7 +44,7 @@ erDiagram
   Battle ||--|{ UserBattle : ""
 ```
 
-## Entity Relationship Model
+## Entity Relationship Diargram
 
 ```mermaid
 erDiagram
@@ -52,6 +52,7 @@ erDiagram
   DailyBrainTeaser ||--|| BrainTeaser : ""  
   BrainTeaserType ||--|| BrainTeaser : ""
   Solution ||--|| BrainTeaser : ""
+  Solution ||--|| ObjectReference : ""
   BrainTeaser ||--|{ Attempts : ""
   BrainTeaser ||--|{ BattleBrainTeaser : ""
   Attempts }o--|| User : ""
@@ -73,8 +74,16 @@ erDiagram
   
   Solution {
     int id PK
-    string solution
+    int object_reference_id FK
     int brain_teaser_id FK
+  }
+  
+  ObjectReference {
+    int id PK
+    string name
+    string description
+    string image_url
+    int solution_id FK
   }
   
   BrainTeaser {
