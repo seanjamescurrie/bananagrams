@@ -154,8 +154,8 @@ erDiagram
   bt_user_anagram ||--|| bt_user : ""
   bt_user_anagram ||--|| bt_anagram : ""
   battle_user_anagram }|--|| battle : ""
-  battle_user_anagram }o--|| bt_anagram : ""
-  battle_user_anagram }o--|| bt_user : ""
+  battle_user_anagram }|--|| bt_anagram : ""
+  battle_user_anagram }|--|| bt_user : ""
   
   brain_teaser {
     int id PK
@@ -176,16 +176,17 @@ erDiagram
   
   bt_anagram_type {
     int id PK
-    string name
     int max_attempts
+    string name
+    int time_allowed
   }
   
   bt_user_anagram {
     int id PK
     int attempts
-    int max_attempts
-    date_time time_allowed
     date_time date_played
+    int max_attempts
+    int time_allowed
     int bt_anagram_id FK
     int user_id FK
   }
@@ -198,10 +199,10 @@ erDiagram
   
   bt_user {
     int id PK
+    time_stamp date_created
+    string email_address
     string first_name
     string last_name
-    string email_address
-    time_stamp created_on
   }
   
   battle_user_anagram {
