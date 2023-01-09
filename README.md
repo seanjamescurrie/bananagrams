@@ -154,7 +154,8 @@ erDiagram
   bt_user_anagram ||--|| bt_user : ""
   bt_user_anagram ||--|| bt_anagram : ""
   battle_user_anagram }|--|| battle : ""
-  battle_user_anagram }o--|| bt_user_anagram : ""
+  battle_user_anagram }o--|| bt_anagram : ""
+  battle_user_anagram }o--|| bt_user : ""
   
   brain_teaser {
     int id PK
