@@ -182,6 +182,8 @@ erDiagram
   bt_user_anagram {
     int id PK
     int attempts
+    int max_attempts
+    date_time time_allowed
     date_time date_played
     int bt_anagram_id FK
     int user_id FK
@@ -203,7 +205,8 @@ erDiagram
   
   battle_user_anagram {
     int battle_id FK
-    int bt_user_anagram FK
+    int bt_anagram_id FK
+    int user_id FK
   }
   
   
