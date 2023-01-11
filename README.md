@@ -214,3 +214,296 @@ erDiagram
   
 
 ```
+
+## API Specifications
+
+### Users
+
+`GET /users` 
+###### Returns a list of users
+
+Response: `200 OK`
+```json
+[
+  {
+    "id": 1,
+    "date_created": "2023-01-11 10:27:21.240752",
+    "email_address": "sean.currie@unosquare.com",
+    "first_name": "Sean",
+    "last_name": "Currie"
+  },
+  {
+    "id": 2,
+    "date_created": "2023-01-11 10:28:21.240752",
+    "email_address": "sean.currie+david@unosquare.com",
+    "first_name": "David",
+    "last_name": "Currie"
+  }
+]
+```
+
+---
+
+`GET /users/{user_id}` 
+###### Returns a user
+
+Response: `200 OK`
+```json
+{
+    "id": 1,
+    "date_created": "2023-01-11 10:27:21.240752",
+    "email_address": "sean.currie@unosquare.com",
+    "first_name": "Sean",
+    "last_name": "Currie"
+  }
+```
+
+---
+
+`POST /users`
+###### Creates a user
+
+Request:
+```json
+  {
+    "email_address": "sean.currie+john@unosquare.com",
+    "first_name": "John",
+    "last_name": "Currie",
+    "password": "password"
+  }
+```
+
+Response: `201 Created`
+
+---
+
+`PUT /users/{user_id}`
+###### Updates user by id
+
+Request:
+```json
+  {
+    "email_address": "sean.currie+david@unosquare.com",
+    "first_name": "David Mark",
+    "last_name": "Currie Powder"
+  }
+```
+
+Response: `200 OK`
+
+---
+
+`DELETE /users/{user_id}`
+###### Deletes a user by id
+
+Response: `200 OK`
+
+---
+
+### Anagrams
+
+`GET /anagrams`
+###### Return a list of anagrams
+
+Response: `200 OK`
+```json
+[
+  {
+    "id": 1,
+    "anagram_word": "NANABA",
+    "anagram_length": 6,
+    "anagram_solution": "BANANA"
+    "date_created": "2023-01-11 10:30:21.240752",
+    "image_location": "http://tropicalfruitandveg.com/images/bananauk2.jpg"
+  },
+  {
+    "id": 2,
+    "anagram_word": "NSPSAOI RIUTF",
+    "anagram_length": 12,
+    "anagram_solution": "PASSION FRUIT"
+    "date_created": "2023-01-11 10:31:21.240752",
+    "image_location": "http://tropicalfruitandveg.com/images/passionyel.jpg"
+  }
+]
+```
+
+---
+
+`GET /anagrams/{anagram_id}`
+###### Return an anagram
+
+Response - `200 OK`
+```json
+{
+    "id": 1,
+    "anagram_word": "NANABA",
+    "anagram_length": 6,
+    "anagram_solution": "BANANA"
+    "date_created": "2023-01-11 10:30:21.240752",
+    "image_location": "http://tropicalfruitandveg.com/images/bananauk2.jpg"
+  }
+```
+
+---
+
+`POST /anagrams`
+###### Create an anagram
+
+Request:
+```json
+  {
+    "anagram_word": "EHYLEC",
+    "anagram_length": 6,
+    "anagram_solution": "LYCHEE"
+    "date_created": "2023-01-11 10:32:21.240752",
+    "image_location": "http://tropicalfruitandveg.com/images/lychee2.jpg"
+  }
+```
+
+Response: `201 Created`
+
+---
+
+`PUT /anagrams/{anagram_id}`
+###### Update anagram by id
+
+Request:
+```json
+  {
+    "anagram_word": "CHEELY",
+    "anagram_length": 6,
+    "anagram_solution": "LYCHEE"
+    "date_created": "2023-01-11 10:32:21.240752",
+    "image_location": "http://tropicalfruitandveg.com/images/lychee2.jpg"
+  }
+```
+
+Response: `200 OK`
+
+---
+
+`DELETE /anagrams/{anagram_id}`
+###### Delete an anagram by id
+
+Response: `200 OK`
+
+---
+
+### User Anagrams
+
+`GET /users/{user_id}/anagrams`
+###### Returns a list of anagrams attempted by a user
+
+Response: `200 OK`
+```json
+[
+  {
+    "id": 1,
+    "attempts": "3",
+    "date_played": "2023-01-11 10:35:21.240752",
+    "max_attempts": 5,
+    "solved": true,
+    "time_allowed": 0
+  },
+  {
+    "id": 2,
+    "attempts": "3",
+    "date_played": "2023-01-11 10:36:21.240752",
+    "max_attempts": 3,
+    "solved": false,
+    "time_allowed": 30
+  }
+]
+```
+
+---
+
+`GET /users/{user_id}/anagrams/{anagram_id}`
+###### Returns an anagram attempted by a user
+
+Response: `200 OK`
+```json
+{
+    "id": 1,
+    "attempts": "3",
+    "date_played": "2023-01-11 10:35:21.240752",
+    "max_attempts": 5,
+    "solved": true,
+    "time_allowed": 0
+  }
+```
+
+---
+
+`POST /user/{user_id}/anagrams`
+###### Creates a record of a user's attempt at an anagram
+
+Request:
+```json
+  {
+    "attempts": "3",
+    "max_attempts": 5,
+    "solved": true,
+    "time_allowed": 0
+  }
+```
+Response: `201 Created`
+
+---
+---
+
+### Face Off
+
+`GET /face-offs/{face_off_id}`
+###### Gets a face off by an id
+
+Response: `200 OK`
+```json
+  {
+    "id": 1,
+    "title": "Sean Vs David",
+    "user_anagrams":
+      [
+        {
+          "user_id": "1",
+          "anagram_id": "1"
+        },
+        {
+          "user_id": "2",
+          "anagram_id": "1"
+        },
+        {
+          "user_id": "1",
+          "anagram_id": "2"
+        },
+        {
+          "user_id": "2",
+          "anagram_id": "2"
+        },
+        {
+          "user_id": "1",
+          "anagram_id": "3"
+        },
+        {
+          "user_id": "2",
+          "anagram_id": "3"
+        }
+      ]
+  }
+```
+---
+
+`POST /face-offs`
+###### Creates a competitive face off challenge
+
+Request:
+```json
+  {
+    "title": "Sean Vs David"
+  }
+```
+
+Response: `201 Created`
+
+---
+---
