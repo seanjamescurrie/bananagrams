@@ -151,11 +151,11 @@ erDiagram
 
   bt_anagram }o--|| brain_teaser : ""  
   bt_anagram }o--|| bt_anagram_type : ""
-  bt_user_anagram ||--|| bt_user : ""
-  bt_user_anagram ||--|| bt_anagram : ""
-  battle_user_anagram }|--|| battle : ""
-  battle_user_anagram }|--|| bt_anagram : ""
-  battle_user_anagram }|--|| bt_user : ""
+  app_user_anagram ||--|| app_user : ""
+  app_user_anagram ||--|| bt_anagram : ""
+  face_off_user_anagram }|--|| face_off : ""
+  face_off_user_anagram }|--|| bt_anagram : ""
+  face_off_user_anagram }|--|| app_user : ""
   
   brain_teaser {
     int id PK
@@ -181,7 +181,7 @@ erDiagram
     int time_allowed
   }
   
-  bt_user_anagram {
+  app_user_anagram {
     int id PK
     int attempts
     date_time date_played
@@ -197,7 +197,7 @@ erDiagram
     date_time date_created
   }
   
-  bt_user {
+  app_user {
     int id PK
     time_stamp date_created
     string email_address
@@ -205,7 +205,7 @@ erDiagram
     string last_name
   }
   
-  battle_user_anagram {
+  face_off_user_anagram {
     int battle_id FK
     int bt_anagram_id FK
     int user_id FK
