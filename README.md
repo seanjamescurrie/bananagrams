@@ -191,7 +191,7 @@ erDiagram
     int user_id FK
   }
   
-  battle {
+  face_off {
     int id PK
     string name
     date_time date_created
