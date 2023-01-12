@@ -230,7 +230,35 @@ Response: `200 OK`
     "date_created": "2023-01-11 10:27:21.240752",
     "email_address": "sean.currie@unosquare.com",
     "first_name": "Sean",
+    "last_name": "Currie",
+    "username": "seancurrie"
+  },
+  {
+    "id": 2,
+    "date_created": "2023-01-11 10:28:21.240752",
+    "email_address": "sean.currie+david@unosquare.com",
+    "first_name": "David",
+    "last_name": "Currie",
+    "username": "davidcurrie"
+  }
+]
+```
+
+---
+
+`GET /users?user-name={name}` 
+###### Returns a list of users based on search word
+
+Response: `200 OK`
+```json
+[
+  {
+    "id": 1,
+    "date_created": "2023-01-11 10:27:21.240752",
+    "email_address": "sean.currie@unosquare.com",
+    "first_name": "Sean",
     "last_name": "Currie"
+    "username": "seancurrie"
   },
   {
     "id": 2,
@@ -238,13 +266,14 @@ Response: `200 OK`
     "email_address": "sean.currie+david@unosquare.com",
     "first_name": "David",
     "last_name": "Currie"
+    "username": "davidcurrie"
   }
 ]
 ```
 
 ---
 
-`GET /users/{user_id}` 
+`GET /users/{id}` 
 ###### Returns a user
 
 Response: `200 OK`
@@ -277,7 +306,7 @@ Response: `201 Created`
 
 ---
 
-`PUT /users/{user_id}`
+`PUT /users/{id}`
 ###### Updates user by id
 
 Request:
@@ -293,7 +322,7 @@ Response: `200 OK`
 
 ---
 
-`DELETE /users/{user_id}`
+`DELETE /users/{id}`
 ###### Deletes a user by id
 
 Response: `200 OK`
@@ -330,7 +359,7 @@ Response: `200 OK`
 
 ---
 
-`GET /anagrams/{anagram_id}`
+`GET /anagrams/{id}`
 ###### Return an anagram
 
 Response - `200 OK`
@@ -365,7 +394,7 @@ Response: `201 Created`
 
 ---
 
-`PUT /anagrams/{anagram_id}`
+`PUT /anagrams/{id}`
 ###### Update anagram by id
 
 Request:
@@ -383,7 +412,7 @@ Response: `200 OK`
 
 ---
 
-`DELETE /anagrams/{anagram_id}`
+`DELETE /anagrams/{id}`
 ###### Delete an anagram by id
 
 Response: `200 OK`
@@ -393,7 +422,7 @@ Response: `200 OK`
 
 ### User Anagrams
 
-`GET /users/{user_id}/anagrams`
+`GET /users/{id}/user-anagrams`
 ###### Returns a list of anagrams attempted by a user
 
 Response: `200 OK`
@@ -420,7 +449,7 @@ Response: `200 OK`
 
 ---
 
-`GET /users/{user_id}/anagrams/{anagram_id}`
+`GET /users/{id}/user-anagrams/{id}`
 ###### Returns an anagram attempted by a user
 
 Response: `200 OK`
@@ -437,7 +466,7 @@ Response: `200 OK`
 
 ---
 
-`POST /user/{user_id}/anagrams`
+`POST /user/{id}/user-anagrams`
 ###### Creates a record of a user's attempt at an anagram
 
 Request:
@@ -456,7 +485,7 @@ Response: `201 Created`
 
 ### Face Offs
 
-`GET /users/{user_id}/face-offs/{face_off_id}`
+`GET /users/{id}/face-offs/{id}`
 ###### Gets a face off by an id
 
 Response: `200 OK`
@@ -502,6 +531,11 @@ Request:
 ```json
   {
     "title": "Sean Vs David"
+    "user_ids": [
+      {
+        "user_id": 1,
+        "user_id": 2
+      }
   }
 ```
 
