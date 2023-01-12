@@ -206,7 +206,7 @@ erDiagram
   }
   
   face_off_user_anagram {
-    int battle_id FK
+    int face_off_id FK
     int bt_anagram_id FK
     int user_id FK
   }
@@ -299,6 +299,7 @@ Response: `200 OK`
 Response: `200 OK`
 
 ---
+---
 
 ### Anagrams
 
@@ -388,6 +389,7 @@ Response: `200 OK`
 Response: `200 OK`
 
 ---
+---
 
 ### User Anagrams
 
@@ -452,9 +454,9 @@ Response: `201 Created`
 ---
 ---
 
-### Face Off
+### Face Offs
 
-`GET /face-offs/{face_off_id}`
+`GET /users/{user_id}/face-offs/{face_off_id}`
 ###### Gets a face off by an id
 
 Response: `200 OK`
