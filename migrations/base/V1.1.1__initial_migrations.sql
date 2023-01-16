@@ -60,10 +60,10 @@ CREATE TABLE face_off_user_anagram (
 		REFERENCES bt_anagram(id)
 );
 
-DROP TABLE face_off_user_anagram;
-DROP TABLE app_user_anagram;
-DROP TABLE bt_anagram;
-DROP TABLE bt_anagram_type;
-DROP TABLE face_off ;
-DROP TABLE brain_teaser;
-DROP TABLE app_user;
+--DROP TABLE face_off_user_anagram;
+--DROP TABLE app_user_anagram;
+--DROP TABLE bt_anagram;
+--DROP TABLE bt_anagram_type;
+--DROP TABLE face_off ;
+--DROP TABLE brain_teaser;
+--DROP TABLE app_user;

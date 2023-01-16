@@ -15,7 +15,7 @@ services:
   flyway:
     image: flyway/flyway:9-alpine
     container_name: bananagrams_flyway
-    command: -url=jdbc:postgresql://db/bananagrams -schemas=public -user=user
+    command: -url=jdbc:postgresql://db/postgres -schemas=public -user=user
       -password=password -connectRetries=5 migrate
     volumes:
       - ./migrations:/flyway/sql

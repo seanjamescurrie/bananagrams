@@ -25,7 +25,7 @@ VALUES
 ;
 
 INSERT INTO face_off (title, date_created)
-VALUES ('SeanVsDavid', current_timestamp)
+VALUES ('SeanVsDavid', current_timestamp);
 
 INSERT INTO face_off_user_anagram (face_off_id, app_user_id, bt_anagram_id)
 VALUES 
