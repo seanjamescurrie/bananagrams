@@ -215,6 +215,80 @@ erDiagram
 
 ```
 
+## Entity Relationship Diargram v-3
+
+```mermaid
+erDiagram
+
+  game_types ||--o{ games : ""
+  games ||--|{ game_users : ""
+  games ||--|{ game_anagrams : ""
+  game_users }o--|| users : ""
+  game_users ||--|{ game_user_game_anagrams : ""
+  game_anagrams ||--|{ game_user_game_anagrams : ""
+  game_anagrams ||--|| words : ""
+  
+  game_types {
+    int id PK
+    string name
+    int max_attempts
+    int time_allowed
+  }
+  
+  games {
+    int id PK
+    string name
+    date_time date_created
+    int game_type_id FK
+  }
+  
+  words {
+    int id PK
+    string name
+    string description
+    string image_location
+  }
+  
+  game_anagrams {
+    int id PK
+    string anagram_solution
+    string anagram_word
+    date_time date_created
+    int max_attempts
+    int order
+    int timer
+    int game_id FK
+    int word_id FK
+  }
+  
+  users {
+    int id PK
+    time_stamp date_created
+    string email_address
+    string first_name
+    string last_name
+  }
+  
+  game_users {
+    int id PK
+    int game_id FK
+    int user_id FK
+  }
+  
+  game_user_game_anagrams {
+    int id PK
+    int attempts
+    date_time date_played
+    bool solved
+    int game_anagram_id FK
+    int game_user_id FK
+  }
+  
+  
+
+```
+
+
 ## API Specifications
 
 ### Users
