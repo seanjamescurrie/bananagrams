@@ -253,9 +253,7 @@ erDiagram
     string anagram_solution
     string anagram_word
     date_time date_created
-    int max_attempts
     int order
-    int timer
     int game_id FK
     int word_id FK
     int game_anagram_type_id FK
@@ -279,7 +277,7 @@ erDiagram
     int id PK
     int attempts
     date_time date_played
-    bool solved
+    date_time date_solved
     int game_anagram_id FK
     int game_user_id FK
   }
