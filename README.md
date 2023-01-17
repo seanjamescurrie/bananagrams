@@ -289,7 +289,7 @@ erDiagram
 ```
 
 <!--
-## API Specifications V1
+## API Specifications v1
 
 ### Users
 
@@ -623,7 +623,7 @@ Response: `201 Created`
 ---
 -->
 
-## API Specifications V2
+## API Specifications v2
 
 ### Users
 
@@ -736,204 +736,104 @@ Response: `200 OK`
 Response: `200 OK`
 
 ---
----
+---+
 
-### Anagrams
+### Games
 
-`GET /anagrams`
-###### Return a list of anagrams
-
-Response: `200 OK`
-```json
-[
-  {
-    "id": 1,
-    "anagram_word": "NANABA",
-    "anagram_length": 6,
-    "anagram_solution": "BANANA"
-    "date_created": "2023-01-11 10:30:21.240752",
-    "image_location": "http://tropicalfruitandveg.com/images/bananauk2.jpg"
-  },
-  {
-    "id": 2,
-    "anagram_word": "NSPSAOI RIUTF",
-    "anagram_length": 12,
-    "anagram_solution": "PASSION FRUIT"
-    "date_created": "2023-01-11 10:31:21.240752",
-    "image_location": "http://tropicalfruitandveg.com/images/passionyel.jpg"
-  }
-]
-```
-
----
-
-`GET /anagrams/{id}`
-###### Return an anagram
-
-Response - `200 OK`
-```json
-{
-    "id": 1,
-    "anagram_word": "NANABA",
-    "anagram_length": 6,
-    "anagram_solution": "BANANA"
-    "date_created": "2023-01-11 10:30:21.240752",
-    "image_location": "http://tropicalfruitandveg.com/images/bananauk2.jpg"
-  }
-```
-
----
-
-`POST /anagrams`
-###### Create an anagram
-
-Request:
-```json
-  {
-    "anagram_word": "EHYLEC",
-    "anagram_length": 6,
-    "anagram_solution": "LYCHEE"
-    "date_created": "2023-01-11 10:32:21.240752",
-    "image_location": "http://tropicalfruitandveg.com/images/lychee2.jpg"
-  }
-```
-
-Response: `201 Created`
-
----
-
-`PUT /anagrams/{id}`
-###### Update anagram by id
-
-Request:
-```json
-  {
-    "anagram_word": "CHEELY",
-    "anagram_length": 6,
-    "anagram_solution": "LYCHEE"
-    "date_created": "2023-01-11 10:32:21.240752",
-    "image_location": "http://tropicalfruitandveg.com/images/lychee2.jpg"
-  }
-```
-
-Response: `200 OK`
-
----
-
-`DELETE /anagrams/{id}`
-###### Delete an anagram by id
-
-Response: `200 OK`
-
----
----
-
-### User Anagrams
-
-`GET /users/{id}/user-anagrams`
-###### Returns a list of anagrams attempted by a user
+`GET /users/{id}/games`
+###### Gets a list of all games for a user
 
 Response: `200 OK`
 ```json
-[
   {
-    "id": 1,
-    "attempts": "3",
-    "date_played": "2023-01-11 10:35:21.240752",
-    "max_attempts": 5,
-    "solved": true,
-    "time_allowed": 0
-  },
-  {
-    "id": 2,
-    "attempts": "3",
-    "date_played": "2023-01-11 10:36:21.240752",
-    "max_attempts": 3,
-    "solved": false,
-    "time_allowed": 30
+    [
+      {
+        "game_id": 1,
+        "title": "Sean Vs David",
+        "date_created": 2023-01-11 10:32:21.240752,
+        "game_type": "Face Off",
+        "game_users":
+          [
+            {
+              "game_user_id": 1
+            },
+            {
+              "game_user_id": 2
+            }
+          ]
+        "games_anagrams":
+          [
+            {
+              "game_anagram_id": "1"
+            },
+            {
+              "game_anagram_id": "2"
+            },
+            {
+              "game_anagram_id": "3"
+            }
+          ]
+      },
+      {
+        "game_id": 2,
+        "title": "Daily Anagram",
+        "date_created": 2023-01-11 10:32:21.240752,
+        "game_type": "Daily",
+        "game_users":
+          [
+            {
+              "game_user_id": 1
+            }
+          ]
+        "games_anagrams":
+          [
+            {
+              "game_anagram_id": "1"
+            }
+          ]
+      }
+    ]
   }
-]
 ```
 
 ---
 
-`GET /users/{id}/user-anagrams/{id}`
-###### Returns an anagram attempted by a user
-
-Response: `200 OK`
-```json
-{
-    "id": 1,
-    "attempts": "3",
-    "date_played": "2023-01-11 10:35:21.240752",
-    "max_attempts": 5,
-    "solved": true,
-    "time_allowed": 0
-  }
-```
-
----
-
-`POST /user/{id}/user-anagrams`
-###### Creates a record of a user's attempt at an anagram
-
-Request:
-```json
-  {
-    "attempts": "3",
-    "max_attempts": 5,
-    "solved": true,
-    "time_allowed": 0
-  }
-```
-Response: `201 Created`
-
----
----
-
-### Face Offs
-
-`GET /users/{id}/face-offs/{id}`
-###### Gets a face off by an id
+`GET /users/{id}/games/{id}`
+###### Gets a competitive face off game by an id
 
 Response: `200 OK`
 ```json
   {
     "id": 1,
     "title": "Sean Vs David",
-    "user_anagrams":
+    "game_users":
       [
         {
-          "user_id": "1",
-          "anagram_id": "1"
+          "game_user_id": 1
         },
         {
-          "user_id": "2",
-          "anagram_id": "1"
+          "game_user_id": 2
+        }
+      ],
+    "game_anagrams":
+      [
+        {
+          "game_anagram_id": "1"
         },
         {
-          "user_id": "1",
-          "anagram_id": "2"
+          "game_anagram_id": "2"
         },
         {
-          "user_id": "2",
-          "anagram_id": "2"
-        },
-        {
-          "user_id": "1",
-          "anagram_id": "3"
-        },
-        {
-          "user_id": "2",
-          "anagram_id": "3"
+          "game_anagram_id": "3"
         }
       ]
   }
 ```
+
 ---
 
-`POST /face-offs`
-###### Creates a competitive face off challenge
+`POST /users/{id}/games`
+###### Creates a competitive game with another user
 
 Request:
 ```json
@@ -951,6 +851,20 @@ Request:
   }
 ```
 
+Response: `201 Created`
+
+---
+
+`POST /user/{id}/games/{id}/game_anagrams/{id}`
+###### Creates a record of a user's attempt at an anagram
+
+Request:
+```json
+  {
+    "attempts": "3",
+    "solved": true
+  }
+```
 Response: `201 Created`
 
 ---
