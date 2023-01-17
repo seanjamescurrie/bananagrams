@@ -736,7 +736,7 @@ Response: `200 OK`
 Response: `200 OK`
 
 ---
----+
+---
 
 ### Games
 
