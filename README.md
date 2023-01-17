@@ -210,11 +210,10 @@ erDiagram
     int bt_anagram_id FK
     int user_id FK
   }
-  
-  
 
 ```
 -->
+
 ## Entity Relationship Diargram v3
 
 ```mermaid
@@ -227,7 +226,7 @@ erDiagram
   game_anagrams ||--|{ game_user_game_anagrams : ""
   game_anagrams ||--|| words : ""
   game_anagrams ||--|{ game_anagram_types : ""
-  daily_word ||--|| words : ""
+  words ||--|| daily_words : ""
   
   game_anagram_types {
     int id PK
@@ -249,7 +248,7 @@ erDiagram
     string image_location
   }
   
-  daily_word {
+  daily_words {
     int id PK
     string anagram
     date_time date_created
@@ -901,8 +900,8 @@ Response: `201 Created`
 
 ---
 
-`POST /user/{id}/games/{id}/game-anagrams/{id}/game-user-game-anagrams`
-###### Creates a record of a user's attempt at an anagram
+`POST /user/{id}/games/{id}/guess/{id}`
+###### Updates a record of a user's attempt at an anagram
 
 Request:
 ```json
@@ -911,7 +910,7 @@ Request:
     "solved": true
   }
 ```
-Response: `201 Created`
+Response: `200 Ok`
 
 ---
 ---
