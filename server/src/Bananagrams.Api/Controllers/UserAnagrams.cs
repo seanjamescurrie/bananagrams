@@ -1,3 +1,4 @@
+using System.Net;
 using Bananagrams.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,7 +6,7 @@ namespace Bananagrams.Api.Controllers;
 
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("[controller]")]
 public class UserAnagrams : ControllerBase
 {
     
@@ -19,8 +20,7 @@ public class UserAnagrams : ControllerBase
         TimeAllowed = 0
     };
 
-    [HttpGet(Name = "GetAllAnagrams")]
-    [ActionName("GetAll")]
+    [HttpGet]
     public ActionResult<List<UserAnagram>> GetAll()
     {
         return Ok(new List<UserAnagram>
@@ -30,15 +30,20 @@ public class UserAnagrams : ControllerBase
         });
     }
 
-    [HttpGet(Name = "GetAnagram")]
-    [ActionName("Get")]
+    [HttpGet("{id}")]
     public ActionResult<UserAnagram> Get(string json)
     {
         return Ok(userAnagram);
     }
+
+    [HttpPost]
+    public IActionResult Create()
+    {
+        return StatusCode((int)HttpStatusCode.Created);
+    }
     
-    [HttpPost(Name = "Update")]
-    public ActionResult Update(string json)
+    [HttpPut]
+    public ActionResult Update(int id)
     {
         return NoContent();
     }

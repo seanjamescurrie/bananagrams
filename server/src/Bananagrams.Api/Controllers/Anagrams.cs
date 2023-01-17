@@ -1,10 +1,11 @@
+using System.Net;
 using Bananagrams.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bananagrams.Api.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("[controller]")]
 public class Anagrams : ControllerBase
 {
     private Anagram anagram = new Anagram
@@ -17,8 +18,7 @@ public class Anagrams : ControllerBase
         ImageLocation = "http://tropicalfruitandveg.com/images/bananauk2.jpg"
     };
 
-    [HttpGet(Name = "GetAnagrams")]
-    [ActionName("GetAll")]
+    [HttpGet]
     public ActionResult<List<Anagram>> GetAll()
     {
         return Ok(new List<Anagram>
@@ -28,21 +28,25 @@ public class Anagrams : ControllerBase
         });
     }
 
-    [HttpGet(Name = "GetAnagram")]
-    [ActionName("Get")]
-    public ActionResult<Anagram> Get(string json)
+    [HttpGet("{id}")]
+    public ActionResult<Anagram> Get(int id)
     {
         return Ok(anagram);
     }
-    
-    [HttpPost(Name = "UpdateAnagram")]
-    public ActionResult Update(string json)
+
+    [HttpPost]
+    public IActionResult Create()
     {
-        return NoContent();
-        
+        return StatusCode((int)HttpStatusCode.Created);
     }
     
-    [HttpDelete(Name = "DeleteAnagram")]
+    [HttpPut("{id}")]
+    public ActionResult Update(int id)
+    {
+        return NoContent();
+    }
+    
+    [HttpDelete("{id}")]
     public ActionResult Delete(string json)
     {
         return NoContent();

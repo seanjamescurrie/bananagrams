@@ -6,7 +6,7 @@ namespace Bananagrams.Api.Controllers;
 
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("[controller]")]
 public class FaceOffs : ControllerBase
 {
     private FaceOff faceOff = new FaceOff()
@@ -21,8 +21,7 @@ public class FaceOffs : ControllerBase
         }
     };
 
-    [HttpGet(Name = "GetAllFaceOffs")]
-    [ActionName("GetAll")]
+    [HttpGet]
     public ActionResult<List<FaceOff>> GetAll()
     {
         return Ok(new List<FaceOff>
@@ -32,14 +31,13 @@ public class FaceOffs : ControllerBase
         });
     }
 
-    [HttpGet(Name = "GetFaceOff")]
-    [ActionName("Get")]
+    [HttpGet("{id}")]
     public ActionResult<FaceOff> Get(string json)
     {
         return Ok(faceOff);
     }
     
-    [HttpPost(Name = "Update")]
+    [HttpPut("{id}")]
     public ActionResult Update(string json)
     {
         return NoContent();

@@ -1,38 +1,46 @@
-INSERT INTO app_user (date_created, email_adress, first_name, last_name)
+INSERT INTO users (date_created, email_adress, first_name, last_name, user_name)
 VALUES 
-	(Current_Timestamp, 'sean.currie@unosquare.com', 'Sean', 'Currie'),
-	(Current_Timestamp, 'sean.currie+david@unosquare.com', 'David', 'Currie')
+	(Current_Timestamp, 'sean.currie@unosquare.com', 'Sean', 'Currie', 'seancurrie'),
+	(Current_Timestamp, 'sean.currie+david@unosquare.com', 'David', 'Currie', 'davidcurrie')
 ;
 
-INSERT INTO	bt_anagram (anagram_word, date_created, image_location, anagram_length, anagram_solution, bt_anagram_type_id, brain_teaser_id)
-VALUES 
-	('NANABA', current_timestamp, 'http://tropicalfruitandveg.com/images/bananauk2.jpg', 6, 'BANANA', 1, 1),
-	('NSPSAOI RIUTF', current_timestamp, 'http://tropicalfruitandveg.com/images/passionyel.jpg', 12, 'PASSION FRUIT', 2, 1),
-	('EHLECY', CURRENT_TIMESTAMP, 'http://tropicalfruitandveg.com/images/lychee2.jpg', 6, 'LYCHEE', 2, 1),
-	('PALPPEINE', current_timestamp, 'https://tropicalfruitandveg.com/images/pineapple2.jpg', 9, 'PINEAPPLE', 2, 1)
+INSERT INTO games (title, date_created)
+VALUES
+	('Sean Vs David', current_timestamp),
+	('Daily 12/12/2023', current_timestamp)
 ;
 
-INSERT INTO app_user_anagram (attempts, date_played, solved, time_allowed, max_attempts, bt_anagram_id, app_user_id)
-VALUES 
-	(2, current_timestamp, TRUE, 0, 5, 1, 1),
-	(3, current_timestamp, TRUE, 0, 5, 1, 2),
-	(3, current_timestamp, TRUE, 30, 3, 2, 1),
-	(1, current_timestamp, TRUE, 30, 3, 2, 2),
-	(3, current_timestamp, FALSE, 30, 3, 3, 1),
-	(2, current_timestamp, TRUE, 30, 3, 3, 2),
-	(1, current_timestamp, TRUE, 30, 3, 4, 1),
-	(2, current_timestamp, FALSE, 30, 3, 4, 2)
+INSERT INTO game_users (game_id, user_id)
+VALUES
+	(1, 1),
+	(2, 1),
+	(1, 2)
 ;
 
-INSERT INTO face_off (title, date_created)
-VALUES ('SeanVsDavid', current_timestamp);
-
-INSERT INTO face_off_user_anagram (face_off_id, app_user_id, bt_anagram_id)
+INSERT INTO	words (title, description, image_location)
 VALUES 
-	(1, 1, 2),
-	(1, 2, 2),
-	(1, 1, 3),
-	(1, 2, 3),
-	(1, 1, 4),
-	(1, 2, 4)
+	('NANABA', 'I am a banana', 'http://tropicalfruitandveg.com/images/bananauk2.jpg'),
+	('NSPSAOI RIUTF', 'I am a passion fruit', 'http://tropicalfruitandveg.com/images/passionyel.jpg'),
+	('EHLECY', 'I am a lychee', 'http://tropicalfruitandveg.com/images/lychee2.jpg'),
+	('PALPPEINE', 'I am a pineapple', 'https://tropicalfruitandveg.com/images/pineapple2.jpg')
+;
+
+INSERT INTO	game_anagrams (anagram_word, date_created, order_sequence, game_id, word_id, game_anagram_type_id)
+VALUES 
+	('NANABA', current_timestamp, 1, 1, 1, 1),
+	('NSPSAOI RIUTF', current_timestamp, 2, 1, 2, 1),
+	('EHLECY', CURRENT_TIMESTAMP, 3, 1, 3, 1),
+	('PALPPEINE', current_timestamp, 1, 2, 4, 2)
+;
+
+INSERT INTO game_user_game_anagrams (attempts, date_played, date_solved, game_anagram_id, game_user_id)
+VALUES 
+	(2, current_timestamp, current_timestamp + INTERVAL '1 hour', 1, 1),
+	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 1, 2),
+	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 2, 1),
+	(1, current_timestamp, current_timestamp + INTERVAL '1 hour', 2, 2),
+	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 3, 1),
+	(2, current_timestamp, current_timestamp + INTERVAL '1 hour', 3, 2),
+	(1, current_timestamp, current_timestamp + INTERVAL '1 hour', 4, 1),
+	(2, current_timestamp, null, 4, 2)
 ;

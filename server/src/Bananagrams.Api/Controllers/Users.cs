@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bananagrams.Api.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("[controller]")]
 public class Users : ControllerBase
 {
     private User testUser = new User
@@ -17,8 +17,7 @@ public class Users : ControllerBase
         DateCreated = DateTime.Now
     };
 
-    [HttpGet(Name = "GetAllUSers")]
-    [ActionName("GetAll")]
+    [HttpGet]
     public ActionResult<List<User>> GetAll()
     {
         return Ok(new List<User>
@@ -28,23 +27,26 @@ public class Users : ControllerBase
         });
     }
 
-    [HttpGet(Name = "GetUser")]
-    [ActionName("Get")]
-    public ActionResult<User> Get(string json)
+    [HttpGet("{id}")]
+    public ActionResult<User> Get(int id)
     {
         return Ok(testUser);
     }
-    
-    [HttpPost(Name = "UpdateUser")]
-    public ActionResult Update(string json)
+
+    [HttpPost]
+    public IActionResult Create()
     {
         return StatusCode((int)HttpStatusCode.Created);
-        
+    }
+    
+    [HttpPut("{id}")]
+    public ActionResult Update(int id)
+    {
         return NoContent();
     }
     
-    [HttpDelete(Name = "DeleteUser")]
-    public ActionResult Delete(string json)
+    [HttpDelete("{id}")]
+    public ActionResult Delete(int id)
     {
         return NoContent();
     }

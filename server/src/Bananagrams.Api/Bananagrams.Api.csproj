@@ -11,4 +11,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Compile Remove="WeatherForecast.cs" />
+    <Compile Remove="Controllers\Anagrams.cs" />
+    <Compile Remove="Controllers\FaceOffs.cs" />
+    <Compile Remove="Controllers\UserAnagrams.cs" />
+  </ItemGroup>
+
 </Project>
