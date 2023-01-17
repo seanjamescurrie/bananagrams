@@ -227,6 +227,7 @@ erDiagram
   game_anagrams ||--|{ game_user_game_anagrams : ""
   game_anagrams ||--|| words : ""
   game_anagrams ||--|{ game_anagram_types : ""
+  daily_word ||--|| words : ""
   
   game_anagram_types {
     int id PK
@@ -248,9 +249,15 @@ erDiagram
     string image_location
   }
   
+  daily_word {
+    int id PK
+    string anagram
+    date_time date_created
+    int word_id FK
+  }
+  
   game_anagrams {
     int id PK
-    string anagram_solution
     string anagram_word
     date_time date_created
     int order
