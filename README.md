@@ -876,7 +876,7 @@ Response: `200 OK`
 
 ---
 
-`POST /users/{id}/games`
+`CREATE /users/{id}/games`
 ###### Creates a competitive game with another user
 
 Request:
@@ -891,7 +891,9 @@ Request:
       {
         "user_id": 2
       }
-    ]
+    ],
+    "number_of_anagrams": 3,
+    "difficulty": "easy"
   }
 ```
 
