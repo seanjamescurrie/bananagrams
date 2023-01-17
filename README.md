@@ -220,15 +220,15 @@ erDiagram
 ```mermaid
 erDiagram
 
-  game_types ||--o{ games : ""
   games ||--|{ game_users : ""
   games ||--|{ game_anagrams : ""
   game_users }o--|| users : ""
   game_users ||--|{ game_user_game_anagrams : ""
   game_anagrams ||--|{ game_user_game_anagrams : ""
   game_anagrams ||--|| words : ""
+  game_anagrams ||--|{ game_anagram_types : ""
   
-  game_types {
+  game_anagram_types {
     int id PK
     string name
     int max_attempts
@@ -239,7 +239,6 @@ erDiagram
     int id PK
     string name
     date_time date_created
-    int game_type_id FK
   }
   
   words {
@@ -259,6 +258,7 @@ erDiagram
     int timer
     int game_id FK
     int word_id FK
+    int game_anagram_type_id FK
   }
   
   users {
@@ -750,7 +750,7 @@ Response: `200 OK`
       {
         "game_id": 1,
         "title": "Sean Vs David",
-        "date_created": 2023-01-11 10:32:21.240752,
+        "date_created": "2023-01-11 10:32:21.240752",
         "game_type": "Face Off",
         "game_users":
           [
@@ -764,20 +764,35 @@ Response: `200 OK`
         "games_anagrams":
           [
             {
-              "game_anagram_id": "1"
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
             },
             {
-              "game_anagram_id": "2"
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
             },
             {
-              "game_anagram_id": "3"
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
             }
           ]
       },
       {
         "game_id": 2,
         "title": "Daily Anagram",
-        "date_created": 2023-01-11 10:32:21.240752,
+        "date_created": "2023-01-11 10:32:21.240752",
         "game_type": "Daily",
         "game_users":
           [
@@ -788,7 +803,12 @@ Response: `200 OK`
         "games_anagrams":
           [
             {
-              "game_anagram_id": "1"
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
             }
           ]
       }
@@ -806,25 +826,44 @@ Response: `200 OK`
   {
     "id": 1,
     "title": "Sean Vs David",
+    "date_created": "2023-01-11 10:32:21.240752",
+    "game_type": "Face Off",
     "game_users":
       [
         {
-          "game_user_id": 1
+          "game_user_id": "1",
+          "first_name": "Sean"
         },
         {
-          "game_user_id": 2
+          "game_user_id": "2"
+          "first_name": "David"
         }
       ],
     "game_anagrams":
       [
         {
-          "game_anagram_id": "1"
+          "game_anagram_id": "1",
+          "anagram_word": "ANANAB",
+          "anagram_solution": "BANANA",
+          "max_attempts": 3,
+          "order": 1,
+          "timer": 30
         },
         {
-          "game_anagram_id": "2"
+          "game_anagram_id": "2",
+          "anagram_word": "ANANAB",
+          "anagram_solution": "BANANA",
+          "max_attempts": 3,
+          "order": 1,
+          "timer": 30
         },
         {
-          "game_anagram_id": "3"
+          "game_anagram_id": "3",
+          "anagram_word": "ANANAB",
+          "anagram_solution": "BANANA",
+          "max_attempts": 3,
+          "order": 1,
+          "timer": 30
         }
       ]
   }
@@ -855,7 +894,7 @@ Response: `201 Created`
 
 ---
 
-`POST /user/{id}/games/{id}/game_anagrams/{id}`
+`POST /user/{id}/games/{id}/game-anagrams/{id}/game-user-game-anagrams`
 ###### Creates a record of a user's attempt at an anagram
 
 Request:
