@@ -19,10 +19,10 @@ VALUES
 
 INSERT INTO	words (title, description, image_location)
 VALUES 
-	('NANABA', 'I am a banana', 'http://tropicalfruitandveg.com/images/bananauk2.jpg'),
-	('NSPSAOI RIUTF', 'I am a passion fruit', 'http://tropicalfruitandveg.com/images/passionyel.jpg'),
-	('EHLECY', 'I am a lychee', 'http://tropicalfruitandveg.com/images/lychee2.jpg'),
-	('PALPPEINE', 'I am a pineapple', 'https://tropicalfruitandveg.com/images/pineapple2.jpg')
+	('BANANA', 'I am a banana', 'http://tropicalfruitandveg.com/images/bananauk2.jpg'),
+	('PASSION FRUIT', 'I am a passion fruit', 'http://tropicalfruitandveg.com/images/passionyel.jpg'),
+	('LYCHEE', 'I am a lychee', 'http://tropicalfruitandveg.com/images/lychee2.jpg'),
+	('PINEAPPLE', 'I am a pineapple', 'https://tropicalfruitandveg.com/images/pineapple2.jpg')
 ;
 
 INSERT INTO	game_anagrams (anagram_word, date_created, order_sequence, game_id, word_id, game_anagram_type_id)
