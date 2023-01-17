@@ -40,8 +40,8 @@ flowchart
   User --- UserBattle
   Battle --- UserBattle
 ```
-
-## Entity Relationship Diargram v-1
+<!--
+## Entity Relationship Diargram v1
 
 ```mermaid
 erDiagram
@@ -144,7 +144,7 @@ erDiagram
 
 ```
 
-## Entity Relationship Diargram v-2
+## Entity Relationship Diargram v2
 
 ```mermaid
 erDiagram
@@ -210,12 +210,90 @@ erDiagram
     int bt_anagram_id FK
     int user_id FK
   }
+
+```
+-->
+
+## Entity Relationship Diargram v3
+
+```mermaid
+erDiagram
+
+  games ||--|{ game_users : ""
+  games ||--|{ game_anagrams : ""
+  game_users }o--|| users : ""
+  game_users ||--|{ game_user_game_anagrams : ""
+  game_anagrams ||--|{ game_user_game_anagrams : ""
+  game_anagrams ||--|| words : ""
+  game_anagrams ||--|{ game_anagram_types : ""
+  words ||--|| daily_words : ""
+  
+  game_anagram_types {
+    int id PK
+    string name
+    int max_attempts
+    int time_allowed
+  }
+  
+  games {
+    int id PK
+    string name
+    date_time date_created
+  }
+  
+  words {
+    int id PK
+    string name
+    string description
+    string image_location
+  }
+  
+  daily_words {
+    int id PK
+    string anagram
+    date_time date_created
+    int word_id FK
+  }
+  
+  game_anagrams {
+    int id PK
+    string anagram_word
+    date_time date_created
+    int order
+    int game_id FK
+    int word_id FK
+    int game_anagram_type_id FK
+  }
+  
+  users {
+    int id PK
+    time_stamp date_created
+    string email_address
+    string first_name
+    string last_name
+  }
+  
+  game_users {
+    int id PK
+    int game_id FK
+    int user_id FK
+  }
+  
+  game_user_game_anagrams {
+    int id PK
+    int attempts
+    date_time date_played
+    date_time date_solved
+    int game_anagram_id FK
+    int game_user_id FK
+  }
   
   
 
 ```
 
-## API Specifications
+<!--
+## API Specifications v1
 
 ### Users
 
@@ -544,6 +622,295 @@ Request:
 ```
 
 Response: `201 Created`
+
+---
+---
+-->
+
+## API Specifications v2
+
+### Users
+
+`GET /users` 
+###### Returns a list of users
+
+Response: `200 OK`
+```json
+[
+  {
+    "id": 1,
+    "date_created": "2023-01-11 10:27:21.240752",
+    "email_address": "sean.currie@unosquare.com",
+    "first_name": "Sean",
+    "last_name": "Currie",
+    "username": "seancurrie"
+  },
+  {
+    "id": 2,
+    "date_created": "2023-01-11 10:28:21.240752",
+    "email_address": "sean.currie+david@unosquare.com",
+    "first_name": "David",
+    "last_name": "Currie",
+    "username": "davidcurrie"
+  }
+]
+```
+
+---
+
+`GET /users?user-name={name}` 
+###### Returns a list of users based on search word
+
+Response: `200 OK`
+```json
+[
+  {
+    "id": 1,
+    "date_created": "2023-01-11 10:27:21.240752",
+    "email_address": "sean.currie@unosquare.com",
+    "first_name": "Sean",
+    "last_name": "Currie"
+    "username": "seancurrie"
+  },
+  {
+    "id": 2,
+    "date_created": "2023-01-11 10:28:21.240752",
+    "email_address": "sean.currie+david@unosquare.com",
+    "first_name": "David",
+    "last_name": "Currie"
+    "username": "davidcurrie"
+  }
+]
+```
+
+---
+
+`GET /users/{id}` 
+###### Returns a user
+
+Response: `200 OK`
+```json
+{
+    "id": 1,
+    "date_created": "2023-01-11 10:27:21.240752",
+    "email_address": "sean.currie@unosquare.com",
+    "first_name": "Sean",
+    "last_name": "Currie"
+  }
+```
+
+---
+
+`POST /users`
+###### Creates a user
+
+Request:
+```json
+  {
+    "email_address": "sean.currie+john@unosquare.com",
+    "first_name": "John",
+    "last_name": "Currie",
+    "password": "password"
+  }
+```
+
+Response: `201 Created`
+
+---
+
+`PUT /users/{id}`
+###### Updates user by id
+
+Request:
+```json
+  {
+    "email_address": "sean.currie+david@unosquare.com",
+    "first_name": "David Mark",
+    "last_name": "Currie Powder"
+  }
+```
+
+Response: `200 OK`
+
+---
+
+`DELETE /users/{id}`
+###### Deletes a user by id
+
+Response: `200 OK`
+
+---
+---
+
+### Games
+
+`GET /users/{id}/games`
+###### Gets a list of all games for a user
+
+Response: `200 OK`
+```json
+  {
+    [
+      {
+        "game_id": 1,
+        "title": "Sean Vs David",
+        "date_created": "2023-01-11 10:32:21.240752",
+        "game_type": "Face Off",
+        "game_users":
+          [
+            {
+              "game_user_id": 1
+            },
+            {
+              "game_user_id": 2
+            }
+          ]
+        "games_anagrams":
+          [
+            {
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
+            },
+            {
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
+            },
+            {
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
+            }
+          ]
+      },
+      {
+        "game_id": 2,
+        "title": "Daily Anagram",
+        "date_created": "2023-01-11 10:32:21.240752",
+        "game_type": "Daily",
+        "game_users":
+          [
+            {
+              "game_user_id": 1
+            }
+          ]
+        "games_anagrams":
+          [
+            {
+              "game_anagram_id": "1",
+              "anagram_word": "ANANAB",
+              "anagram_solution": "BANANA",
+              "max_attempts": 3,
+              "order": 1,
+              "timer": 30
+            }
+          ]
+      }
+    ]
+  }
+```
+
+---
+
+`GET /users/{id}/games/{id}`
+###### Gets a competitive face off game by an id
+
+Response: `200 OK`
+```json
+  {
+    "id": 1,
+    "title": "Sean Vs David",
+    "date_created": "2023-01-11 10:32:21.240752",
+    "game_type": "Face Off",
+    "game_users":
+      [
+        {
+          "game_user_id": "1",
+          "first_name": "Sean"
+        },
+        {
+          "game_user_id": "2"
+          "first_name": "David"
+        }
+      ],
+    "game_anagrams":
+      [
+        {
+          "game_anagram_id": "1",
+          "anagram_word": "ANANAB",
+          "anagram_solution": "BANANA",
+          "max_attempts": 3,
+          "order": 1,
+          "timer": 30
+        },
+        {
+          "game_anagram_id": "2",
+          "anagram_word": "ANANAB",
+          "anagram_solution": "BANANA",
+          "max_attempts": 3,
+          "order": 1,
+          "timer": 30
+        },
+        {
+          "game_anagram_id": "3",
+          "anagram_word": "ANANAB",
+          "anagram_solution": "BANANA",
+          "max_attempts": 3,
+          "order": 1,
+          "timer": 30
+        }
+      ]
+  }
+```
+
+---
+
+`CREATE /users/{id}/games`
+###### Creates a competitive game with another user
+
+Request:
+```json
+  {
+    "title": "Sean Vs David"
+    "user_ids":
+    [
+      {
+        "user_id": 1
+      },
+      {
+        "user_id": 2
+      }
+    ],
+    "number_of_anagrams": 3,
+    "difficulty": "easy"
+  }
+```
+
+Response: `201 Created`
+
+---
+
+`POST /user/{id}/games/{id}/guess/{id}`
+###### Updates a record of a user's attempt at an anagram
+
+Request:
+```json
+  {
+    "attempts": "3",
+    "solved": true
+  }
+```
+Response: `200 Ok`
 
 ---
 ---
