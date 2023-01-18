@@ -907,7 +907,7 @@ Request:
 ```json
   {
     "attempts": "3",
-    "solved": true
+    "solved": "2023-01-11 10:32:21.240752"
   }
 ```
 Response: `200 Ok`
