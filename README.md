@@ -230,20 +230,20 @@ erDiagram
   
   game_anagram_types {
     int id PK
-    string name
+    string title
     int max_attempts
     int time_allowed
   }
   
   games {
     int id PK
-    string name
+    string title
     date_time date_created
   }
   
   words {
     int id PK
-    string name
+    string title
     string description
     string image_location
   }
