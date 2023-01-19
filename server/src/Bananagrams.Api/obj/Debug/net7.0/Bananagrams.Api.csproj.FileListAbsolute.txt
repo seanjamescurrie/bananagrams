@@ -31,3 +31,13 @@
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/obj/Debug/net7.0/Bananagrams.Api.pdb
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/obj/Debug/net7.0/Bananagrams.Api.genruntimeconfig.cache
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/obj/Debug/net7.0/ref/Bananagrams.Api.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/FluentValidation.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/FluentValidation.AspNetCore.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Npgsql.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Bananagrams.Dal.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Bananagrams.Dal.pdb

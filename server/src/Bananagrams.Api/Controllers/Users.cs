@@ -1,5 +1,6 @@
 using System.Net;
 using Bananagrams.Api.Models;
+using Bananagrams.Api.ViewModels.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bananagrams.Api.Controllers;
@@ -8,39 +9,31 @@ namespace Bananagrams.Api.Controllers;
 [Route("[controller]")]
 public class Users : ControllerBase
 {
-    private User testUser = new User
-    {
-        Id = 1,
-        EmailAddress = "sean@mail.com",
-        FirstName = "Sean",
-        LastName = "Currie",
-        DateCreated = DateTime.Now
-    };
 
     [HttpGet]
-    public ActionResult<List<User>> GetAll()
+    public ActionResult<List<UserViewModel>> GetAll()
     {
-        return Ok(new List<User>
+        return Ok(new List<UserViewModel>
         {
-            testUser,
-            testUser
+            DataSeed.user,
+            DataSeed.user
         });
     }
 
     [HttpGet("{id}")]
-    public ActionResult<User> Get(int id)
+    public ActionResult<UserDetailViewModel> Get(int id)
     {
-        return Ok(testUser);
+        return Ok(DataSeed.detailUser);
     }
 
     [HttpPost]
-    public IActionResult Create()
+    public IActionResult Create([FromBody] CreateUserViewModel userDetails)
     {
         return StatusCode((int)HttpStatusCode.Created);
     }
     
     [HttpPut("{id}")]
-    public ActionResult Update(int id)
+    public ActionResult Update(int id, [FromBody] UpdateUserViewModel userDetails)
     {
         return NoContent();
     }

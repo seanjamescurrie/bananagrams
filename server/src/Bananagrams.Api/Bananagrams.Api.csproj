@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
@@ -17,6 +18,12 @@
     <Compile Remove="Controllers\Anagrams.cs" />
     <Compile Remove="Controllers\FaceOffs.cs" />
     <Compile Remove="Controllers\UserAnagrams.cs" />
+    <Compile Remove="ViewModels\Users\dd.cs" />
+    <Compile Remove="ViewModels\GameViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bananagrams.Dal\Bananagrams.Dal.csproj" />
   </ItemGroup>
 
 </Project>
