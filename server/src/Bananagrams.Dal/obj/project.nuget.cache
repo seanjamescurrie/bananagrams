@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oJJwbsfsZRMIdwlaFv90E/h4Tlol4ujFtdHEnfS2SCwt/tJue4qUVC0dMR47iZ1YH4/QA4tCTI8DmsVI7/6eNA==",
+  "dgSpecHash": "tlgznQa/WcZxd6UYeBYCYQynwvW6774ELp8lhCTAIYOvxPB663KXIzaKAp9i0NxPy5BaIJzpeGXQ6x7Jc3H4tg==",
   "success": true,
   "projectFilePath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/Bananagrams.Dal.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,8 @@
     "/Users/sean.currie/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/npgsql/7.0.1/npgsql.7.0.1.nupkg.sha512",
-    "/Users/sean.currie/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.1/npgsql.entityframeworkcore.postgresql.7.0.1.nupkg.sha512"
+    "/Users/sean.currie/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.1/npgsql.entityframeworkcore.postgresql.7.0.1.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/unosquare.entityframework.specification.efcore/1.0.7/unosquare.entityframework.specification.efcore.1.0.7.nupkg.sha512"
   ],
   "logs": []
 }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
@@ -20,10 +21,27 @@
     <Compile Remove="Controllers\UserAnagrams.cs" />
     <Compile Remove="ViewModels\Users\dd.cs" />
     <Compile Remove="ViewModels\GameViewModel.cs" />
+    <Compile Remove="Dtos\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bananagrams.Dal\Bananagrams.Dal.csproj" />
+    <ProjectReference Include="..\Bananagrams.Service\Bananagrams.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Dtos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Dtos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Dtos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions" />
   </ItemGroup>
 
 </Project>

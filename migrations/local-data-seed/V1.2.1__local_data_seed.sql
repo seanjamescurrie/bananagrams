@@ -1,4 +1,4 @@
-INSERT INTO users (date_created, email_adress, first_name, last_name, user_name)
+INSERT INTO users (date_created, email_address, first_name, last_name, user_name)
 VALUES 
 	(Current_Timestamp, 'sean.currie@unosquare.com', 'Sean', 'Currie', 'seancurrie'),
 	(Current_Timestamp, 'sean.currie+david@unosquare.com', 'David', 'Currie', 'davidcurrie')
@@ -42,5 +42,5 @@ VALUES
 	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 3, 1),
 	(2, current_timestamp, current_timestamp + INTERVAL '1 hour', 3, 2),
 	(1, current_timestamp, current_timestamp + INTERVAL '1 hour', 4, 1),
-	(2, current_timestamp, null, 4, 2)
+	(2, current_timestamp, NULL, 4, 2)
 ;

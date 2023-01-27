@@ -9,7 +9,8 @@
       "Bananagrams.Dal/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "7.0.2",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.1"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.1",
+          "Unosquare.EntityFramework.Specification.EFCore": "1.0.7"
         },
         "runtime": {
           "Bananagrams.Dal.dll": {}
@@ -173,6 +174,21 @@
             "fileVersion": "7.0.1.0"
           }
         }
+      },
+      "Unosquare.EntityFramework.Specification.EFCore/1.0.7": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Unosquare.EntityFramework.Specification.Common.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "lib/netstandard2.1/Unosquare.EntityFramework.Specification.EFCore.dll": {
+            "assemblyVersion": "1.0.7.0",
+            "fileVersion": "1.0.7.0"
+          }
+        }
       }
     }
   },
@@ -286,6 +302,13 @@
       "sha512": "sha512-8txq2CsPWvWO4azZSBmKLKmYsL6dkGrarX2hJZY0Djx6uWZJGH9W0OTE1oHqn+aC5L+xrzyS+TM3kiKw2gdXuA==",
       "path": "npgsql.entityframeworkcore.postgresql/7.0.1",
       "hashPath": "npgsql.entityframeworkcore.postgresql.7.0.1.nupkg.sha512"
+    },
+    "Unosquare.EntityFramework.Specification.EFCore/1.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pRB4DM1t/DX04wlelcXwVSYjMpQ7lrTz06Lse7JUtTqoX7S/NfLBCaQKeN7KQISyc8cWMBdQma6YN6waMNu4+Q==",
+      "path": "unosquare.entityframework.specification.efcore/1.0.7",
+      "hashPath": "unosquare.entityframework.specification.efcore.1.0.7.nupkg.sha512"
     }
   }
 }

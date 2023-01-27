@@ -1,7 +1,7 @@
 CREATE TABLE users (
 	id serial PRIMARY KEY,
 	date_created timestamp DEFAULT current_timestamp,
-	email_adress varchar NOT NULL,
+	email_address varchar NOT NULL,
 	first_name varchar,
 	last_name varchar,
 	user_name varchar NOT NULL
@@ -61,7 +61,6 @@ CREATE TABLE game_user_game_anagrams (
 	attempts integer,
 	date_played timestamp DEFAULT current_timestamp,
 	date_solved timestamp,
-	time_allowed integer,
 	game_user_id integer
 		REFERENCES game_users(id),
 	game_anagram_id integer

@@ -41,3 +41,9 @@
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Bananagrams.Dal.dll
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Bananagrams.Dal.pdb
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Unosquare.EntityFramework.Specification.Common.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Unosquare.EntityFramework.Specification.EFCore.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Bananagrams.Service.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Bananagrams.Service.pdb
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/AutoMapper.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

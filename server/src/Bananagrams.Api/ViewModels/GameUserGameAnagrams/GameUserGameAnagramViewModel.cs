@@ -1,6 +1,9 @@
-namespace Bananagrams.Api.Dtos;
+using Bananagrams.Api.ViewModels.GameAnagrams;
+using Bananagrams.Api.ViewModels.GameUsers;
 
-public class GameUserGameAnagramDto
+namespace Bananagrams.Api.ViewModels.GameUserGameAnagrams;
+
+public class GameUserGameAnagramViewModel
 {
     public int Id { get; set; }
     public int Attempts { get; set; }
@@ -8,6 +11,4 @@ public class GameUserGameAnagramDto
     public DateTime DateSolved { get; set; }
     public int GameAnagramId { get; set; }
     public int GameUserId { get; set; }
-    public GameUserDto GameUserDto { get; set; }
-    public GameAnagramDto GameAnagramDto { get; set; }
 }

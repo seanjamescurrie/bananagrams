@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Bananagrams.Dal.Models;
 
@@ -13,16 +14,17 @@ public class GameAnagram
     public string AnagramWord { get; set; }
     [Column("date_created")]
     public DateTime DateCreated { get; set; }
-    [Column("order")]
+    [Column("order_sequence")]
     public int Order { get; set; }
     [Column("game_id")]
     public int GameId { get; set; }
     [Column("game_anagram_type_id")]
     public int GameAnagramTypeId { get; set; }
     [Column("word_id")]
-    public int WordId { get; set; }
+    public int WordId { get; set; } 
     
-    public Game Game { get; set; }
-    public GameAnagramType GameAnagramType { get; set; }
-    public Word Word { get; set; }
+    public Game? Game { get; set; }
+    public GameAnagramType? GameAnagramType { get; set; }
+    public Word? Word { get; set; }
+    public List<GameUserGameAnagram>? GameUserGameAnagrams { get; set; }
 }

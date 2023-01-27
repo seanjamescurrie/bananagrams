@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "dgSpecHash": "Lup80xVlwo6R98uXKPBq3fvwfnrV1VUd4BLOmYP25dBg1Qco4FEAwNFlZWET3Te9DSoiC34I/ysiYBOkBKRnOw==",
+  "success": true,
+  "projectFilePath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj",
+  "expectedPackageFiles": [
+    "/Users/sean.currie/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.entityframeworkcore/7.0.2/microsoft.entityframeworkcore.7.0.2.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.2/microsoft.entityframeworkcore.abstractions.7.0.2.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.2/microsoft.entityframeworkcore.analyzers.7.0.2.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.1/microsoft.entityframeworkcore.relational.7.0.1.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.dependencyinjection/7.0.0/microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.logging/7.0.0/microsoft.extensions.logging.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/npgsql/7.0.1/npgsql.7.0.1.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.1/npgsql.entityframeworkcore.postgresql.7.0.1.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/unosquare.entityframework.specification.efcore/1.0.7/unosquare.entityframework.specification.efcore.1.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}

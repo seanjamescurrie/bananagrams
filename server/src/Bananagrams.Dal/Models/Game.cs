@@ -13,4 +13,6 @@ public class Game
     public string Title { get; set; }    
     [Column("date_created")]
     public DateTime DateCreated { get; set; }
+    public List<GameUser>? GameUsers { get; set; }
+    public List<GameAnagram>? GameAnagrams { get; set; }
 }

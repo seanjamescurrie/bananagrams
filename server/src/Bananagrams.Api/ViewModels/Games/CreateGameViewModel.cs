@@ -1,12 +1,11 @@
 using FluentValidation;
 
-namespace Bananagrams.Api.Models.Games;
+namespace Bananagrams.Api.ViewModels.Games;
 
 public class CreateGameViewModel
 {
-    public int GameAnagramType { get; set; }
-    public int PlayerOneId { get; set; }
-    public int? PlayerTwoId { get; set; }
+    public int GameAnagramTypeId { get; set; }
+    public int[] PlayerIds { get; set; }
     public string Title { get; set; }
     public int TotalAnagrams { get; set; }
 }

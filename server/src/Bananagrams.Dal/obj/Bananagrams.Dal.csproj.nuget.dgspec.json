@@ -45,6 +45,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.1, )"
+            },
+            "Unosquare.EntityFramework.Specification.EFCore": {
+              "target": "Package",
+              "version": "[1.0.7, )"
             }
           },
           "imports": [

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bananagrams.Api", "src\Bana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bananagrams.Dal", "src\Bananagrams.Dal\Bananagrams.Dal.csproj", "{070B79E6-42B5-40BB-867A-9624153F2D0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bananagrams.Service", "src\Bananagrams.Service\Bananagrams.Service.csproj", "{976D6684-8F1E-4786-8499-4153CDDA6F28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{070B79E6-42B5-40BB-867A-9624153F2D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{070B79E6-42B5-40BB-867A-9624153F2D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{070B79E6-42B5-40BB-867A-9624153F2D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976D6684-8F1E-4786-8499-4153CDDA6F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976D6684-8F1E-4786-8499-4153CDDA6F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976D6684-8F1E-4786-8499-4153CDDA6F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976D6684-8F1E-4786-8499-4153CDDA6F28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{91EEC3B2-7001-4ACB-BC26-A467677BBBBC} = {A97A0290-E83C-41E2-9298-C847F4D30C32}
 		{070B79E6-42B5-40BB-867A-9624153F2D0C} = {A97A0290-E83C-41E2-9298-C847F4D30C32}
+		{976D6684-8F1E-4786-8499-4153CDDA6F28} = {A97A0290-E83C-41E2-9298-C847F4D30C32}
 	EndGlobalSection
 EndGlobal

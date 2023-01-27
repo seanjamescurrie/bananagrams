@@ -268,6 +268,20 @@
             "related": ".xml"
           }
         }
+      },
+      "Unosquare.EntityFramework.Specification.EFCore/1.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.7"
+        },
+        "compile": {
+          "lib/netstandard2.1/Unosquare.EntityFramework.Specification.Common.dll": {},
+          "lib/netstandard2.1/Unosquare.EntityFramework.Specification.EFCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Unosquare.EntityFramework.Specification.Common.dll": {},
+          "lib/netstandard2.1/Unosquare.EntityFramework.Specification.EFCore.dll": {}
+        }
       }
     }
   },
@@ -664,12 +678,26 @@
         "npgsql.entityframeworkcore.postgresql.nuspec",
         "postgresql.png"
       ]
+    },
+    "Unosquare.EntityFramework.Specification.EFCore/1.0.7": {
+      "sha512": "pRB4DM1t/DX04wlelcXwVSYjMpQ7lrTz06Lse7JUtTqoX7S/NfLBCaQKeN7KQISyc8cWMBdQma6YN6waMNu4+Q==",
+      "type": "package",
+      "path": "unosquare.entityframework.specification.efcore/1.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Unosquare.EntityFramework.Specification.Common.dll",
+        "lib/netstandard2.1/Unosquare.EntityFramework.Specification.EFCore.dll",
+        "unosquare.entityframework.specification.efcore.1.0.7.nupkg.sha512",
+        "unosquare.entityframework.specification.efcore.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.EntityFrameworkCore >= 7.0.2",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.1"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.1",
+      "Unosquare.EntityFramework.Specification.EFCore >= 1.0.7"
     ]
   },
   "packageFolders": {
@@ -716,6 +744,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
             "version": "[7.0.1, )"
+          },
+          "Unosquare.EntityFramework.Specification.EFCore": {
+            "target": "Package",
+            "version": "[1.0.7, )"
           }
         },
         "imports": [

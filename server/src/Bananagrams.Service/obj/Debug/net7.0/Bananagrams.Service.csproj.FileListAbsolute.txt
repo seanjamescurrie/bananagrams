@@ -1,0 +1,15 @@
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/bin/Debug/net7.0/Bananagrams.Service.deps.json
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/bin/Debug/net7.0/Bananagrams.Service.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/bin/Debug/net7.0/Bananagrams.Service.pdb
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/bin/Debug/net7.0/Bananagrams.Dal.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/bin/Debug/net7.0/Bananagrams.Dal.pdb
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.csproj.AssemblyReference.cache
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.AssemblyInfoInputs.cache
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.AssemblyInfo.cs
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.csproj.CoreCompileInputs.cache
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.csproj.CopyComplete
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/refint/Bananagrams.Service.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/Bananagrams.Service.pdb
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/Debug/net7.0/ref/Bananagrams.Service.dll
