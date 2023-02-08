@@ -4,5 +4,5 @@ namespace Bananagrams.Service.Interfaces;
 
 public interface IWordService
 {
-    void Create(WordDto word);
+    Task Create(WordDto word);
 }

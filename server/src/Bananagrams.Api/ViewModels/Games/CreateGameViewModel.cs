@@ -12,8 +12,17 @@ public class CreateGameViewModel
 
 public class CreateGameValidator : AbstractValidator<CreateGameViewModel>
 {
+    // add validation for other fields
     public CreateGameValidator()
     {
+        RuleFor(game => game.GameAnagramTypeId)
+            .NotEmpty()
+            .NotNull()
+            .WithMessage("Please select game type");
+        RuleFor(game => game.Title)
+            .NotEmpty()
+            .NotNull()
+            .WithMessage("Please enter a title for the game");
         RuleFor(game => game.TotalAnagrams)
             .NotNull()
             .NotEmpty()

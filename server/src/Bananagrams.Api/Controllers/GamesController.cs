@@ -1,6 +1,5 @@
 using System.Net;
 using AutoMapper;
-using Bananagrams.Api.Models.Games;
 using Bananagrams.Api.ViewModels.Games;
 using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
@@ -15,15 +14,13 @@ namespace Bananagrams.Api.Controllers;
 public class GamesController : BananagramsBaseController
 {
     private readonly IGameService _gameService;
-    private readonly IGameUserGameAnagramService _gameUserGameAnagramService;
     private readonly IMapper _mapper;
 
-    public GamesController(IGameService gameService, IGameUserGameAnagramService gameUserGameAnagramService,
-        IMapper mapper) =>
-        (_gameService, _gameUserGameAnagramService, _mapper) = (gameService, gameUserGameAnagramService, mapper);
+    public GamesController(IGameService gameService, IMapper mapper) =>
+        (_gameService, _mapper) = (gameService, mapper);
 
     [HttpGet]
-    public async Task<ActionResult<List<GameViewModel>>> GetAll([FromQuery] string? title)
+    public async Task<ActionResult<IList<GameViewModel>>> GetAll([FromQuery] string? title)
     {
         var games = await _gameService.GetAll(title);
 
@@ -43,7 +40,7 @@ public class GamesController : BananagramsBaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateGameViewModel gameDetails)
+    public async Task<ActionResult> Create([FromBody] CreateGameViewModel gameDetails)
     {
         await _gameService.Create(_mapper.Map<CreateGameDto>(gameDetails));
 
@@ -51,11 +48,11 @@ public class GamesController : BananagramsBaseController
     }
 
     [HttpPut("{id}/Attempt/{anagramId}")]
-    public async Task<IActionResult> UpdateGameUserGameAnagramAttempt(int id, int anagramId, [FromBody] UpdateGameViewModel gameDetails)
+    public async Task<ActionResult> UpdateGameUserGameAnagramAttempt(int id, int anagramId, [FromBody] UpdateGameViewModel gameDetails)
     {
         var updateGame = _mapper.Map<UpdateGameUserGameAnagramDto>(gameDetails);
         
-        await _gameUserGameAnagramService.Update(id, anagramId, updateGame);
+        await _gameService.UpdateGameAnagramForUser(id, anagramId, updateGame);
         
         return Ok();
     }

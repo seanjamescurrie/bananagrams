@@ -9,56 +9,54 @@ namespace Bananagrams.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class Users : ControllerBase
+public class UsersController : BananagramsBaseController
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
-    public Users(IUserService userService, IMapper mapper) =>
+    public UsersController(IUserService userService, IMapper mapper) =>
         (_userService, _mapper) = (userService, mapper);
 
     [HttpGet]
-    public ActionResult<IList<UserViewModel>> GetAll(string? searchWord)
+    public async Task<ActionResult<IList<UserViewModel>>> GetAll(string? searchWord)
     {
-        var users = _userService.GetAll(searchWord);
+        var users = await _userService.GetAll(searchWord);
 
-        var viewModel = _mapper.Map<IList<UserViewModel>>(users);
+        var viewModel = _mapper.Map<List<UserViewModel>>(users);
 
-        return Ok(viewModel);
+        return OkOrNoContent(viewModel);
     }
     
     [HttpGet("{id}")]
-    public ActionResult<UserDetailViewModel> Get(int id)
+    public async Task<ActionResult<UserDetailViewModel>> Get(int id)
     {
-        var user = _userService.Get(id);
-    
-        if (user == null) return NotFound();
-
+        var user = await _userService.Get(id);
+        
         var viewModel = _mapper.Map<UserDetailViewModel>(user);
         
-        return Ok(viewModel);
+        return OkOrNoNotFound(viewModel);
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] CreateUserViewModel userDetails)
+    public async Task<IActionResult> Create([FromBody] CreateUserViewModel userDetails)
     {
-        _userService.Create(_mapper.Map<UserDto>(userDetails));
+        await _userService.Create(_mapper.Map<CreateUserDto>(userDetails));
         
         return StatusCode((int)HttpStatusCode.Created);
     }
     
     [HttpPut("{id}")]
-    public ActionResult Update(int id, [FromBody] UpdateUserViewModel userDetails)
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateUserViewModel userDetails)
     {
-        _userService.Update(id, _mapper.Map<UserDto>(userDetails));
+        await _userService.Update(id, _mapper.Map<UpdateUserDto>(userDetails));
         
-        return NoContent();
+        return Ok();
     }
     
     [HttpDelete("{id}")]
-    public ActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        _userService.Delete(id);
+        await _userService.Delete(id);
         
-        return NoContent();
+        return Ok();
     }
 }

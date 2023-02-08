@@ -18,7 +18,9 @@ public class User
     public string FirstName { get; set; }
     [Column("last_name")]
     public string LastName { get; set; }
-    [Column("user_name")]
+    [Column("password")]
+    public string Password { get; set; }
+    [Column("username")]
     public string Username { get; set; }
     public List<GameUser>? GameUsers { get; set; }
 }

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Bananagrams.Service.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using MimeTypes = System.Net.Mime.MediaTypeNames;
 
 namespace Bananagrams.Api.Filters;
 
+[ExcludeFromCodeCoverage]
 public class ExceptionFilter : IExceptionFilter
 {
     private readonly IWebHostEnvironment _webHostEnvironment;

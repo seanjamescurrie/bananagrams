@@ -1,12 +1,15 @@
+using Bananagrams.Api.Authentication;
 using Bananagrams.Api.Filters;
-using Bananagrams.Api.Profiles;
 using Bananagrams.Dal.Contexts;
 using Bananagrams.Dal.Interfaces;
-using Bananagrams.Dal.Models;
 using Bananagrams.Service.Interfaces;
-using Bananagrams.Service.Profiles;
 using Bananagrams.Service.Services;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using AuthenticationService = Bananagrams.Service.Services.AuthenticationService;
+using GameProfile = Bananagrams.Service.Profiles.GameProfile;
+using IAuthenticationService = Bananagrams.Service.Interfaces.IAuthenticationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,20 +20,27 @@ builder.Services.AddControllers(x => { x.Filters.Add<ExceptionFilter>(); });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBananagramsDatabase, BananagramsDatabase>(_ =>
-    new BananagramsDatabase("Server=localhost,5432;Database=postgres;User Id=user;Password=password;"))
-                .AddScoped<IUserService, UserService>()
-                .AddScoped<IGameService, GameService>()
-                .AddScoped<IWordService, WordService>()
-                .AddScoped<IGameAnagramService, GameAnagramService>()
-                .AddScoped<IGameUserService, GameUserService>()
-                .AddScoped<IGameUserGameAnagramService, GameUserGameAnagramService>();
+        new BananagramsDatabase("Server=localhost,5432;Database=postgres;User Id=user;Password=password;"))
+    .AddScoped<IUserService, UserService>()
+    .AddScoped<IGameService, GameService>()
+    .AddScoped<IWordService, WordService>()
+    .AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(GameProfile).Assembly);
-// builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(UserProfile).Assembly);
-// builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(UserDtoProfile).Assembly);
 
 builder.Services.AddFluentValidation(s =>
     s.RegisterValidatorsFromAssemblyContaining<Program>()
 );
+
+builder.Services.AddAuthentication(string.Empty).AddScheme<AuthenticationSchemeOptions, AccessAuthenticationFilter>(string.Empty, options => {});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(string.Empty, policy =>
+    {
+        policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireAuthenticatedUser();
+    });
+});
 
 var app = builder.Build();
 
@@ -42,6 +52,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

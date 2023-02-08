@@ -13,6 +13,6 @@ public class GameByTitleSpec : Specification<Game>
     {
         if (string.IsNullOrWhiteSpace(_title)) return ShowAll;
         
-        return x => x.Title.Contains(_title);
+        return x => x.Title.StartsWith(_title);
     }
 }

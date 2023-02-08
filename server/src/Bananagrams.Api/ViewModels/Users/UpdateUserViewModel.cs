@@ -40,11 +40,11 @@ public class UpdateUserValidator : AbstractValidator<UpdateUserViewModel>
                 .WithMessage("Password must be between 8 and 30 characters in length");
         });
 
-        When(acc => acc.Password != null, () =>
+        When(acc => acc.Username != null, () =>
         {
             RuleFor(acc => acc.Username)
-                .Length(8, 30)
-                .WithMessage("Username must be between 8 and 30 characters in length");
+                .Length(2, 30)
+                .WithMessage("Username must be between 2 and 30 characters in length");
         });
     }
 }

@@ -4,10 +4,10 @@ namespace Bananagrams.Service.Interfaces;
 
 public interface IUserService
 {
-    IList<UserDto> GetAll(string? searchWord = null);
-    UserDto Get(int id);
-    void Create(UserDto user);
-    void Update(int id, UserDto user);
-    void Delete(int id);
+    Task<IList<UserDto>> GetAll(string? searchWord = null);
+    Task<UserDto> Get(int id);
+    Task Create(CreateUserDto user);
+    Task Update(int id, UpdateUserDto user);
+    Task Delete(int id);
 
 }

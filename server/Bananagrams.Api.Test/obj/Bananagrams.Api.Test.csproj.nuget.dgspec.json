@@ -1,0 +1,326 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/sean.currie/Documents/GitHub/bananagrams/server/Bananagrams.Api.Test/Bananagrams.Api.Test.csproj": {}
+  },
+  "projects": {
+    "/Users/sean.currie/Documents/GitHub/bananagrams/server/Bananagrams.Api.Test/Bananagrams.Api.Test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/sean.currie/Documents/GitHub/bananagrams/server/Bananagrams.Api.Test/Bananagrams.Api.Test.csproj",
+        "projectName": "Bananagrams.Api.Test",
+        "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/Bananagrams.Api.Test/Bananagrams.Api.Test.csproj",
+        "packagesPath": "/Users/sean.currie/.nuget/packages/",
+        "outputPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/Bananagrams.Api.Test/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/sean.currie/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/Bananagrams.Api.csproj": {
+                "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/Bananagrams.Api.csproj"
+              },
+              "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj": {
+                "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.9.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.3.2, )"
+            },
+            "MockQueryable.NSubstitute": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "NSubstitute": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/Bananagrams.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/Bananagrams.Api.csproj",
+        "projectName": "Bananagrams.Api",
+        "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/Bananagrams.Api.csproj",
+        "packagesPath": "/Users/sean.currie/.nuget/packages/",
+        "outputPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/sean.currie/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj": {
+                "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.26.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.26.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/Bananagrams.Dal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/Bananagrams.Dal.csproj",
+        "projectName": "Bananagrams.Dal",
+        "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/Bananagrams.Dal.csproj",
+        "packagesPath": "/Users/sean.currie/.nuget/packages/",
+        "outputPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/sean.currie/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Unosquare.EntityFramework.Specification.EFCore": {
+              "target": "Package",
+              "version": "[1.0.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj",
+        "projectName": "Bananagrams.Service",
+        "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj",
+        "packagesPath": "/Users/sean.currie/.nuget/packages/",
+        "outputPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/sean.currie/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/Bananagrams.Dal.csproj": {
+                "projectPath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Dal/Bananagrams.Dal.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ using Bananagrams.Api.ViewModels.GameAnagramTypes;
 using Bananagrams.Api.ViewModels.GameUsers;
 using Bananagrams.Api.ViewModels.Users;
 
-namespace Bananagrams.Api.Models.Games;
+namespace Bananagrams.Api.ViewModels.Games;
 
 public class GameDetailViewModel
 {

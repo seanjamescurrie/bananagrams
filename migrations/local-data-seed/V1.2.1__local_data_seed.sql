@@ -1,7 +1,7 @@
-INSERT INTO users (date_created, email_address, first_name, last_name, user_name)
+INSERT INTO users (date_created, email_address, first_name, last_name, password, username)
 VALUES 
-	(Current_Timestamp, 'sean.currie@unosquare.com', 'Sean', 'Currie', 'seancurrie'),
-	(Current_Timestamp, 'sean.currie+david@unosquare.com', 'David', 'Currie', 'davidcurrie')
+	(Current_Timestamp, 'sean.currie@unosquare.com', 'Sean', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'seancurrie'),
+	(Current_Timestamp, 'sean.currie+david@unosquare.com', 'David', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'davidcurrie')
 ;
 
 INSERT INTO games (title, date_created)

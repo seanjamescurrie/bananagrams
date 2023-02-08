@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using Bananagrams.Dal.Models;
 using Bananagrams.Service.Dtos.GameAnagrams;
@@ -8,6 +9,7 @@ using Bananagrams.Service.Dtos.Users;
 
 namespace Bananagrams.Service.Profiles;
 
+[ExcludeFromCodeCoverage]
 public class GameUserGameAnagramProfile : Profile
 {
     public GameUserGameAnagramProfile()

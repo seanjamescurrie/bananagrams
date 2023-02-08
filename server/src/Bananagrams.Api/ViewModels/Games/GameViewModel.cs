@@ -3,7 +3,7 @@ using Bananagrams.Api.ViewModels.GameAnagramTypes;
 using Bananagrams.Api.ViewModels.Users;
 using Bananagrams.Dal.Models;
 
-namespace Bananagrams.Api.Models.Games;
+namespace Bananagrams.Api.ViewModels.Games;
 
 public class GameViewModel
 {

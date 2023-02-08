@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Lup80xVlwo6R98uXKPBq3fvwfnrV1VUd4BLOmYP25dBg1Qco4FEAwNFlZWET3Te9DSoiC34I/ysiYBOkBKRnOw==",
+  "dgSpecHash": "eCXQ0sIraWYFvN+y2kp/q92KX5Hx+M85/t3+Iec/y0xZiJgLQiorUxrBpoyWsiyJINuqKMcDWucfnSmN/OjlZg==",
   "success": true,
   "projectFilePath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Service/Bananagrams.Service.csproj",
   "expectedPackageFiles": [
     "/Users/sean.currie/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/microsoft.entityframeworkcore/7.0.2/microsoft.entityframeworkcore.7.0.2.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.2/microsoft.entityframeworkcore.abstractions.7.0.2.nupkg.sha512",

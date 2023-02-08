@@ -4,7 +4,8 @@ CREATE TABLE users (
 	email_address varchar NOT NULL,
 	first_name varchar,
 	last_name varchar,
-	user_name varchar NOT NULL
+	password varchar NOT NULL,
+	username varchar NOT NULL
 );
 
 CREATE TABLE games (

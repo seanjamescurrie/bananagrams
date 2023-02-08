@@ -14,12 +14,12 @@ public class WordService : IWordService
     public WordService(IBananagramsDatabase database, IMapper mapper) =>
         (_database, _mapper) = (database, mapper);
 
-    public void Create(WordDto word)
+    public async Task Create(WordDto word)
     {
         var newWord = _mapper.Map<Word>(word);
 
         _database.Add(newWord);
-        _database.SaveChanges();
+        await _database.SaveChangesAsync();
     }
 
 }

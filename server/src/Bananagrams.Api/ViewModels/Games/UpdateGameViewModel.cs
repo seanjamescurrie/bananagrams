@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Bananagrams.Api.Models.Games;
+namespace Bananagrams.Api.ViewModels.Games;
 
 public class UpdateGameViewModel
 {
@@ -15,9 +15,11 @@ public class UpdateGameValidator : AbstractValidator<UpdateGameViewModel>
     {
         RuleFor(game => game.Attempts)
             .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Attempts must not be empty.");
         RuleFor(game => game.DatePlayed)
             .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("Date Played must not be empty.");
     }
 }

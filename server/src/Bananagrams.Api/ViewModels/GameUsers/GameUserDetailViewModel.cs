@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using Bananagrams.Api.Models.Games;
+using Bananagrams.Api.ViewModels.Games;
 using Bananagrams.Api.ViewModels.GameUserGameAnagrams;
 using Bananagrams.Api.ViewModels.Users;
 

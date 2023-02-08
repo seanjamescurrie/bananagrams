@@ -2,6 +2,7 @@ using Bananagrams.Service.Dtos.DailyWords;
 using Bananagrams.Service.Dtos.GameAnagramTypes;
 using Bananagrams.Service.Dtos.Games;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Bananagrams.Service.Dtos.GameAnagrams;
 
