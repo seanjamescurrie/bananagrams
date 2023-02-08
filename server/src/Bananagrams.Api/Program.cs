@@ -28,6 +28,8 @@ builder.Services.AddScoped<IBananagramsDatabase, BananagramsDatabase>(_ =>
     .AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(GameProfile).Assembly);
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddFluentValidation(s =>
     s.RegisterValidatorsFromAssemblyContaining<Program>()
 );
