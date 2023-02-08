@@ -20,7 +20,7 @@ builder.Services.AddControllers(x => { x.Filters.Add<ExceptionFilter>(); });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBananagramsDatabase, BananagramsDatabase>(_ =>
-        new BananagramsDatabase("Server=localhost,5432;Database=postgres;User Id=user;Password=password;"))
+        new BananagramsDatabase(EnvironmentVariables.DbConnectionString))
     .AddScoped<IUserService, UserService>()
     .AddScoped<IGameService, GameService>()
     .AddScoped<IWordService, WordService>()
@@ -58,6 +58,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health");
 
 app.Run();
 
