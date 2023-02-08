@@ -1,3 +1,4 @@
+using Bananagrams.Api;
 using Bananagrams.Api.Authentication;
 using Bananagrams.Api.Filters;
 using Bananagrams.Dal.Contexts;
