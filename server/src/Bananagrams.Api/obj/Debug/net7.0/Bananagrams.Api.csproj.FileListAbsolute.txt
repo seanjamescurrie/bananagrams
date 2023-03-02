@@ -56,3 +56,4 @@
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
 /Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/sean.currie/Documents/GitHub/bananagrams/server/src/Bananagrams.Api/bin/Debug/net7.0/Newtonsoft.Json.dll

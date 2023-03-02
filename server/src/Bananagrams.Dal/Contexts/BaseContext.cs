@@ -63,6 +63,7 @@ public abstract class BaseContext : DbContext
         if (!string.IsNullOrWhiteSpace(_connectionString) && !optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseNpgsql(_connectionString);
+            // ,builder => builder.EnableRetryOnFailure(20, TimeSpan.FromSeconds(2), null)
         }
     }
 }

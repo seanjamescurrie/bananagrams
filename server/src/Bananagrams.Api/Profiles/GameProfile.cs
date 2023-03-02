@@ -30,9 +30,9 @@ public class GameProfile : Profile
     {
         CreateMap<GameDto, GameViewModel>()
             .ForMember(x => x.GameAnagramTypeId, opt => opt
-                .MapFrom(src => src.GameAnagrams.FirstOrDefault().GameAnagramTypeId))
+                .MapFrom(src => src.GameAnagrams == null || !src.GameAnagrams.Any() ? 0 : src.GameAnagrams.Select(x => x.GameAnagramTypeId).FirstOrDefault()))
             .ForMember(x => x.GameAnagramType, opt => opt
-                .MapFrom(src => src.GameAnagrams.FirstOrDefault().GameAnagramType));
+                .MapFrom(src => src.GameAnagrams == null || !src.GameAnagrams.Any() ? null : src.GameAnagrams.Select(x => x.GameAnagramType).FirstOrDefault()));
         CreateMap<GameDto, GameDetailViewModel>();
         CreateMap<GameUserDto, UserViewModel>()
             .ForMember(x => x.EmailAddress,opt => opt

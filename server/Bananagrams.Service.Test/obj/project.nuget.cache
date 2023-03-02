@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hbVj/7c5U2QDN2Uojl6k4gsdq/gcF3ugE+r0GbhHFQj7OuGw4mIhKSxA1UgUMK9tmT0WitHp4GUmlFYKwwA3Dg==",
+  "dgSpecHash": "rkp/EcIQt/od5bPodh2TXK3sDZZ8qFSwhz4eqfOT0qNtTCRiwW/VH6M49eYFEhqLQDsTPjK3k1WjLRK46+MSqA==",
   "success": true,
   "projectFilePath": "/Users/sean.currie/Documents/GitHub/bananagrams/server/Bananagrams.Service.Test/Bananagrams.Service.Test.csproj",
   "expectedPackageFiles": [
@@ -78,6 +78,7 @@
     "/Users/sean.currie/.nuget/packages/system.linq/4.3.0/system.linq.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.linq.expressions/4.3.0/system.linq.expressions.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.net.http/4.3.0/system.net.http.4.3.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/system.net.http.json/7.0.0/system.net.http.json.7.0.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.net.primitives/4.3.0/system.net.primitives.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.net.sockets/4.3.0/system.net.sockets.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.objectmodel/4.3.0/system.objectmodel.4.3.0.nupkg.sha512",
@@ -107,6 +108,8 @@
     "/Users/sean.currie/.nuget/packages/system.security.cryptography.x509certificates/4.3.0/system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.text.encoding/4.3.0/system.text.encoding.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.text.encoding.extensions/4.3.0/system.text.encoding.extensions.4.3.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
+    "/Users/sean.currie/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.text.regularexpressions/4.3.0/system.text.regularexpressions.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.threading/4.3.0/system.threading.4.3.0.nupkg.sha512",
     "/Users/sean.currie/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",

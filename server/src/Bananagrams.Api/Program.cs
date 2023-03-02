@@ -3,6 +3,7 @@ using Bananagrams.Api.Authentication;
 using Bananagrams.Api.Filters;
 using Bananagrams.Dal.Contexts;
 using Bananagrams.Dal.Interfaces;
+using Bananagrams.Service.HttpClients;
 using Bananagrams.Service.Interfaces;
 using Bananagrams.Service.Services;
 using FluentValidation.AspNetCore;
@@ -25,10 +26,13 @@ builder.Services.AddScoped<IBananagramsDatabase, BananagramsDatabase>(_ =>
     .AddScoped<IUserService, UserService>()
     .AddScoped<IGameService, GameService>()
     .AddScoped<IWordService, WordService>()
-    .AddScoped<IAuthenticationService, AuthenticationService>();
+    .AddScoped<IAuthenticationService, AuthenticationService>()
+    .AddScoped<ITropicalFruitApiService, TropicalFruitApiService>();
 builder.Services.AddAutoMapper(config => config.AllowNullCollections = true, typeof(Program).Assembly, typeof(GameProfile).Assembly);
 
 builder.Services.AddHealthChecks();
+
+builder.Services.AddHttpClient();
 
 builder.Services.AddFluentValidation(s =>
     s.RegisterValidatorsFromAssemblyContaining<Program>()
@@ -63,6 +67,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHealthChecks("/health");
+
+app.UseCors(
+    o => o
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowAnyOrigin()
+);
 
 app.Run();
 

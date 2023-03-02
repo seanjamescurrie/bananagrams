@@ -2208,6 +2208,25 @@
           }
         }
       },
+      "System.Net.Http.Json/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/System.Net.Http.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/System.Net.Http.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "System.Net.Primitives/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -3048,7 +3067,8 @@
           "Microsoft.AspNetCore.OpenApi": "7.0.2",
           "Microsoft.IdentityModel.Tokens": "6.26.0",
           "Swashbuckle.AspNetCore": "6.4.0",
-          "System.IdentityModel.Tokens.Jwt": "6.26.0"
+          "System.IdentityModel.Tokens.Jwt": "6.26.0",
+          "System.Net.Http.Json": "7.0.0"
         },
         "compile": {
           "bin/placeholder/Bananagrams.Api.dll": {}
@@ -3081,7 +3101,9 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "BCrypt.Net-Next": "4.0.3",
-          "Bananagrams.Dal": "1.0.0"
+          "Bananagrams.Dal": "1.0.0",
+          "Newtonsoft.Json": "9.0.1",
+          "System.Net.Http.Json": "7.0.0"
         },
         "compile": {
           "bin/placeholder/Bananagrams.Service.dll": {}
@@ -7053,6 +7075,33 @@
         "runtimes/win/lib/netstandard1.3/System.Net.Http.dll",
         "system.net.http.4.3.0.nupkg.sha512",
         "system.net.http.nuspec"
+      ]
+    },
+    "System.Net.Http.Json/7.0.0": {
+      "sha512": "K74te5euBJLzosprZji9juSop5mLWRzlpSNqBgZBE7/2AiPbFtM7B5eDB/tnB1jjil3bNNeJYBNfIxobs6uXhQ==",
+      "type": "package",
+      "path": "system.net.http.json/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Net.Http.Json.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Net.Http.Json.targets",
+        "lib/net462/System.Net.Http.Json.dll",
+        "lib/net462/System.Net.Http.Json.xml",
+        "lib/net6.0/System.Net.Http.Json.dll",
+        "lib/net6.0/System.Net.Http.Json.xml",
+        "lib/net7.0/System.Net.Http.Json.dll",
+        "lib/net7.0/System.Net.Http.Json.xml",
+        "lib/netstandard2.0/System.Net.Http.Json.dll",
+        "lib/netstandard2.0/System.Net.Http.Json.xml",
+        "system.net.http.json.7.0.0.nupkg.sha512",
+        "system.net.http.json.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Net.Primitives/4.3.0": {

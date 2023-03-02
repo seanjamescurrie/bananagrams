@@ -2,6 +2,7 @@ using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.Games;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Exceptions;
+using Bananagrams.Service.HttpClients;
 using NSubstitute.ReceivedExtensions;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
 
@@ -11,9 +12,10 @@ public class GameServiceTests
 {
     private readonly IBananagramsDatabase _database;
     private readonly IMapper _mapper;
+    private readonly ITropicalFruitApiService _tropicalFruitApiService;
     
     public GameServiceTests() =>
-    (_database, _mapper) = (Substitute.For<IBananagramsDatabase>(), Substitute.For<IMapper>());
+    (_database, _mapper, _tropicalFruitApiService) = (Substitute.For<IBananagramsDatabase>(), Substitute.For<IMapper>(), Substitute.For<ITropicalFruitApiService>());
 
     [Fact]
     public async Task GetGames_WhenNoSearchWordAndGamesExist_ReturnsAllGames()
@@ -244,6 +246,6 @@ public class GameServiceTests
 
     private GameService RetrieveService()
     {
-        return new GameService(_database, _mapper);
+        return new GameService(_database, _mapper, _tropicalFruitApiService);
     }
 }

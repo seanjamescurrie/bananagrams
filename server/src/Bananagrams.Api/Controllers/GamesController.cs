@@ -5,6 +5,7 @@ using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Exceptions;
 using Bananagrams.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bananagrams.Api.Controllers;
@@ -40,6 +41,7 @@ public class GamesController : BananagramsBaseController
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<ActionResult> Create([FromBody] CreateGameViewModel gameDetails)
     {
         await _gameService.Create(_mapper.Map<CreateGameDto>(gameDetails));

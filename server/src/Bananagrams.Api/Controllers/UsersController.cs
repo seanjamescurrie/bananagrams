@@ -3,6 +3,7 @@ using AutoMapper;
 using Bananagrams.Api.ViewModels.Users;
 using Bananagrams.Service.Dtos.Users;
 using Bananagrams.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bananagrams.Api.Controllers;
@@ -37,6 +38,7 @@ public class UsersController : BananagramsBaseController
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Create([FromBody] CreateUserViewModel userDetails)
     {
         await _userService.Create(_mapper.Map<CreateUserDto>(userDetails));
