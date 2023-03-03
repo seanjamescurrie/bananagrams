@@ -16,17 +16,23 @@ const Game = ({ title, description, type }) => {
   const dailyAttempts = 5;
   const attemptsMade = 1;
 
+  type = "faceOff";
+
   return (
     <>
-      {type === "faceOff" ? <Timer></Timer> : <></>}
-
-      <Timer></Timer>
       <Container maxWidth={false}>
+        {type === "faceOff" ? <Timer></Timer> : <></>}
         <Grid container spacing={3}>
           <Grid item xs={1}>
-            <Box sx={{ mt: 2 }}>
-              <PlayerStatus></PlayerStatus>
-            </Box>
+            {type === "faceOff" ? (
+              <Box
+                sx={{ mt: 2, display: "flex", justifyContent: "flex-start" }}
+              >
+                <PlayerStatus></PlayerStatus>
+              </Box>
+            ) : (
+              <></>
+            )}
           </Grid>
           <Grid item xs={10}>
             <Container sx={{ textAlign: "center", mt: 5 }}>
@@ -107,12 +113,22 @@ const Game = ({ title, description, type }) => {
             </Container>
           </Grid>
           <Grid item xs={1}>
-            <Box sx={{ mt: 2 }}>
-              <PlayerStatus></PlayerStatus>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <PlayerStatus></PlayerStatus>
-            </Box>
+            {type === "faceOff" ? (
+              <>
+                <Box
+                  sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
+                >
+                  <PlayerStatus></PlayerStatus>
+                </Box>
+                <Box
+                  sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
+                >
+                  <PlayerStatus></PlayerStatus>
+                </Box>
+              </>
+            ) : (
+              <></>
+            )}
           </Grid>
         </Grid>
       </Container>

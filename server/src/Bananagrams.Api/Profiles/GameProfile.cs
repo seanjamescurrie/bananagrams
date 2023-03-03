@@ -29,6 +29,8 @@ public class GameProfile : Profile
     private void ConfigureDtoToView()
     {
         CreateMap<GameDto, GameViewModel>()
+            .ForMember(x => x.DateCreated, opt => opt
+                .MapFrom(src => src.DateCreated))
             .ForMember(x => x.GameAnagramTypeId, opt => opt
                 .MapFrom(src => src.GameAnagrams == null || !src.GameAnagrams.Any() ? 0 : src.GameAnagrams.Select(x => x.GameAnagramTypeId).FirstOrDefault()))
             .ForMember(x => x.GameAnagramType, opt => opt

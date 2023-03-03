@@ -9,6 +9,7 @@ import {
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "../../../components/icon";
 import { SelectPlayers, DefineRules, ReviewGame } from "./components";
 
@@ -16,9 +17,12 @@ const steps = ["Search users", "Create rules", "Review"];
 
 const CreateGame = ({ type }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    activeStep === steps.length - 1
+      ? navigate("/games/1/lobby")
+      : setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {

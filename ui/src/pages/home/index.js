@@ -1,8 +1,10 @@
+import { useTheme } from "@emotion/react";
 import { Container, Grid, Typography } from "@mui/material";
 import Icon from "../../components/icon/index";
 import { GameCard } from "./components";
 
 const Home = () => {
+  const theme = useTheme();
   const date = new Date();
   const currentDate = `${date.getDate()} / ${date.getMonth()} / ${date.getFullYear()}`;
 
@@ -22,7 +24,7 @@ const Home = () => {
             description={currentDate}
             Image={Icon.Lemon}
             navigation={"/games/1"}
-            color="LemonChiffon"
+            color={theme.palette.secondary.main}
           ></GameCard>
         </Grid>
         <Grid item xs={1}>
@@ -30,8 +32,8 @@ const Home = () => {
             title="Face Off"
             description="Challenge a friend to a game"
             Image={Icon.Cherry}
-            navigation={"/games"}
-            color="LightPink"
+            navigation={"/games/create"}
+            color={theme.palette.secondary.light}
           ></GameCard>
         </Grid>
       </Grid>

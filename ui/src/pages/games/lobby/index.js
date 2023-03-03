@@ -11,7 +11,7 @@ const Lobby = () => {
   ];
 
   const navigate = useNavigate();
-  const playersReady = false;
+  const playersReady = true;
 
   const [timer, setTimer] = useState(10);
 
@@ -27,7 +27,7 @@ const Lobby = () => {
   }, [playersReady]);
 
   useEffect(() => {
-    if (timer <= 0) navigate("/game/1");
+    if (timer <= 0) navigate("/games/1");
   }, [timer]);
 
   return (

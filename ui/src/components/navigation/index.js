@@ -24,6 +24,7 @@ import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { useNavigate } from "react-router-dom";
 import Icon from "../icon/index";
 import Games from "../../pages/games";
+import { ThemeMode } from "./components";
 
 const drawerWidth = 240;
 
@@ -153,6 +154,10 @@ export default function MiniDrawer({ children }) {
           <Typography variant="h5" noWrap component="div" sx={{ mt: 1 }}>
             🍌
           </Typography>
+
+          <Box sx={{ ml: "auto" }}>
+            <ThemeMode></ThemeMode>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

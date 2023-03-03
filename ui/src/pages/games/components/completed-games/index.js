@@ -2,7 +2,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Avatar,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   Collapse,
@@ -14,8 +13,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Box, Container } from "@mui/system";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as dayjs from "dayjs";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,47 +29,47 @@ const ExpandMore = styled((props) => {
 
 function CompletedGames() {
   const [expanded, setExpanded] = useState(false);
+  const [games, setGames] = useState([]);
 
-  const navigate = useNavigate();
+  async function fetchData() {
+    const response = await fetch("http://localhost:5016/games", {
+      method: "GET",
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      let foundGames = data.map((game) => ({
+        id: game.id,
+        title: game.title,
+        dateCreated: game.dateCreated,
+        users: game.gameUsers.map((user) => ({
+          username: user.username,
+        })),
+        expanded: false,
+      }));
+      setGames(foundGames);
+    }
+  }
 
-  const games = [
-    {
-      title: "Bananarama",
-      totalAnagrams: 5,
-      dateCreated: "01/01/2023",
-      users: [
-        { username: "seancurrie" },
-        { username: "davidcurrie" },
-        { username: "noahcurrie" },
-      ],
-    },
-    {
-      title: "Bananarama",
-      totalAnagrams: 5,
-      dateCreated: "01/01/2023",
-      users: [
-        { username: "seancurrie" },
-        { username: "davidcurrie" },
-        { username: "noahcurrie" },
-      ],
-    },
-    {
-      title: "Bananarama",
-      totalAnagrams: 5,
-      dateCreated: "01/01/2023",
-      users: [
-        { username: "seancurrie" },
-        { username: "davidcurrie" },
-        { username: "noahcurrie" },
-      ],
-    },
-  ];
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (id) => {
+    console.log(games);
+    let updated = games.map((game) => ({
+      id: game.id,
+      title: game.title,
+      dateCreated: game.dateCreated,
+      users: game.users.map((user) => ({
+        username: user.username,
+      })),
+      expanded: game.id === id ? !game.expanded : game.expanded,
+    }));
+
+    setGames(updated);
   };
 
-  const color = "LightPink";
+  const color = "LemonChiffon";
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
@@ -78,7 +77,7 @@ function CompletedGames() {
       <Typography variant="p">Game details of completed games</Typography>
 
       {games.map((game) => (
-        <Box alignItems="center" sx={{ mt: 5 }}>
+        <Box alignItems="center" sx={{ mt: 5 }} key={game.id}>
           <Card
             sx={{
               m: "auto",
@@ -88,7 +87,7 @@ function CompletedGames() {
               p: 0,
             }}
           >
-            <CardContent paddingBottom="0">
+            <CardContent paddingbottom="0">
               <Grid container spacing={2} sx={{ p: 1 }}>
                 <Grid
                   item
@@ -106,7 +105,9 @@ function CompletedGames() {
                 </Grid>
                 <Grid item xs={3} sx={{ textAlign: "left" }}>
                   <Typography variant="p">Date Created</Typography>
-                  <Typography variant="h4">21/01/21</Typography>
+                  <Typography variant="h4">
+                    {dayjs().format(game.dateCreated).substring(0, 10)}
+                  </Typography>
                 </Grid>
               </Grid>
             </CardContent>
@@ -114,8 +115,8 @@ function CompletedGames() {
             <Divider variant="middle" />
             <CardActions disableSpacing>
               <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
+                expand={game.expanded}
+                onClick={() => handleExpandClick(game.id)}
                 aria-expanded={expanded}
                 aria-label="show more"
                 sx={{ p: 0, mr: 2 }}
@@ -123,8 +124,8 @@ function CompletedGames() {
                 <ExpandMoreIcon />
               </ExpandMore>
             </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent paddingBottom="0" sx={{ p: 1 }}>
+            <Collapse in={game.expanded} timeout="auto" unmountOnExit>
+              <CardContent paddingbottom="0" sx={{ p: 1 }}>
                 <Box sx={{ p: 0, pl: 1 }}>
                   <CardContent sx={{ textAlign: "left", p: 1 }}>
                     <Grid container spacing={2}>
@@ -142,7 +143,7 @@ function CompletedGames() {
                       </Grid>
                       {game.users.map((user) => (
                         <>
-                          <Grid item xs={2}>
+                          <Grid item xs={2} key={user.id}>
                             <Typography variant="h4" sx={{ mt: 1 }}>
                               {game.users.indexOf(user) + 1}
                             </Typography>
