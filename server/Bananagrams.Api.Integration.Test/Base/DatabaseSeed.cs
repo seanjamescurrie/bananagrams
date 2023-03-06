@@ -56,5 +56,18 @@ public static class DatabaseSeed
 
         database.Add(user);
         database.SaveChanges();
+        
+        var gameAnagramType = new GameAnagramType()
+        {
+            Id = 1,
+            Title = "Daily",
+            MaxAttempts = 5,
+            TimeAllowed = 0
+        };
+
+        database.Add(gameAnagramType);
+        database.SaveChanges();
     }
+    
+    
 }

@@ -1,3 +1,5 @@
+using Bananagrams.Dal.Models;
+
 namespace Bananagrams.Service.Dtos;
 
 public class CreateGameDto
@@ -6,4 +8,5 @@ public class CreateGameDto
     public int[] PlayerIds { get; set; }
     public string Title { get; set; }
     public int TotalAnagrams { get; set; }
+    public GameAnagram? DailyAnagram { get; set; }
 }

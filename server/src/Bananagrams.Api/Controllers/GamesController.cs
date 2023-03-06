@@ -1,9 +1,9 @@
 using System.Net;
 using AutoMapper;
 using Bananagrams.Api.ViewModels.Games;
+using Bananagrams.Api.ViewModels.GameTypes;
 using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
-using Bananagrams.Service.Exceptions;
 using Bananagrams.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +15,11 @@ namespace Bananagrams.Api.Controllers;
 public class GamesController : BananagramsBaseController
 {
     private readonly IGameService _gameService;
+    private readonly IGameTypeService _gameTypeService;
     private readonly IMapper _mapper;
 
-    public GamesController(IGameService gameService, IMapper mapper) =>
-        (_gameService, _mapper) = (gameService, mapper);
+    public GamesController(IGameService gameService, IGameTypeService gameTypeService, IMapper mapper) =>
+        (_gameService, _gameTypeService, _mapper) = (gameService, gameTypeService, mapper);
 
     [HttpGet]
     public async Task<ActionResult<IList<GameViewModel>>> GetAll([FromQuery] string? title)
@@ -29,11 +30,31 @@ public class GamesController : BananagramsBaseController
 
         return OkOrNoContent(viewModel);
     }
+    
+    [HttpGet("types/")]
+    public async Task<ActionResult<IList<GameTypeViewModel>>> GetAllGameTypes()
+    {
+        var gameTypes = await _gameTypeService.GetAll();
+
+        var viewModel = _mapper.Map<List<GameTypeViewModel>>(gameTypes);
+
+        return OkOrNoContent(viewModel);
+    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<GameDetailViewModel>> Get(int id)
     {
         var game = await _gameService.Get(id);
+
+        var viewModel = _mapper.Map<GameDetailViewModel>(game);
+
+        return OkOrNoNotFound(viewModel);
+    }
+
+    [HttpGet("daily/{userId}")]
+    public async Task<ActionResult<GameDetailViewModel>> GetDaily(int userId)
+    {
+        var game = await _gameService.GetDaily(userId);
 
         var viewModel = _mapper.Map<GameDetailViewModel>(game);
 

@@ -3,6 +3,7 @@ using AutoMapper;
 using Bananagrams.Api.ViewModels.GameAnagrams;
 using Bananagrams.Api.ViewModels.GameAnagramTypes;
 using Bananagrams.Api.ViewModels.Games;
+using Bananagrams.Api.ViewModels.GameTypes;
 using Bananagrams.Api.ViewModels.GameUserGameAnagrams;
 using Bananagrams.Api.ViewModels.Users;
 using Bananagrams.Api.ViewModels.Words;
@@ -11,6 +12,7 @@ using Bananagrams.Service.Dtos.DailyWords;
 using Bananagrams.Service.Dtos.GameAnagrams;
 using Bananagrams.Service.Dtos.GameAnagramTypes;
 using Bananagrams.Service.Dtos.Games;
+using Bananagrams.Service.Dtos.GameTypes;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Dtos.GameUsers;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
@@ -50,6 +52,7 @@ public class GameProfile : Profile
                 .MapFrom(src => src.Word.Title));
         CreateMap<GameUserGameAnagramDto, GameUserGameAnagramViewModel>();
         CreateMap<GameAnagramTypeDto, GameAnagramTypeViewModel>();
+        CreateMap<GameTypeDto, GameTypeViewModel>();
         CreateMap<WordDto, WordViewModel>();
     }
 

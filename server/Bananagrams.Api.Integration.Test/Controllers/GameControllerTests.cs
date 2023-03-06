@@ -4,6 +4,7 @@ using Bananagrams.Api.Integration.Test.Base;
 using Bananagrams.Api.Integration.Test.Models;
 using Bananagrams.Api.Integration.Test.TestUtilities;
 using Bananagrams.Api.ViewModels.Games;
+using Bananagrams.Api.ViewModels.GameTypes;
 using FluentAssertions;
 using Xunit.Abstractions;
 
@@ -29,6 +30,16 @@ public class GameControllerTests
 
         var value = await response.Content.ReadAsStringAsync();
         _testOutputHelper.WriteLine(value.VerifyDeSerialization<GameViewModel[]>());
+    }
+
+    [Fact]
+    public async Task GetAllGameTypes_WhenGameTypesPresent_ReturnsOk()
+    {
+        var response = await _httpClient.GetAsync("/games/types");
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var value = await response.Content.ReadAsStringAsync();
+        _testOutputHelper.WriteLine(value.VerifyDeSerialization<GameTypeViewModel[]>());
     }
     
     [Fact]

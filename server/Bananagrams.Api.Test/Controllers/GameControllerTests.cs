@@ -3,9 +3,11 @@ using AutoMapper;
 using Bananagrams.Api.Controllers;
 using Bananagrams.Api.Test.Extensions;
 using Bananagrams.Api.ViewModels.Games;
+using Bananagrams.Api.ViewModels.GameTypes;
 using Bananagrams.Api.ViewModels.GameUserGameAnagrams;
 using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.Games;
+using Bananagrams.Service.Dtos.GameTypes;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Interfaces;
 using FluentAssertions;
@@ -19,10 +21,11 @@ namespace Bananagrams.Api.Test.Controllers;
 public class GameControllerTests
 {
     private readonly IGameService _gameService;
+    private readonly IGameTypeService _gameTypeService;
     private readonly IMapper _mapper;
 
     public GameControllerTests() =>
-        (_gameService, _mapper) = (Substitute.For<IGameService>(), Substitute.For<IMapper>());
+        (_gameService, _gameTypeService, _mapper) = (Substitute.For<IGameService>(), Substitute.For<IGameTypeService>(), Substitute.For<IMapper>());
 
     [Fact]
     public async Task GetGames_WhenGamesExist_MapsAndReturnsOk()
@@ -65,6 +68,49 @@ public class GameControllerTests
         
         // Assert
         actionResult.AssertResult<IList<GameViewModel>, NoContentResult>();
+    }
+    
+    [Fact]
+    public async Task GetGameTypes_WhenGameTypesExist_MapsAndReturnsOk()
+    {
+        // Arrange
+        var gameDtos = new List<GameTypeDto>
+        {
+            new()
+        };
+        var gameTypeViewModels = new List<GameTypeViewModel>
+        {
+            new()
+        };
+        var controller = RetrieveController();
+    
+        _gameTypeService.GetAll().Returns(gameDtos);
+        _mapper.Map<List<GameTypeViewModel>>(gameDtos).Returns(gameTypeViewModels);
+    
+    
+        // Act
+        var actionResult = await controller.GetAllGameTypes();
+        
+        // Assert
+        var result = actionResult.AssertObjectResult<IList<GameTypeViewModel>, OkObjectResult>();
+    
+        result.Should().BeSameAs(gameTypeViewModels);
+    
+        await _gameTypeService.Received(1).GetAll();
+        _mapper.Received(1).Map<List<GameTypeViewModel>>(gameDtos);
+    }
+    
+    [Fact]
+    public async Task GetGameTypes_WhenNoneFound_ReturnsNoContent()
+    {
+        // Arrange
+        var controller = RetrieveController();
+    
+        // Act
+        var actionResult = await controller.GetAllGameTypes();
+        
+        // Assert
+        actionResult.AssertResult<IList<GameTypeViewModel>, NoContentResult>();
     }
     
     [Fact]
@@ -173,6 +219,6 @@ public class GameControllerTests
 
     private GamesController RetrieveController()
     {
-        return new GamesController(_gameService, _mapper);
+        return new GamesController(_gameService, _gameTypeService, _mapper);
     }
 }

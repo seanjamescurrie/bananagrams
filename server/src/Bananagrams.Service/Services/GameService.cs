@@ -22,14 +22,15 @@ public class GameService : IGameService
     private readonly IMapper _mapper;
     private readonly ITropicalFruitApiService _tropicalFruitApiService;
 
-    public GameService(IBananagramsDatabase database, IMapper mapper, ITropicalFruitApiService tropicalFruitApiService) =>
+    public GameService(IBananagramsDatabase database, IMapper mapper,
+        ITropicalFruitApiService tropicalFruitApiService) =>
         (_database, _mapper, _tropicalFruitApiService) = (database, mapper, tropicalFruitApiService);
 
     public async Task<IList<GameDto>> GetAll(string? searchWord = null)
     {
         var games = await _mapper.ProjectTo<GameDto>(_database
-            .Get<Game>()
-            .Where(new GameByTitleSpec(searchWord)))
+                .Get<Game>()
+                .Where(new GameByTitleSpec(searchWord)))
             .ToListAsync();
 
         return games;
@@ -38,11 +39,55 @@ public class GameService : IGameService
     public async Task<GameDto> Get(int id)
     {
         var game = await _mapper.ProjectTo<GameDto>(_database
-            .Get<Game>()
-            .Where(new GameByIdSpec(id)))
+                .Get<Game>()
+                .Where(new GameByIdSpec(id)))
             .SingleOrDefaultAsync();
 
         return game ?? throw new NotFoundException($"Could not find game with id: {id}");
+    }
+
+    public async Task<GameDto> GetDaily(int userId)
+    {
+        var games = await _mapper.ProjectTo<GameDto>(_database
+                .Get<Game>()
+                .Where(new GameByDateSpec(DateTime.UtcNow).And(new GameByTypeSpec(1))))
+            .ToListAsync();
+
+        if (games != null && games.Any())
+        {
+            if (games.Any(x => x.GameUsers.Any(x => x.UserId == userId)))
+            {
+                return games.SingleOrDefault(x => x.GameUsers.Any(x => x.UserId == userId));
+            }
+            else
+            {
+                var game = games.FirstOrDefault();
+                var newDailyGame = new CreateGameDto
+                {
+                    GameAnagramTypeId = game.GameAnagramTypeId,
+                    PlayerIds = new[] { userId },
+                    Title = $"Daily {DateTime.UtcNow.ToShortDateString()}",
+                    DailyAnagram = _mapper.Map<GameAnagram>(game.GameAnagrams.FirstOrDefault())
+                };
+                await Create(newDailyGame);
+            }
+        }
+        else
+        {
+            var newDailyGame = new CreateGameDto
+            {
+                PlayerIds = new[] { userId },
+                GameAnagramTypeId = 1,
+                Title = $"Daily {DateTime.UtcNow.ToShortDateString()}",
+                TotalAnagrams = 1
+            };
+            await Create(newDailyGame);
+        }
+
+        return await _mapper.ProjectTo<GameDto>(_database
+                .Get<Game>()
+                .Where(new GameByDateSpec(DateTime.UtcNow).And(new GameByTypeSpec(1)).And(new GameByUserIdSpec(userId))))
+            .SingleOrDefaultAsync();
     }
 
     public async Task Create(CreateGameDto game)
@@ -50,8 +95,17 @@ public class GameService : IGameService
         var newGame = _mapper.Map<Game>(game);
         newGame.GameAnagrams = new List<GameAnagram>();
 
-        var anagrams = await CreateAnagrams(game);
-        
+        var anagrams = new List<GameAnagram>();
+
+        if (game.DailyAnagram != null)
+        {
+            anagrams.Add(game.DailyAnagram);
+        }
+        else
+        {
+            anagrams = await CreateAnagrams(game);
+        }
+
         foreach (var a in anagrams)
         {
             a.GameUserGameAnagrams = newGame.GameUsers.Select(x => new GameUserGameAnagram
@@ -59,14 +113,14 @@ public class GameService : IGameService
                 GameUser = x,
                 GameAnagram = a
             }).ToList();
-            
+
             newGame.GameAnagrams.Add(a);
         }
-        
+
         _database.Add(newGame);
         await _database.SaveChangesAsync();
     }
-    
+
     // public async Task Update(int id, GameDto game)
     // {
     //     var existingGame = _database.Get<Game>().FirstOrDefault( new GameByIdSpec(id));
@@ -88,23 +142,26 @@ public class GameService : IGameService
     //     await _database.SaveChangesAsync();
     // }
 
-    public async Task UpdateGameAnagramForUser(int gameId, int anagramId, UpdateGameUserGameAnagramDto gameUserGameAnagram)
+    public async Task UpdateGameAnagramForUser(int gameId, int anagramId,
+        UpdateGameUserGameAnagramDto gameUserGameAnagram)
     {
-        var existingGameUserGameAnagram = _database.Get<GameUserGameAnagram>().FirstOrDefault(new GameUserGameAnagramByGameIdAnagramIdSpec(gameId, anagramId));
-        
-        if (existingGameUserGameAnagram == null) throw new NotFoundException($"Could not find game with game id: {gameId} and anagram id: {anagramId}");
-        
+        var existingGameUserGameAnagram = _database.Get<GameUserGameAnagram>()
+            .FirstOrDefault(new GameUserGameAnagramByGameIdAnagramIdSpec(gameId, anagramId));
+
+        if (existingGameUserGameAnagram == null)
+            throw new NotFoundException($"Could not find game with game id: {gameId} and anagram id: {anagramId}");
+
         _mapper.Map(gameUserGameAnagram, existingGameUserGameAnagram);
-        
+
         await _database.SaveChangesAsync();
     }
 
-    private async Task<GameAnagram[]> CreateAnagrams(CreateGameDto game)
+    private async Task<List<GameAnagram>> CreateAnagrams(CreateGameDto game)
     {
         var anagrams = new GameAnagram[game.TotalAnagrams];
 
         var fruits = await _tropicalFruitApiService.GetAll("a");
-        
+
         var rnd = new Random();
         var fruitNames = new List<string>();
         for (var i = 1; i <= game.TotalAnagrams; i++)
@@ -113,11 +170,11 @@ public class GameService : IGameService
             fruitNames.Add(fruits.ElementAt(position).Title);
             fruits.Remove(fruits.ElementAt(position));
         }
-        
+
         for (var i = 0; i < fruitNames.Count; i++)
         {
             var word = _mapper.Map<Word>(await _tropicalFruitApiService.Get(fruitNames[i]));
-            
+
             anagrams[i] = new GameAnagram
             {
                 AnagramWord = word.Title.Scramble(),
@@ -128,6 +185,6 @@ public class GameService : IGameService
             };
         }
 
-        return anagrams;
+        return anagrams.ToList();
     }
 }

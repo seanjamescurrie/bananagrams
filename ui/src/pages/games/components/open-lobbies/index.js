@@ -39,10 +39,10 @@ function OpenLobbies({ games }) {
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
-      <Typography variant="h2">Lobbies</Typography>
+      {/* <Typography variant="h2">Lobbies</Typography>
       <Typography variant="p" color={"text.secondary"}>
         Game lobbies waiting on player replies
-      </Typography>
+      </Typography> */}
 
       {games.map((game) => (
         <Box alignItems="center" sx={{ mt: 5 }}>

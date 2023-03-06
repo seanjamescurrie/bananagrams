@@ -15,6 +15,7 @@ import { styled } from "@mui/material/styles";
 import { Box, Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import * as dayjs from "dayjs";
+import { useTheme } from "@emotion/react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,6 +29,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function CompletedGames() {
+  const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
   const [games, setGames] = useState([]);
 
@@ -69,12 +71,10 @@ function CompletedGames() {
     setGames(updated);
   };
 
-  const color = "LemonChiffon";
-
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
-      <Typography variant="h2">Completed Games</Typography>
-      <Typography variant="p">Game details of completed games</Typography>
+      {/* <Typography variant="h2">Completed Games</Typography>
+      <Typography variant="p">Game details of completed games</Typography> */}
 
       {games.map((game) => (
         <Box alignItems="center" sx={{ mt: 5 }} key={game.id}>
@@ -83,7 +83,7 @@ function CompletedGames() {
               m: "auto",
               border: 1,
               borderRadius: "30px",
-              borderColor: color,
+              borderColor: theme.palette.text.main,
               p: 0,
             }}
           >

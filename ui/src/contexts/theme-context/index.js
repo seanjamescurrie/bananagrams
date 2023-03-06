@@ -23,9 +23,6 @@ export const themes = [
         success: {
           main: "#69f0ae",
         },
-        elements: {
-          pink: "LightPink",
-        },
       },
       typography: {
         h1: {
@@ -72,20 +69,22 @@ export const themes = [
       palette: {
         mode: "light",
         primary: {
-          main: "#6a1b9a",
+          main: "#00695c",
           light: "rgba(13,135,234,0.11)",
         },
         secondary: {
-          main: "#ff9800",
-          light: "#e91e63",
+          main: "#ff8a65",
+          light: "#f06292",
           dark: "#ffea00",
           contrastText: "#fff",
         },
         background: {
           default: "#fffde7",
+          paper: "rgba(255,255,255,0.75)",
         },
-        elements: {
-          pink: "DeepPink",
+        text: {
+          primary: "#00695c",
+          secondary: "rgba(0,105,92,0.75)",
         },
       },
       typography: {

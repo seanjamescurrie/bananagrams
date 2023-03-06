@@ -6,6 +6,15 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=003e5996_002Da5e7_002D409a_002D9999_002D587a3c4a5b83/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/sean.currie/Documents/GitHub/bananagrams/server" Presentation="&amp;lt;test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1c2c451e_002D6b3e_002D40db_002D8dfa_002Dd628cfc5690c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetGameTypes_WhenNoneFound_ReturnsNoContent" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::B298DBEA-2B26-4217-901A-97C86CB6CFAA::net7.0::Bananagrams.Api.Test.Controllers.GameControllerTests.GetGameTypes_WhenNoneFound_ReturnsNoContent&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B298DBEA-2B26-4217-901A-97C86CB6CFAA::net7.0::Bananagrams.Api.Test.Controllers.GameControllerTests.GetGameTypes_WhenGameTypesExist_MapsAndReturnsOk&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameTypeServiceTests.GetGameTypes_WhenNoneExists_ReturnEmpty&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameTypeServiceTests.GetGameTypes_WhenExists_ReturnGameTypes&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::30889792-2618-4480-9E7C-D8F9624EC582::net7.0::Bananagrams.Api.Integration.Test.Controllers.GameControllerTests.GetAllGameTypes_WhenGameTypesPresent_ReturnsOk&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	
 	
 	

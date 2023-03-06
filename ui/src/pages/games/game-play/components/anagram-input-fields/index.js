@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import { Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -32,7 +33,11 @@ function AnagramInputFields({ anagram, isDisabled, isAttempt }) {
             id="outlined-basic"
             variant="outlined"
             placeholder={letter}
-            sx={{ width: "3.5em", height: "3.5em", textAlign: "center" }}
+            sx={{
+              width: "3.5em",
+              height: "3.5em",
+              textAlign: "center",
+            }}
             disabled={isDisabled}
             inputProps={{ maxLength: 1, style: { textTransform: "uppercase" } }}
           />

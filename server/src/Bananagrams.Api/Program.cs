@@ -25,6 +25,7 @@ builder.Services.AddScoped<IBananagramsDatabase, BananagramsDatabase>(_ =>
         new BananagramsDatabase(EnvironmentVariables.DbConnectionString))
     .AddScoped<IUserService, UserService>()
     .AddScoped<IGameService, GameService>()
+    .AddScoped<IGameTypeService, GameTypeService>()
     .AddScoped<IWordService, WordService>()
     .AddScoped<IAuthenticationService, AuthenticationService>()
     .AddScoped<ITropicalFruitApiService, TropicalFruitApiService>();

@@ -6,6 +6,7 @@ using Bananagrams.Service.Dtos.DailyWords;
 using Bananagrams.Service.Dtos.GameAnagrams;
 using Bananagrams.Service.Dtos.GameAnagramTypes;
 using Bananagrams.Service.Dtos.Games;
+using Bananagrams.Service.Dtos.GameTypes;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Dtos.GameUsers;
 using Bananagrams.Service.Dtos.Users;
@@ -28,6 +29,8 @@ public class GameProfile : Profile
         CreateMap<GameAnagram, GameAnagramDto>();
         CreateMap<GameUserGameAnagram, GameUserGameAnagramDto>();
         CreateMap<GameAnagramType, GameAnagramTypeDto>();
+        CreateMap<GameAnagramType, GameTypeDto>().ForMember(d => d.Description, o => o
+            .MapFrom(x => x.Title));
         CreateMap<Word, WordDto>();
         CreateMap<Game, GameDto>()
             .ForMember(d => d.TotalAnagrams,o => o
