@@ -2,13 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home, Login, SignUp, Game, CreateGame, Lobby, Games } from "./pages";
 import { Navigation } from "./components";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import { createContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ThemeContext, themes } from "./contexts/theme-context";
-import { useTheme } from "@emotion/react";
-
-export const ColorModeContext = createContext({
-  toggleColorMode: () => {},
-});
 
 function App() {
   const [mode, setMode] = useState(themes[0].theme);

@@ -120,8 +120,7 @@ public class GameControllerTests
         var updateGame = new UpdateGameViewModel
         {
             Attempts = 2,
-            DatePlayed = DateTime.UtcNow,
-            DateSolved = DateTime.UtcNow
+            Attempt = "attempt"
         };
         
         var response = await _httpClient.PutAsJsonAsync($"/games/{id}/Attempt/{anagramId}", updateGame);

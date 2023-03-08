@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function CompletedGames() {
+const CompletedGames = () => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
   const [games, setGames] = useState([]);
@@ -43,8 +43,11 @@ function CompletedGames() {
         id: game.id,
         title: game.title,
         dateCreated: game.dateCreated,
+        totalAnagrams: game.totalAnagrams,
         users: game.gameUsers.map((user) => ({
           username: user.username,
+          totalSolved: user.totalSolved,
+          totalAttempts: user.totalAttempts,
         })),
         expanded: false,
       }));
@@ -62,8 +65,11 @@ function CompletedGames() {
       id: game.id,
       title: game.title,
       dateCreated: game.dateCreated,
+      totalAnagrams: game.totalAnagrams,
       users: game.users.map((user) => ({
         username: user.username,
+        totalSolved: user.totalSolved,
+        totalAttempts: user.totalAttempts,
       })),
       expanded: game.id === id ? !game.expanded : game.expanded,
     }));
@@ -77,7 +83,11 @@ function CompletedGames() {
       <Typography variant="p">Game details of completed games</Typography> */}
 
       {games.map((game) => (
-        <Box alignItems="center" sx={{ mt: 5 }} key={game.id}>
+        <Box
+          alignItems="center"
+          sx={{ mt: 5 }}
+          key={`complete-games-${game.id}`}
+        >
           <Card
             sx={{
               m: "auto",
@@ -101,12 +111,14 @@ function CompletedGames() {
                 </Grid>
                 <Grid item xs={3} sx={{ textAlign: "left" }}>
                   <Typography variant="p">Total Anagrams</Typography>
-                  <Typography variant="h4">3</Typography>
+                  <Typography variant="h4">{game.totalAnagrams}</Typography>
                 </Grid>
                 <Grid item xs={3} sx={{ textAlign: "left" }}>
                   <Typography variant="p">Date Created</Typography>
                   <Typography variant="h4">
-                    {dayjs().format(game.dateCreated).substring(0, 10)}
+                    {dayjs(game.dateCreated)
+                      .format("DD-MM-YYYY")
+                      .substring(0, 10)}
                   </Typography>
                 </Grid>
               </Grid>
@@ -143,7 +155,7 @@ function CompletedGames() {
                       </Grid>
                       {game.users.map((user) => (
                         <>
-                          <Grid item xs={2} key={user.id}>
+                          <Grid item xs={2} key={user.username}>
                             <Typography variant="h4" sx={{ mt: 1 }}>
                               {game.users.indexOf(user) + 1}
                             </Typography>
@@ -169,12 +181,12 @@ function CompletedGames() {
                           </Grid>
                           <Grid item xs={3}>
                             <Typography variant="h4" sx={{ mt: 1 }}>
-                              {game.users.indexOf(user) + 1}
+                              {user.totalSolved}
                             </Typography>
                           </Grid>
                           <Grid item xs={3}>
                             <Typography variant="h4" sx={{ mt: 1 }}>
-                              {game.users.indexOf(user) + 1}
+                              {user.totalAttempts}
                             </Typography>
                           </Grid>
                         </>
@@ -189,6 +201,6 @@ function CompletedGames() {
       ))}
     </Container>
   );
-}
+};
 
 export default CompletedGames;

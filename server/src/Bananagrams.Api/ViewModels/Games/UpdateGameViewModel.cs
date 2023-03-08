@@ -5,8 +5,7 @@ namespace Bananagrams.Api.ViewModels.Games;
 public class UpdateGameViewModel
 {
     public int Attempts { get; set; }
-    public DateTime DatePlayed { get; set; }
-    public DateTime? DateSolved { get; set; }
+    public string Attempt { get; set; }
 }
 
 public class UpdateGameValidator : AbstractValidator<UpdateGameViewModel>
@@ -17,9 +16,9 @@ public class UpdateGameValidator : AbstractValidator<UpdateGameViewModel>
             .NotNull()
             .NotEmpty()
             .WithMessage("Attempts must not be empty.");
-        RuleFor(game => game.DatePlayed)
+        RuleFor(game => game.Attempt)
             .NotNull()
             .NotEmpty()
-            .WithMessage("Date Played must not be empty.");
+            .WithMessage("Attempt must not be empty.");
     }
 }

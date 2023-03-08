@@ -8,14 +8,21 @@ import {
 } from "@mui/material";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../../components/icon";
 import { SelectPlayers, DefineRules, ReviewGame } from "./components";
+import { CreateGameContext } from "../../../contexts/game-context";
 
 const steps = ["Search users", "Create rules", "Review"];
 
 const CreateGame = ({ type }) => {
+  const [newGame, setNewGame] = useState({
+    users: [],
+    rules: { title: "", totalAnagrams: 0, totalAttempts: 0 },
+  });
+  const game = useMemo(() => ({ newGame, setNewGame }), [newGame]);
+
   const [activeStep, setActiveStep] = useState(0);
   const navigate = useNavigate();
 
@@ -67,13 +74,15 @@ const CreateGame = ({ type }) => {
           </Fragment>
         ) : (
           <Fragment>
-            {activeStep === 0 ? (
-              <SelectPlayers></SelectPlayers>
-            ) : activeStep === 1 ? (
-              <DefineRules></DefineRules>
-            ) : (
-              <ReviewGame></ReviewGame>
-            )}
+            <CreateGameContext.Provider value={game}>
+              {activeStep === 0 ? (
+                <SelectPlayers></SelectPlayers>
+              ) : activeStep === 1 ? (
+                <DefineRules></DefineRules>
+              ) : (
+                <ReviewGame></ReviewGame>
+              )}
+            </CreateGameContext.Provider>
             <Stack
               direction="row"
               justifyContent="space-between"

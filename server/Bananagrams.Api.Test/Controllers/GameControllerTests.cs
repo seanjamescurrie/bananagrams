@@ -196,8 +196,7 @@ public class GameControllerTests
         var updateGameUserGameAnagramDto = new UpdateGameUserGameAnagramDto
         {
             Attempts = 500,
-            DatePlayed = DateTime.UtcNow,
-            DateSolved = DateTime.UtcNow
+            Attempt = "attempt"
         };
         var updateGameUserGameAnagramViewModel = new UpdateGameViewModel();
 
@@ -211,7 +210,7 @@ public class GameControllerTests
             await controller.UpdateGameUserGameAnagramAttempt(gameId, anagramId, updateGameUserGameAnagramViewModel);
 
         // Assert
-        actionResult.AssertResult<OkResult>();
+        actionResult.AssertResult<bool, OkObjectResult>();
 
         await _gameService.Received(1).UpdateGameAnagramForUser(gameId, anagramId, updateGameUserGameAnagramDto);
         _mapper.Received(1).Map<UpdateGameUserGameAnagramDto>(updateGameUserGameAnagramViewModel);

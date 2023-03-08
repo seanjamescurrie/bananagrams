@@ -1,9 +1,11 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CreateGameContext } from "../../../../../contexts/game-context";
 
 function SelectPlayers() {
+  const game = useContext(CreateGameContext);
   const [rows, setRows] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchUser, setSearchUser] = useState("");
@@ -71,12 +73,23 @@ function SelectPlayers() {
   }
 
   useEffect(() => {
+    console.log(game.userIds);
+  }, [game]);
+
+  useEffect(() => {
     getUsers();
   }, []);
 
   useEffect(() => {
     fetchData();
   }, [searchUser]);
+
+  function updateUsersList(userIds) {
+    let newGame = {
+      userIds: userIds,
+    };
+    game.setCreateGame(newGame);
+  }
 
   return (
     <>
@@ -119,7 +132,7 @@ function SelectPlayers() {
             checkboxSelection
             disableSelectionOnClick
             experimentalFeatures={{ newEditingApi: true }}
-            onSelectionModelChange={(userIds) => setSelectedUserIds(userIds)}
+            onSelectionModelChange={(userIds) => updateUsersList(userIds)}
           />
         </Box>
       </Box>

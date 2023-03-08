@@ -20,7 +20,7 @@ public class GameAnagram
     [Column("game_anagram_type_id")]
     public int GameAnagramTypeId { get; set; }
     [Column("word_id")]
-    public int WordId { get; set; } 
+    public int WordId { get; set; }
     
     public Game? Game { get; set; }
     public GameAnagramType? GameAnagramType { get; set; }

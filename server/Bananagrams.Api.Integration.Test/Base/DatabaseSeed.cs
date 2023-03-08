@@ -12,7 +12,8 @@ public static class DatabaseSeed
             Id = 1,
             Attempts = 0,
             DatePlayed = DateTime.UtcNow,
-            GameAnagramId = 1
+            GameAnagramId = 1,
+            GameUserId = 1,
         };
         
         var gameAnagram = new GameAnagram
@@ -28,6 +29,17 @@ public static class DatabaseSeed
                 gameUserGameAnagram
             }
         };
+
+        var gameUser = new GameUser
+        {
+            Id = 1,
+            GameId = 1,
+            UserId = 1,
+            GameUserGameAnagrams = new List<GameUserGameAnagram>
+            {
+                gameUserGameAnagram
+            }
+        };
         
         var game = new Game
         {
@@ -37,6 +49,10 @@ public static class DatabaseSeed
             GameAnagrams = new List<GameAnagram>
             {
                 gameAnagram
+            },
+            GameUsers = new List<GameUser>
+            {
+                gameUser
             }
         };
 

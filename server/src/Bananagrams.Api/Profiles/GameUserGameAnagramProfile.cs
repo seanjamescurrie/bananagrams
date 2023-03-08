@@ -17,7 +17,6 @@ public class GameUserGameAnagramProfile : Profile
     {
         CreateMap<UpdateGameViewModel, UpdateGameUserGameAnagramDto>()
             .ForMember(x => x.Attempts, opt => opt.MapFrom(src => src.Attempts))
-            .ForMember(x => x.DatePlayed, opt => opt.MapFrom(src => src.DatePlayed))
-            .ForMember(x => x.DateSolved, opt => opt.MapFrom(src => src.DateSolved));
+            .ForMember(x => x.Attempt, o => o.MapFrom(src => src.Attempt));
     }
 }

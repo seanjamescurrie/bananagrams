@@ -14,8 +14,9 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Box, Container } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as dayjs from "dayjs";
+import { useTheme } from "@emotion/react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,14 +29,52 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function OpenLobbies({ games }) {
+const OpenLobbies = () => {
+  const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
+  const [games, setGames] = useState([]);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  async function fetchData() {
+    const response = await fetch("http://localhost:5016/games", {
+      method: "GET",
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      let foundGames = data.map((game) => ({
+        id: game.id,
+        title: game.title,
+        dateCreated: game.dateCreated,
+        totalAnagrams: game.totalAnagrams,
+        users: game.gameUsers.map((user) => ({
+          username: user.username,
+        })),
+        expanded: false,
+      }));
+      setGames(foundGames);
+
+      console.log(data);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleExpandClick = (id) => {
+    console.log(games);
+    let updated = games.map((game) => ({
+      id: game.id,
+      title: game.title,
+      dateCreated: game.dateCreated,
+      totalAnagrams: game.totalAnagrams,
+      users: game.users.map((user) => ({
+        username: user.username,
+      })),
+      expanded: game.id === id ? !game.expanded : game.expanded,
+    }));
+
+    setGames(updated);
   };
-
-  const color = "LightPink";
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
@@ -45,13 +84,13 @@ function OpenLobbies({ games }) {
       </Typography> */}
 
       {games.map((game) => (
-        <Box alignItems="center" sx={{ mt: 5 }}>
+        <Box alignItems="center" sx={{ mt: 5 }} key={`open-lobbies-${game.id}`}>
           <Card
             sx={{
               m: "auto",
               border: 1,
               borderRadius: "30px",
-              borderColor: color,
+              borderColor: theme.palette.text.main,
               p: 0,
             }}
           >
@@ -75,7 +114,9 @@ function OpenLobbies({ games }) {
                   <Grid item xs={3} sx={{ textAlign: "left" }}>
                     <Typography variant="p">Date Created</Typography>
                     <Typography variant="h4">
-                      {dayjs().format(game.dateCreated).substring(0, 10)}
+                      {dayjs(game.dateCreated)
+                        .format("DD-MM-YYYY")
+                        .substring(0, 10)}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -85,8 +126,8 @@ function OpenLobbies({ games }) {
             <Divider variant="middle" />
             <CardActions disableSpacing>
               <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
+                expand={game.expanded}
+                onClick={() => handleExpandClick(game.id)}
                 aria-expanded={expanded}
                 aria-label="show more"
                 sx={{ p: 0, mr: 2 }}
@@ -94,14 +135,14 @@ function OpenLobbies({ games }) {
                 <ExpandMoreIcon />
               </ExpandMore>
             </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Collapse in={game.expanded} timeout="auto" unmountOnExit>
               <CardContent paddingBottom="0" sx={{ p: 1 }}>
                 <Box sx={{ p: 0, pl: 1 }}>
                   <CardContent sx={{ textAlign: "left", p: 1 }}>
                     <Typography variant="p">Users</Typography>
                     <Grid container spacing={2}>
                       {game.users.map((user) => (
-                        <Grid item xs={4}>
+                        <Grid item xs={4} key={`${user.username}`}>
                           <Box
                             sx={{
                               mt: 2,
@@ -135,6 +176,6 @@ function OpenLobbies({ games }) {
       ))}
     </Container>
   );
-}
+};
 
 export default OpenLobbies;

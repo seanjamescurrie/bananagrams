@@ -8,7 +8,6 @@ namespace Bananagrams.Api.ViewModels.Games;
 public class GameViewModel
 {
     public int Id { get; set; }
-    public int GameAnagramTypeId { get; set; }
     public DateTime DateCreated { get; set; }
     public string? Title { get; set; }
     public int TotalAnagrams { get; set; }

@@ -13,9 +13,10 @@ public class GameServiceTests
     private readonly IBananagramsDatabase _database;
     private readonly IMapper _mapper;
     private readonly ITropicalFruitApiService _tropicalFruitApiService;
-    
+
     public GameServiceTests() =>
-    (_database, _mapper, _tropicalFruitApiService) = (Substitute.For<IBananagramsDatabase>(), Substitute.For<IMapper>(), Substitute.For<ITropicalFruitApiService>());
+        (_database, _mapper, _tropicalFruitApiService) = (Substitute.For<IBananagramsDatabase>(),
+            Substitute.For<IMapper>(), Substitute.For<ITropicalFruitApiService>());
 
     [Fact]
     public async Task GetGames_WhenNoSearchWordAndGamesExist_ReturnsAllGames()
@@ -42,7 +43,7 @@ public class GameServiceTests
         result.Should().BeOfType<List<GameDto>>();
         result.Should().Contain(gameDtos);
     }
-    
+
     [Fact]
     public async Task GetGames_WhenValidSearchWordPassed_ReturnGame()
     {
@@ -60,20 +61,20 @@ public class GameServiceTests
                 Title = game.Title
             }
         }.BuildMock();
-        
+
         var service = RetrieveService();
-        
+
         _database.Get<Game>().Returns(games.AsQueryable());
         _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 1 && x.Contains(game))).Returns(gameDtos);
-        
+
         // Act
-        var result =  await service.GetAll("Search");
-          
+        var result = await service.GetAll("Search");
+
         // Assert
         result.Should().NotBeNull();
         result?.Should().Contain(gameDtos.ElementAt(0));
     }
-    
+
     [Fact]
     public async Task GetGames_WhenInvalidSearchWordPassed_ReturnEmpty()
     {
@@ -84,20 +85,20 @@ public class GameServiceTests
         };
         var game = games.FirstOrDefault();
         var gameDtos = new List<GameDto>().BuildMock();
-        
+
         var service = RetrieveService();
-         
+
         _database.Get<Game>().Returns(games.AsQueryable());
         _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 0)).Returns(gameDtos);
-        
+
         // Act
-        var result =  await service.GetAll("Word");
-          
+        var result = await service.GetAll("Word");
+
         // Assert
         result.Should().NotBeNull();
         result?.Should().Equal(gameDtos);
     }
-    
+
     [Fact]
     public async Task GetGame_WhenValidIdPassed_ReturnDetails()
     {
@@ -118,13 +119,13 @@ public class GameServiceTests
         }.BuildMock();
 
         var service = RetrieveService();
-        
+
         _database.Get<Game>().Returns(games.AsQueryable());
         _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 1 && x.Contains(game))).Returns(gameDtos);
 
         // Act
-        var result =  await service.Get(game.Id);
-          
+        var result = await service.Get(game.Id);
+
         // Assert
         result.Should().NotBeNull();
         result?.Should().Be(gameDtos.ElementAt(0));
@@ -175,33 +176,43 @@ public class GameServiceTests
         // Arrange
         const int gameId = 1;
         const int anagramId = 1;
+        const int userId = 1;
+        const int gameUserId = 1;
 
         var gameUserGameAnagrams = new List<GameUserGameAnagram>
         {
             new GameUserGameAnagram
             {
                 Attempts = 0,
+                GameAnagramId = anagramId,
                 GameAnagram = new GameAnagram
                 {
                     Id = anagramId,
                     GameId = gameId
+                },
+                GameUserId = gameUserId,
+                GameUser = new GameUser
+                {
+                    Id = gameUserId,
+                    UserId = userId
                 }
             }
-        };
+        }.BuildMock();
 
         var updateGameDto = new UpdateGameUserGameAnagramDto()
         {
             Attempts = 2,
-            DateSolved = DateTime.UtcNow
+            Attempt = "attempt"
         };
         var updateGameUserGameAnagram = new GameUserGameAnagram()
         {
             Attempts = 2,
+            DatePlayed = DateTime.Now,
             DateSolved = DateTime.Now
         };
 
         var service = RetrieveService();
-        
+
         _database.Get<GameUserGameAnagram>().Returns(gameUserGameAnagrams.AsQueryable());
         _mapper.Map(updateGameDto, updateGameUserGameAnagram);
 
@@ -218,23 +229,34 @@ public class GameServiceTests
         // Arrange
         const int gameId = 1;
         const int anagramId = 1;
-    
-        var gameUserGameAnagrams = new List<GameUserGameAnagram>();
-    
+
+        var gameUserGameAnagrams = new List<GameUserGameAnagram>
+        {
+            new GameUserGameAnagram
+            {
+                Id = 2,
+                GameAnagramId = 2,
+                GameAnagram = new GameAnagram(),
+                GameUserId = 2,
+                GameUser = new GameUser()
+            }
+        }.BuildMock();
+
         var updateGameDto = new UpdateGameUserGameAnagramDto()
         {
             Attempts = 2,
             DateSolved = DateTime.UtcNow
         };
-    
+
         var service = RetrieveService();
-        
+
         _database.Get<GameUserGameAnagram>().Returns(gameUserGameAnagrams.AsQueryable());
-    
-       // Act / Assert
-        await Assert.ThrowsAsync<NotFoundException>(async () => await service.UpdateGameAnagramForUser(gameId, anagramId, updateGameDto)); 
+
+        // Act / Assert
+        await Assert.ThrowsAsync<NotFoundException>(async () =>
+            await service.UpdateGameAnagramForUser(gameId, anagramId, updateGameDto));
     }
-    
+
     // [Fact]
     // public async Task CreateGame_WhenValidDataPassed_AddToDatabase()
     // {

@@ -18,10 +18,9 @@ public class UserProfile : Profile
 
     private void ConfigureDomainToDto()
     {
-        CreateMap<User, UserDto>();
+        CreateMap<User, UserDto>()
+            .ForMember(d => d.GameUsers, o => o.Ignore());
         CreateMap<User, UpdateUserDto>();
-        CreateMap<GameUser, GameUserDto>();
-        CreateMap<Game, GameDto>();
     }
 
     private void ConfigureDtoToDomain()

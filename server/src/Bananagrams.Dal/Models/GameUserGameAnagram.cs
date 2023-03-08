@@ -20,8 +20,6 @@ public class GameUserGameAnagram
     public int GameUserId { get; set; }
     [Column("game_anagram_id")]
     public int GameAnagramId { get; set; }
-    [AllowNull]
     public GameUser GameUser { get; set; }    
-    [AllowNull]
     public GameAnagram GameAnagram { get; set; }
 }

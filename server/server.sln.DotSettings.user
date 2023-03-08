@@ -3,16 +3,64 @@
   &lt;Assembly Path="/Users/sean.currie/.nuget/packages/unosquare.entityframework.specification.efcore/1.0.7/lib/netstandard2.1/Unosquare.EntityFramework.Specification.Common.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/sean.currie/Library/Caches/JetBrains/Rider2022.3/resharper-host/temp/Rider/vAny/CoverageData/_server.2003562590/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=003e5996_002Da5e7_002D409a_002D9999_002D587a3c4a5b83/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=003e5996_002Da5e7_002D409a_002D9999_002D587a3c4a5b83/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/sean.currie/Documents/GitHub/bananagrams/server" Presentation="&amp;lt;test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1c2c451e_002D6b3e_002D40db_002D8dfa_002Dd628cfc5690c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetGameTypes_WhenNoneFound_ReturnsNoContent" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=19024363_002D627f_002D4c50_002Daeaf_002D71d674eccfde/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGame_WhenGameNotFound_ThrowException #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1c2c451e_002D6b3e_002D40db_002D8dfa_002Dd628cfc5690c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetGameTypes_WhenNoneFound_ReturnsNoContent" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::B298DBEA-2B26-4217-901A-97C86CB6CFAA::net7.0::Bananagrams.Api.Test.Controllers.GameControllerTests.GetGameTypes_WhenNoneFound_ReturnsNoContent&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::B298DBEA-2B26-4217-901A-97C86CB6CFAA::net7.0::Bananagrams.Api.Test.Controllers.GameControllerTests.GetGameTypes_WhenGameTypesExist_MapsAndReturnsOk&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameTypeServiceTests.GetGameTypes_WhenNoneExists_ReturnEmpty&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameTypeServiceTests.GetGameTypes_WhenExists_ReturnGameTypes&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::30889792-2618-4480-9E7C-D8F9624EC582::net7.0::Bananagrams.Api.Integration.Test.Controllers.GameControllerTests.GetAllGameTypes_WhenGameTypesPresent_ReturnsOk&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::30889792-2618-4480-9E7C-D8F9624EC582::net7.0::Bananagrams.Api.Integration.Test.Controllers.GameControllerTests.UpdateGameUserGameAnagramAttempt_WhenGameDetailsValid_ReturnsOk&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::30889792-2618-4480-9E7C-D8F9624EC582::net7.0::Bananagrams.Api.Integration.Test.Controllers.GameControllerTests.Get_WhenGameFound_ReturnsOk&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1d9579ea_002D90e3_002D421c_002Db027_002Daa30760fe2eb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGame_WhenGameNotFound_ThrowException #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=28e16284_002D4d35_002D4980_002D901e_002D93239b403fcc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGameUserGameAnagramAttempt_WhenGameDetailsValid_ReturnsOk #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::30889792-2618-4480-9E7C-D8F9624EC582::net7.0::Bananagrams.Api.Integration.Test.Controllers.GameControllerTests.UpdateGameUserGameAnagramAttempt_WhenGameDetailsValid_ReturnsOk&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::B298DBEA-2B26-4217-901A-97C86CB6CFAA::net7.0::Bananagrams.Api.Test.Controllers.GameControllerTests.UpdateGame_WhenDataExists_MapsAndReturnsOk&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenValidDataPassed_UpdateDatabase&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.GetGame_WhenValidIdPassed_ReturnDetails&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=36b9f76b_002D7963_002D4aa4_002Db165_002D7dddbd7a4295/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UpdateGame_WhenValidDataPassed_UpdateDatabase" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenValidDataPassed_UpdateDatabase&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5eb4bfb0_002Db959_002D4565_002D9a5f_002Db0e5695f7915/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGame_WhenGameNotFound_ThrowException" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=68f0b4a6_002D3cbd_002D46f9_002D8f24_002D718b97ef4fa4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGame_WhenGameNotFound_ThrowException #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenValidDataPassed_UpdateDatabase&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7a0f981f_002D5d1e_002D4cc9_002Db5f4_002D06fd8f921576/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGameUserGameAnagramAttempt_WhenGameDetailsValid_ReturnsOk" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::30889792-2618-4480-9E7C-D8F9624EC582::net7.0::Bananagrams.Api.Integration.Test.Controllers.GameControllerTests.UpdateGameUserGameAnagramAttempt_WhenGameDetailsValid_ReturnsOk&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a2faabbe_002D0e35_002D4157_002D87f2_002D1d8a402bad8b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UpdateGame_WhenGameNotFound_ThrowException #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::8B6AA97C-A6C1-42DF-B619-E6C947164678::net7.0::Bananagrams.Service.Test.Services.GameServiceTests.UpdateGame_WhenGameNotFound_ThrowException&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	

@@ -71,12 +71,12 @@ public class GamesController : BananagramsBaseController
     }
 
     [HttpPut("{id}/Attempt/{anagramId}")]
-    public async Task<ActionResult> UpdateGameUserGameAnagramAttempt(int id, int anagramId, [FromBody] UpdateGameViewModel gameDetails)
+    public async Task<ActionResult<bool>> UpdateGameUserGameAnagramAttempt(int id, int anagramId, [FromBody] UpdateGameViewModel gameDetails)
     {
         var updateGame = _mapper.Map<UpdateGameUserGameAnagramDto>(gameDetails);
         
-        await _gameService.UpdateGameAnagramForUser(id, anagramId, updateGame);
+        var isSolved = await _gameService.UpdateGameAnagramForUser(id, anagramId, updateGame);
         
-        return Ok();
+        return OkOrNoNotFound(isSolved);
     }
 }

@@ -23,7 +23,6 @@ public class UserProfile : Profile
         CreateMap<UserDto, UserViewModel>();
         CreateMap<UserDto, UserDetailViewModel>();
         CreateMap<GameUserDto, GameUserViewModel>();
-        CreateMap<GameDto, GameViewModel>();
         CreateMap<UserDto, UpdateUserViewModel>()
             .ForMember(d => d.FirstName, o => o.MapFrom(s => s.FirstName))
             .ForMember(d => d.LastName, o => o.MapFrom(s => s.LastName))

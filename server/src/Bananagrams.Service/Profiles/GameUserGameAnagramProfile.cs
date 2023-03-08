@@ -21,9 +21,7 @@ public class GameUserGameAnagramProfile : Profile
     private void ConfigureDomainToDto()
     {
         CreateMap<GameUserGameAnagram, GameUserGameAnagramDto>();
-        CreateMap<GameUser, GameUserDto>();
         CreateMap<GameAnagram, GameAnagramDto>();
-        CreateMap<Game, GameDto>();
         CreateMap<User, UserDto>();
     }
     

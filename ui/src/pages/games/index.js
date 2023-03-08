@@ -14,9 +14,15 @@ const Games = () => {
   const [viewCompleted, setViewCompleted] = useState(false);
   const [games, setGames] = useState([]);
 
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
   const containerRef = useRef(null);
 
-  async function fetchData() {
+  const fetchData = async () => {
     const response = await fetch("http://localhost:5016/games", {
       method: "GET",
     });
@@ -32,9 +38,11 @@ const Games = () => {
       }));
       setGames(foundGames);
     }
-  }
+  };
 
-  const content = <CompletedGames></CompletedGames>;
+  // const content = <CompletedGames></CompletedGames>;
+  const completedGames = <CompletedGames></CompletedGames>;
+  const openLobbies = <OpenLobbies games={games}></OpenLobbies>;
 
   useEffect(() => {
     fetchData();
@@ -86,15 +94,26 @@ const Games = () => {
         )}
 
         {/* <FormControlLabel
-          control={<Switch checked={viewCompleted} onChange={UpdateList} />}
-          label="Show from target"
+          control={
+            // <Button
+            //   onClick={handleChange}
+            //   variant="outlined"
+            //   sx={{
+            //     mb: 2,
+            //   }}
+            // >
+            //   {checked ? "View Open Lobbies" : "View Completed Games"}
+            // </Button>
+            <Switch checked={checked} onChange={handleChange} />
+          }
+          label="target"
         />
-        <Slide
-          direction="up"
-          in={viewCompleted}
-          container={containerRef.current}
-        >
-          {content}
+        <Slide direction="left" in={checked} container={containerRef.current}>
+          <>{completedGames}</>
+        </Slide>
+
+        <Slide direction="right" in={!checked} container={containerRef.current}>
+          <>{openLobbies}</>
         </Slide> */}
       </Container>
     </>

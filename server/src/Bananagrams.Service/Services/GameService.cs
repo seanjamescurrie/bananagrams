@@ -13,6 +13,7 @@ using Bananagrams.Service.HttpClients;
 using Bananagrams.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Unosquare.EntityFramework.Specification.Common.Extensions;
+using Unosquare.EntityFramework.Specification.EFCore.Extensions;
 
 namespace Bananagrams.Service.Services;
 
@@ -66,7 +67,7 @@ public class GameService : IGameService
                 {
                     GameAnagramTypeId = game.GameAnagramTypeId,
                     PlayerIds = new[] { userId },
-                    Title = $"Daily {DateTime.UtcNow.ToShortDateString()}",
+                    Title = $"{DateTime.UtcNow.ToShortDateString()}",
                     DailyAnagram = _mapper.Map<GameAnagram>(game.GameAnagrams.FirstOrDefault())
                 };
                 await Create(newDailyGame);
@@ -78,7 +79,7 @@ public class GameService : IGameService
             {
                 PlayerIds = new[] { userId },
                 GameAnagramTypeId = 1,
-                Title = $"Daily {DateTime.UtcNow.ToShortDateString()}",
+                Title = $"{DateTime.UtcNow.ToShortDateString()}",
                 TotalAnagrams = 1
             };
             await Create(newDailyGame);
@@ -86,7 +87,8 @@ public class GameService : IGameService
 
         return await _mapper.ProjectTo<GameDto>(_database
                 .Get<Game>()
-                .Where(new GameByDateSpec(DateTime.UtcNow).And(new GameByTypeSpec(1)).And(new GameByUserIdSpec(userId))))
+                .Where(new GameByDateSpec(DateTime.UtcNow).And(new GameByTypeSpec(1))
+                    .And(new GameByUserIdSpec(userId))))
             .SingleOrDefaultAsync();
     }
 
@@ -142,18 +144,33 @@ public class GameService : IGameService
     //     await _database.SaveChangesAsync();
     // }
 
-    public async Task UpdateGameAnagramForUser(int gameId, int anagramId,
+    public async Task<bool> UpdateGameAnagramForUser(int gameId, int anagramId,
         UpdateGameUserGameAnagramDto gameUserGameAnagram)
     {
-        var existingGameUserGameAnagram = _database.Get<GameUserGameAnagram>()
-            .FirstOrDefault(new GameUserGameAnagramByGameIdAnagramIdSpec(gameId, anagramId));
+        var isSolved = false;
+        var existingGameUserGameAnagram = await _database.Get<GameUserGameAnagram>()
+            .Include(x => x.GameAnagram)
+            .ThenInclude(x => x.Word)
+            .Include(x => x.GameUser)
+            .Where(new GameUserGameAnagramByGameIdSpec(gameId).And(new GameUserGameAnagramAnagramIdSpec(anagramId))
+                .And(new GameUserGameAnagramByUserIdSpec(1)))
+            .SingleOrDefaultAsync();
 
         if (existingGameUserGameAnagram == null)
             throw new NotFoundException($"Could not find game with game id: {gameId} and anagram id: {anagramId}");
 
+        gameUserGameAnagram.DatePlayed = DateTime.UtcNow;
+
+        if (gameUserGameAnagram.Attempt == existingGameUserGameAnagram.GameAnagram.Word.Title)
+        {
+            gameUserGameAnagram.DateSolved = DateTime.UtcNow;
+            isSolved = true;
+        }
+
         _mapper.Map(gameUserGameAnagram, existingGameUserGameAnagram);
 
         await _database.SaveChangesAsync();
+        return isSolved;
     }
 
     private async Task<List<GameAnagram>> CreateAnagrams(CreateGameDto game)

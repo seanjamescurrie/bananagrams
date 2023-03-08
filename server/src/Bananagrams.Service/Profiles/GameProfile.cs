@@ -25,7 +25,11 @@ public class GameProfile : Profile
     
     private void ConfigureDomainToDto()
     {
-        CreateMap<GameUser, GameUserDto>();
+        CreateMap<GameUser, GameUserDto>()
+            .ForMember(d => d.TotalAttempts, o => o
+                .MapFrom(s => s.GameUserGameAnagrams.Select(x => x.Attempts).Sum()))
+            .ForMember(d => d.TotalSolved, o => o
+                .MapFrom(s => s.GameUserGameAnagrams.Count(x => x.DateSolved != null)));
         CreateMap<GameAnagram, GameAnagramDto>();
         CreateMap<GameUserGameAnagram, GameUserGameAnagramDto>();
         CreateMap<GameAnagramType, GameAnagramTypeDto>();
@@ -34,9 +38,9 @@ public class GameProfile : Profile
         CreateMap<Word, WordDto>();
         CreateMap<Game, GameDto>()
             .ForMember(d => d.TotalAnagrams,o => o
-                .MapFrom(s => s.GameAnagrams == null || !s.GameAnagrams.Any() ? 0 : s.GameAnagrams.Count))
-            .ForMember(d => d.GameAnagramTypeId, o => o
-                .MapFrom(s => s.GameAnagrams.FirstOrDefault().GameAnagramTypeId));
+                .MapFrom(s => s.GameAnagrams.Any() ? s.GameAnagrams.Count : 0))
+            .ForMember(d => d.GameAnagramType, o => o
+                .MapFrom( s => s.GameAnagrams.FirstOrDefault().GameAnagramType));
     }
     
     private void ConfigureDtoToDomain()

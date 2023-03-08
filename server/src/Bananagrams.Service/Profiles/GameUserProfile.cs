@@ -18,8 +18,6 @@ public class GameUserProfile : Profile
 
     private void ConfigureToDomain()
     {
-        CreateMap<GameUser, GameUserDto>();
-        CreateMap<Game, GameDto>();
         CreateMap<User, UserDto>();
         CreateMap<GameUserGameAnagram, GameUserGameAnagramDto>();
     }
