@@ -1,15 +1,16 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
-import { useContext, useEffect, useState } from "react";
-import { CreateGameContext } from "../../../../../contexts/game-context";
+import { useEffect, useState } from "react";
+import { useCreateGame } from "../../../../../contexts/create-game-context";
 
 function SelectPlayers() {
-  const game = useContext(CreateGameContext);
+  const game = useCreateGame();
+
   const [rows, setRows] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchUser, setSearchUser] = useState("");
-  const [selectedUserIds, setSelectedUserIds] = useState([]);
+  console.log(JSON.stringify(game));
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -52,7 +53,7 @@ function SelectPlayers() {
     }
   };
 
-  async function fetchData() {
+  async function updateUserList() {
     let searchResults = [];
     if (searchUser !== "") {
       users.forEach((user) => {
@@ -73,22 +74,15 @@ function SelectPlayers() {
   }
 
   useEffect(() => {
-    console.log(game.userIds);
-  }, [game]);
+    updateUserList();
+  }, [searchUser]);
 
   useEffect(() => {
     getUsers();
   }, []);
 
-  useEffect(() => {
-    fetchData();
-  }, [searchUser]);
-
-  function updateUsersList(userIds) {
-    let newGame = {
-      userIds: userIds,
-    };
-    game.setCreateGame(newGame);
+  function updateUserIdList(userIds) {
+    game.dispatch({ type: "userIds", payload: { value: userIds } });
   }
 
   return (
@@ -132,7 +126,8 @@ function SelectPlayers() {
             checkboxSelection
             disableSelectionOnClick
             experimentalFeatures={{ newEditingApi: true }}
-            onSelectionModelChange={(userIds) => updateUsersList(userIds)}
+            selectionModel={game.state.userIds}
+            onSelectionModelChange={(userIds) => updateUserIdList(userIds)}
           />
         </Box>
       </Box>

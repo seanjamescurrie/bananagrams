@@ -5,6 +5,9 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { useMemo, useState } from "react";
 import { ThemeContext, themes } from "./contexts/theme-context";
 
+import { CreateGameProvider } from "./contexts/create-game-context";
+import { GamePlayProvider } from "./contexts/game-play-context";
+
 function App() {
   const [mode, setMode] = useState(themes[0].theme);
   const colorMode = useMemo(
@@ -26,18 +29,22 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Navigation>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/games" element={<Games />} />
-              <Route path="/games/1" element={<Game />} />
-              <Route
-                path="/games/create"
-                element={<CreateGame type="create" />}
-              />
-              <Route path="/games/1/lobby" element={<Lobby />} />
-            </Routes>
+            <CreateGameProvider>
+              <GamePlayProvider>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/games" element={<Games />} />
+                  <Route path="/games/:id" element={<Game />} />
+                  <Route
+                    path="/games/create"
+                    element={<CreateGame type="create" />}
+                  />
+                  <Route path="/games/:id/lobby/" element={<Lobby />} />
+                </Routes>
+              </GamePlayProvider>
+            </CreateGameProvider>
           </Navigation>
         </BrowserRouter>
       </ThemeProvider>

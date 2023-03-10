@@ -8,6 +8,12 @@ public class CreateGameViewModel
     public int[] PlayerIds { get; set; }
     public string Title { get; set; }
     public int TotalAnagrams { get; set; }
+    public int TotalAttempts { get; set; }
+}
+
+public class GameCreatedViewModel
+{
+    public int Id { get; set; }      
 }
 
 public class CreateGameValidator : AbstractValidator<CreateGameViewModel>

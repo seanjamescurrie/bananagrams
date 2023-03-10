@@ -92,7 +92,7 @@ public class GameService : IGameService
             .SingleOrDefaultAsync();
     }
 
-    public async Task Create(CreateGameDto game)
+    public async Task<int> Create(CreateGameDto game)
     {
         var newGame = _mapper.Map<Game>(game);
         newGame.GameAnagrams = new List<GameAnagram>();
@@ -121,6 +121,8 @@ public class GameService : IGameService
 
         _database.Add(newGame);
         await _database.SaveChangesAsync();
+
+        return newGame.Id;
     }
 
     // public async Task Update(int id, GameDto game)

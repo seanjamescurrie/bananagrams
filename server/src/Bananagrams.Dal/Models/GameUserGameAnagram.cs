@@ -13,7 +13,7 @@ public class GameUserGameAnagram
     [Column("attempts")]
     public int Attempts { get; set; }
     [Column("date_played")]
-    public DateTime DatePlayed { get; set; }
+    public DateTime? DatePlayed { get; set; }
     [Column("date_solved")]
     public DateTime? DateSolved { get; set; }
     [Column("game_user_id")]

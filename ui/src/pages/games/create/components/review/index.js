@@ -1,12 +1,38 @@
 import { Avatar, Divider, Grid, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
+import { useEffect, useState } from "react";
+import { useCreateGame } from "../../../../../contexts/create-game-context";
 
 function ReviewGame() {
-  const users = [
-    { username: "seancurrie" },
-    { username: "davidcurrie" },
-    { username: "noahcurrie" },
-  ];
+  const game = useCreateGame();
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    const response = await fetch("http://localhost:5016/users", {
+      method: "GET",
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      let foundUsers = data.map((user) => ({
+        id: user.id,
+        username: user.username,
+      }));
+      let filteredUsers = [];
+      foundUsers.map((user) => {
+        if (game.state.userIds.includes(user.id)) {
+          filteredUsers.push(user);
+        }
+      });
+      setUsers(filteredUsers);
+      console.log(users);
+    } else {
+      console.log("error");
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>
@@ -19,14 +45,14 @@ function ReviewGame() {
       <Box textAlign="left" sx={{ m: "auto", mt: 5, width: 1 / 2 }}>
         <Box sx={{ mt: 5, mb: 2 }}>
           <Typography variant="h5"> Title</Typography>
-          <Typography variant="h4"> Bananarama</Typography>
+          <Typography variant="h4"> {game.state.title}</Typography>
         </Box>
         <Divider />
         <Box sx={{ mt: 2, mb: 4 }}>
           <Typography variant="h5"> Users</Typography>
           <Stack direction="row">
             {users.map((user) => (
-              <Box sx={{ m: "auto", mt: 1 }}>
+              <Box sx={{ m: "auto", mt: 1 }} key={`${user.username}`}>
                 <Avatar sx={{ m: "auto", mb: 1 }}></Avatar>
                 <Typography variant="body1">{user.username}</Typography>
               </Box>
@@ -40,7 +66,7 @@ function ReviewGame() {
           </Grid>
           <Grid item xs={4}>
             <Typography variant="h4" sx={{ textAlign: "right" }}>
-              5
+              {game.state.totalAnagrams}
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -48,7 +74,7 @@ function ReviewGame() {
           </Grid>
           <Grid item xs={4}>
             <Typography variant="h4" sx={{ textAlign: "right" }}>
-              5
+              {game.state.totalAttempts}
             </Typography>
           </Grid>
           <Grid item xs={12} sx={{ mb: 2 }}>

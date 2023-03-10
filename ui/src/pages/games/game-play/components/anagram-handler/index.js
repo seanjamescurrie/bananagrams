@@ -1,15 +1,13 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useContext, useMemo, useState } from "react";
-import { AnagramInputField } from "..";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { AnagramInputFields } from "..";
 import AnagramDisplayField from "../anagram-display-field";
-import {
-  AnagramRowContext,
-  AnagramAttemptContext,
-} from "../../../../../contexts/game-context";
+import { AnagramAttemptContext } from "../../../../../contexts/game-context";
+import { useGamePlay } from "../../../../../contexts/game-play-context";
 
 function AnagramHandler({ game }) {
-  const row = useContext(AnagramRowContext);
+  const gamePlayContext = useGamePlay();
 
   const [anagramAttempt, setAnagramAttempt] = useState({
     attempt: "",
@@ -22,7 +20,6 @@ function AnagramHandler({ game }) {
   );
 
   const displayAttempts = (anagram) => {
-    row.setAnagramRow(anagram.gameUserGameAnagrams[0].attempts);
     let content = [];
     for (let i = 0; i < game.gameType.maxAttempts; i++) {
       anagram.isDisabled =
@@ -36,14 +33,15 @@ function AnagramHandler({ game }) {
           value={attempt}
           key={`${anagram.id}-context-${i}`}
         >
-          <AnagramInputField
+          <AnagramInputFields
             anagramId={anagram.id}
             key={`${anagram.id}-attempts-${i}`}
             anagram={anagram.anagramWord}
             isDisabled={anagram.isDisabled}
             isAttempt={true}
             attempts={anagram.gameUserGameAnagrams[0].attempts}
-          ></AnagramInputField>
+            currentRow={i}
+          ></AnagramInputFields>
         </AnagramAttemptContext.Provider>
       );
     }
@@ -78,7 +76,10 @@ function AnagramHandler({ game }) {
     setAnagramAttempt(anagramAttempt);
     console.log(anagramAttempt);
     updateAnagramAttempts();
-    row.setAnagramRow(row + 1);
+    gamePlayContext.dispatch({
+      type: "anagramRow",
+      payload: { value: row2.state.anagramRow + 1 },
+    });
   }
 
   return (

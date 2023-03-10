@@ -8,12 +8,17 @@ import {
   AnagramHandler,
 } from "./components";
 import { AnagramRowContext } from "../../../contexts/game-context";
+import {
+  GamePlayProvider,
+  useGamePlay,
+} from "../../../contexts/game-play-context";
 
 const Game = ({ type }) => {
   type = "Daily";
 
-  const [anagramRow, setAnagramRow] = useState(0);
-  const row = useMemo(() => ({ anagramRow, setAnagramRow }), [anagramRow]);
+  // const [anagramRow, setAnagramRow] = useState(0);
+  // const row = useMemo(() => ({ anagramRow, setAnagramRow }), [anagramRow]);
+  const row2 = useGamePlay();
 
   const [timer, setTimer] = useState(5);
   const [game, setGame] = useState({});
@@ -63,7 +68,7 @@ const Game = ({ type }) => {
 
   useEffect(() => {
     fetchData();
-  }, [loading, anagramRow]);
+  }, [loading, row2]);
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
@@ -96,9 +101,9 @@ const Game = ({ type }) => {
                 <Typography variant="p" gutterBottom color={"text.secondary"}>
                   {type}
                 </Typography>
-                <AnagramRowContext.Provider value={row}>
-                  <AnagramHandler game={game}></AnagramHandler>
-                </AnagramRowContext.Provider>
+                {/* <AnagramRowContext.Provider value={row}> */}
+                <AnagramHandler game={game}></AnagramHandler>
+                {/* </AnagramRowContext> */}
               </Container>
             </Grid>
             <Grid item xs={1}>

@@ -63,11 +63,16 @@ public class GamesController : BananagramsBaseController
 
     [HttpPost]
     [AllowAnonymous]
-    public async Task<ActionResult> Create([FromBody] CreateGameViewModel gameDetails)
+    public async Task<IActionResult> Create([FromBody] CreateGameViewModel gameDetails)
     {
-        await _gameService.Create(_mapper.Map<CreateGameDto>(gameDetails));
+        var id = await _gameService.Create(_mapper.Map<CreateGameDto>(gameDetails));
 
-        return StatusCode((int)HttpStatusCode.Created);
+        var response = new GameCreatedViewModel
+        {
+            Id = id
+        };
+        
+        return new ObjectResult(response) { StatusCode = StatusCodes.Status201Created };
     }
 
     [HttpPut("{id}/Attempt/{anagramId}")]

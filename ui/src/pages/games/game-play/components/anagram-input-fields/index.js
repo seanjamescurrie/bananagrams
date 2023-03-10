@@ -1,10 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Grid, TextField } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import {
-  AnagramAttemptContext,
-  AnagramRowContext,
-} from "../../../../../contexts/game-context";
+import { AnagramAttemptContext } from "../../../../../contexts/game-context";
 
 function splitAnagram(anagram, isAttempt) {
   let arr = [];
@@ -22,11 +19,11 @@ function AnagramInputFields({
   isAttempt,
   anagramId,
   attempts,
+  currentRow,
 }) {
   const maxInputLength = 1;
 
   const attempt = useContext(AnagramAttemptContext);
-  const row = useContext(AnagramRowContext);
 
   const [anagramArray, setAnagramArray] = useState([]);
 
@@ -50,10 +47,9 @@ function AnagramInputFields({
 
     if (value.length == maxInputLength) {
       const nextSibiling = document.getElementById(
-        `${anagram}-row${row.anagramRow}-char${i + 1}`
+        `${anagram}-row${currentRow}-char${i + 1}`
       );
       console.log(nextSibiling);
-      console.log(row);
       if (nextSibiling !== null) {
         nextSibiling.focus();
       }
@@ -71,7 +67,7 @@ function AnagramInputFields({
       {anagramArray.map((letter, i) => (
         <Grid item xs={1} key={`${anagram}-attempt-input-${i}`}>
           <TextField
-            id={`${anagram}-row${row.anagramRow}-char${i}`}
+            id={`${anagram}-row${currentRow}-char${i}`}
             variant="outlined"
             placeholder={letter}
             sx={{

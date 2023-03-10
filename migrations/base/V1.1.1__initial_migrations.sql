@@ -60,7 +60,7 @@ CREATE TABLE game_anagrams (
 CREATE TABLE game_user_game_anagrams (
 	id serial PRIMARY KEY,
 	attempts integer,
-	date_played timestamp DEFAULT current_timestamp,
+	date_played timestamp,
 	date_solved timestamp,
 	game_user_id integer
 		REFERENCES game_users(id),

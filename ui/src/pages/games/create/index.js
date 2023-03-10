@@ -8,27 +8,22 @@ import {
 } from "@mui/material";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../../components/icon";
 import { SelectPlayers, DefineRules, ReviewGame } from "./components";
-import { CreateGameContext } from "../../../contexts/game-context";
+import { useCreateGame } from "../../../contexts/create-game-context";
 
 const steps = ["Search users", "Create rules", "Review"];
 
 const CreateGame = ({ type }) => {
-  const [newGame, setNewGame] = useState({
-    users: [],
-    rules: { title: "", totalAnagrams: 0, totalAttempts: 0 },
-  });
-  const game = useMemo(() => ({ newGame, setNewGame }), [newGame]);
-
+  const game = useCreateGame();
   const [activeStep, setActiveStep] = useState(0);
   const navigate = useNavigate();
 
   const handleNext = () => {
     activeStep === steps.length - 1
-      ? navigate("/games/1/lobby")
+      ? createGame()
       : setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -36,9 +31,31 @@ const CreateGame = ({ type }) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  async function createGame() {
+    const response = await fetch("http://localhost:5016/games", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        gameAnagramTypeId: game.state.gameAnagramTypeId,
+        playerIds: game.state.userIds,
+        title: game.state.title,
+        totalAnagrams: game.state.totalAnagrams,
+        totalAttempts: game.state.totalAttempts,
+      }),
+    });
+    if (response.status === 201) {
+      let data = await response.json();
+      let newGameId = data.id;
+
+      console.log(data);
+      console.log("success");
+      navigate(`/games/${newGameId}/lobby`);
+    } else {
+      console.log("error");
+    }
+  }
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
@@ -62,61 +79,45 @@ const CreateGame = ({ type }) => {
             );
           })}
         </Stepper>
-        {activeStep === steps.length ? (
-          <Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Reset</Button>
-            </Box>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <CreateGameContext.Provider value={game}>
-              {activeStep === 0 ? (
-                <SelectPlayers></SelectPlayers>
-              ) : activeStep === 1 ? (
-                <DefineRules></DefineRules>
-              ) : (
-                <ReviewGame></ReviewGame>
-              )}
-            </CreateGameContext.Provider>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              sx={{ mt: 2 }}
-            >
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                variant="outlined"
-                sx={{
-                  mb: 2,
-                }}
-              >
-                <Icon.ArrowLeftIcon />
-                Back
-              </Button>
-              <Button
-                onClick={handleNext}
-                variant="contained"
-                sx={{
-                  mb: 2,
-                }}
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Continue"}
 
-                {activeStep < steps.length - 1 ? (
-                  <Icon.ArrowRightIcon></Icon.ArrowRightIcon>
-                ) : (
-                  ""
-                )}
-              </Button>
-            </Stack>
-          </Fragment>
-        )}
+        <Fragment>
+          {activeStep === 0 ? (
+            <SelectPlayers></SelectPlayers>
+          ) : activeStep === 1 ? (
+            <DefineRules></DefineRules>
+          ) : (
+            <ReviewGame></ReviewGame>
+          )}
+          <Stack direction="row" justifyContent="space-between" sx={{ mt: 2 }}>
+            <Button
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              variant="outlined"
+              sx={{
+                mb: 2,
+              }}
+            >
+              <Icon.ArrowLeftIcon />
+              Back
+            </Button>
+            <Button
+              onClick={handleNext}
+              variant="contained"
+              sx={{
+                mb: 2,
+              }}
+              disabled={game.state.userIds <= 0}
+            >
+              {activeStep === steps.length - 1 ? "Finish" : "Continue"}
+
+              {activeStep < steps.length - 1 ? (
+                <Icon.ArrowRightIcon></Icon.ArrowRightIcon>
+              ) : (
+                ""
+              )}
+            </Button>
+          </Stack>
+        </Fragment>
       </Box>
     </Container>
   );

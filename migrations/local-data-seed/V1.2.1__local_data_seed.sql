@@ -1,13 +1,13 @@
 INSERT INTO users (date_created, email_address, first_name, last_name, password, username)
 VALUES 
-	(Current_Timestamp, 'sean.currie@unosquare.com', 'Sean', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'seancurrie'),
-	(Current_Timestamp, 'sean.currie+david@unosquare.com', 'David', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'davidcurrie')
+	(Current_Timestamp - INTERVAL '1 DAY', 'sean.currie@unosquare.com', 'Sean', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'seancurrie'),
+	(Current_Timestamp - INTERVAL '1 DAY', 'sean.currie+david@unosquare.com', 'David', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'davidcurrie')
 ;
 
 INSERT INTO games (title, date_created)
 VALUES
-	('Sean Vs David', current_timestamp),
-	('Daily 12/12/2023', current_timestamp)
+	('Sean Vs David', current_timestamp - INTERVAL '1 DAY'),
+	('Daily 12/12/2023', current_timestamp - INTERVAL '1 DAY')
 ;
 
 INSERT INTO game_users (game_id, user_id)
@@ -27,20 +27,20 @@ VALUES
 
 INSERT INTO	game_anagrams (anagram_word, date_created, order_sequence, game_id, word_id, game_anagram_type_id)
 VALUES 
-	('NANABA', current_timestamp, 1, 1, 1, 1),
-	('NSPSAOI RIUTF', current_timestamp, 2, 1, 2, 1),
-	('EHLECY', CURRENT_TIMESTAMP, 3, 1, 3, 1),
-	('PALPPEINE', current_timestamp, 1, 2, 4, 2)
+	('NANABA', current_timestamp - INTERVAL '1 DAY', 1, 1, 1, 1),
+	('NSPSAOI RIUTF', current_timestamp - INTERVAL '1 DAY', 1, 2, 2, 2),
+	('EHLECY', CURRENT_TIMESTAMP - INTERVAL '1 DAY', 2, 2, 3, 2),
+	('PALPPEINE', current_timestamp - INTERVAL '1 DAY', 3, 2, 4, 2)
 ;
 
 INSERT INTO game_user_game_anagrams (attempts, date_played, date_solved, game_anagram_id, game_user_id)
 VALUES 
-	(2, current_timestamp, current_timestamp + INTERVAL '1 hour', 1, 1),
-	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 1, 2),
-	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 2, 1),
-	(1, current_timestamp, current_timestamp + INTERVAL '1 hour', 2, 2),
-	(3, current_timestamp, current_timestamp + INTERVAL '1 hour', 3, 1),
-	(2, current_timestamp, current_timestamp + INTERVAL '1 hour', 3, 2),
-	(1, current_timestamp, current_timestamp + INTERVAL '1 hour', 4, 1),
-	(2, current_timestamp, NULL, 4, 2)
+	(2, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 1, 1),
+	(3, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 1, 2),
+	(3, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 2, 1),
+	(1, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 2, 2),
+	(3, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 3, 1),
+	(2, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 3, 2),
+	(1, current_timestamp - INTERVAL '1 DAY', current_timestamp - INTERVAL '1 DAY', 4, 1),
+	(2, current_timestamp - INTERVAL '1 DAY', NULL, 4, 2)
 ;

@@ -1,19 +1,51 @@
 import { Avatar, Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Loader } from "../../../components";
 
 const Lobby = () => {
-  const users = [
-    { username: "seancurrie" },
-    { username: "davidcurrie" },
-    { username: "noahcurrie" },
-  ];
+  const params = useParams();
+
+  const [game, setGame] = useState({});
+  const [timer, setTimer] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
-  const playersReady = true;
+  const playersReady = false;
 
-  const [timer, setTimer] = useState(10);
+  const getGame = async () => {
+    const response = await fetch(`http://localhost:5016/games/${params.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.status === 200) {
+      let data = await response.json();
+      let foundGame = {
+        id: data.id,
+        title: data.title,
+        totalAnagrams: data.gameAnagrams.length,
+        users: data.gameUsers.map((user) => ({
+          username: user.username,
+        })),
+      };
+      setGame(foundGame);
+      console.log("success");
+    } else {
+      console.log("error");
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getGame();
+  }, []);
+
+  useEffect(() => {
+    console.log(game);
+  }, [game]);
 
   useEffect(() => {
     if (playersReady) {
@@ -32,7 +64,9 @@ const Lobby = () => {
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
-      {timer <= 3 ? (
+      {isLoading ? (
+        <Loader></Loader>
+      ) : timer <= 3 ? (
         <Box
           sx={{
             display: "flex",
@@ -54,7 +88,7 @@ const Lobby = () => {
             Lobby
           </Typography>
           <Typography variant="h2" sx={{ mb: 0 }}>
-            Face Off Title
+            {game.title}
           </Typography>
 
           {!playersReady ? (
@@ -76,7 +110,7 @@ const Lobby = () => {
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="h4" sx={{ textAlign: "right" }}>
-                  5
+                  {game.totalAnagrams}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -84,7 +118,7 @@ const Lobby = () => {
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="h4" sx={{ textAlign: "right" }}>
-                  5
+                  3
                 </Typography>
               </Grid>
               <Grid item xs={12} sx={{ mb: 0 }}>
@@ -114,7 +148,7 @@ const Lobby = () => {
                 Users
               </Typography>
               <Stack direction="row">
-                {users.map((user) => (
+                {game.users.map((user) => (
                   <Box sx={{ m: "auto", mt: 1 }}>
                     <Avatar sx={{ m: "auto", mb: 1 }}></Avatar>
                     <Typography variant="body1">{user.username}</Typography>
