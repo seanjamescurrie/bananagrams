@@ -78,7 +78,7 @@ function AnagramHandler({ game }) {
     updateAnagramAttempts();
     gamePlayContext.dispatch({
       type: "anagramRow",
-      payload: { value: row2.state.anagramRow + 1 },
+      payload: { value: gamePlayContext.state.anagramRow + 1 },
     });
   }
 

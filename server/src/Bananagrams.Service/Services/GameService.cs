@@ -163,7 +163,7 @@ public class GameService : IGameService
 
         gameUserGameAnagram.DatePlayed = DateTime.UtcNow;
 
-        if (gameUserGameAnagram.Attempt == existingGameUserGameAnagram.GameAnagram.Word.Title)
+        if (gameUserGameAnagram.Attempt.ToUpper() == existingGameUserGameAnagram.GameAnagram.Word.Title.ToUpper())
         {
             gameUserGameAnagram.DateSolved = DateTime.UtcNow;
             isSolved = true;
@@ -186,7 +186,7 @@ public class GameService : IGameService
         for (var i = 1; i <= game.TotalAnagrams; i++)
         {
             var position = rnd.Next(1, fruits.Count);
-            fruitNames.Add(fruits.ElementAt(position).Title);
+            fruitNames.Add(fruits.ElementAt(position).Title.ToUpper());
             fruits.Remove(fruits.ElementAt(position));
         }
 

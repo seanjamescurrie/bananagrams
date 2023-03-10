@@ -18,7 +18,7 @@ const Game = ({ type }) => {
 
   // const [anagramRow, setAnagramRow] = useState(0);
   // const row = useMemo(() => ({ anagramRow, setAnagramRow }), [anagramRow]);
-  const row2 = useGamePlay();
+  const gamePlayContext = useGamePlay();
 
   const [timer, setTimer] = useState(5);
   const [game, setGame] = useState({});
@@ -68,7 +68,7 @@ const Game = ({ type }) => {
 
   useEffect(() => {
     fetchData();
-  }, [loading, row2]);
+  }, [loading, gamePlayContext]);
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
