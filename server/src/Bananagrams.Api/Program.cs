@@ -1,6 +1,8 @@
 using Bananagrams.Api;
 using Bananagrams.Api.Authentication;
 using Bananagrams.Api.Filters;
+using Bananagrams.Api.Hubs;
+using Bananagrams.Api.Hubs.Clients;
 using Bananagrams.Dal.Contexts;
 using Bananagrams.Dal.Interfaces;
 using Bananagrams.Service.HttpClients;
@@ -50,6 +52,9 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
+builder.Services.AddSignalR(cfg => cfg.EnableDetailedErrors = true);
+// builder.Services.AddTransient<INotificationClient, NotificationHub>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,8 +78,13 @@ app.UseCors(
     o => o
         .AllowAnyMethod()
         .AllowAnyHeader()
-        .AllowAnyOrigin()
+        // .AllowAnyOrigin()
+        // .SetIsOriginAllowed(origin => true)
+        .WithOrigins("http://localhost:3000")
+        .AllowCredentials()
 );
+
+app.MapHub<NotificationHub>("/hub");
 
 app.Run();
 

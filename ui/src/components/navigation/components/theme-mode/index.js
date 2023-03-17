@@ -16,7 +16,7 @@ function ThemeMode() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "secondary.contrastText",
+        color: "custom.themeMode",
         borderRadius: 1,
         p: 3,
       }}

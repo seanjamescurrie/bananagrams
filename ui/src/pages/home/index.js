@@ -2,6 +2,7 @@ import { useTheme } from "@emotion/react";
 import { Container, Grid, Typography } from "@mui/material";
 import Icon from "../../components/icon/index";
 import { GameCard } from "./components";
+import { Notify } from "./components/notifications";
 
 const Home = () => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ const Home = () => {
             title="Daily Game"
             description={currentDate}
             Image={Icon.Lemon}
-            navigation={"/games/1"}
+            navigation={"/games/daily"}
             color={theme.palette.secondary.main}
           ></GameCard>
         </Grid>
@@ -37,6 +38,8 @@ const Home = () => {
           ></GameCard>
         </Grid>
       </Grid>
+
+      {/* <Notify></Notify> */}
     </Container>
   );
 };

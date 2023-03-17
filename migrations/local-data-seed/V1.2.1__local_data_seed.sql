@@ -1,7 +1,7 @@
 INSERT INTO users (date_created, email_address, first_name, last_name, password, username)
 VALUES 
-	(Current_Timestamp - INTERVAL '1 DAY', 'sean.currie@unosquare.com', 'Sean', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'seancurrie'),
-	(Current_Timestamp - INTERVAL '1 DAY', 'sean.currie+david@unosquare.com', 'David', 'Currie', '$2a$11$1LNu6g8OfCwr/Nve34iuEuQ/sSKJYwsVXqvRsQYSRMiK2qFwMlcVu', 'davidcurrie')
+	(Current_Timestamp - INTERVAL '1 DAY', 'sean.currie@unosquare.com', 'Sean', 'Currie', '$2a$11$W.4VI.33LKr9Z2uA6kh/E.iqHHs.ue28aIrzHVZtqYmlRpGIdFc2y', 'seancurrie'),
+	(Current_Timestamp - INTERVAL '1 DAY', 'sean.currie+david@unosquare.com', 'David', 'Currie', '$2a$11$W.4VI.33LKr9Z2uA6kh/E.iqHHs.ue28aIrzHVZtqYmlRpGIdFc2y', 'davidcurrie')
 ;
 
 INSERT INTO games (title, date_created)

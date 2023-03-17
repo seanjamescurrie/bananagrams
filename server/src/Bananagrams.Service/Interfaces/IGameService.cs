@@ -8,7 +8,7 @@ public interface IGameService
 {
     Task<IList<GameDto>> GetAll(string? searchWord = null);
     Task<GameDto> Get(int id);
-    Task<GameDto> GetDaily(int userId);
+    Task<GameDto> GetDaily();
     Task<int> Create(CreateGameDto game);
     Task<bool> UpdateGameAnagramForUser(int gameId, int anagramId, UpdateGameUserGameAnagramDto gameUserGameAnagram);
 }

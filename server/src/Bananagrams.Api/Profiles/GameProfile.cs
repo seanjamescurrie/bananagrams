@@ -34,7 +34,9 @@ public class GameProfile : Profile
             .ForMember(x => x.DateCreated, opt => opt
                 .MapFrom(src => src.DateCreated))
             .ForMember(x => x.GameAnagramType, opt => opt
-                .MapFrom(src => src.GameAnagramType));
+                .MapFrom(src => src.GameAnagramType))
+            .ForMember(d => d.Completed, o => o
+                .MapFrom(s => s.GameAnagrams.Any(x => x.GameUserGameAnagrams.Any(y => y.DatePlayed != null || y.DateSolved != null))));
         CreateMap<GameDto, GameDetailViewModel>();
         CreateMap<GameUserDto, UserViewModel>()
             .ForMember(x => x.EmailAddress,opt => opt
@@ -45,9 +47,7 @@ public class GameProfile : Profile
                 .MapFrom( src => src.User.LastName))
             .ForMember(x => x.Username,opt => opt
                 .MapFrom( src => src.User.Username));
-        CreateMap<GameAnagramDto, GameAnagramViewModel>()
-            .ForMember(x => x.AnagramSolution, opt => opt
-                .MapFrom(src => src.Word.Title));
+        CreateMap<GameAnagramDto, GameAnagramViewModel>();
         CreateMap<GameUserGameAnagramDto, GameUserGameAnagramViewModel>();
         CreateMap<GameAnagramTypeDto, GameAnagramTypeViewModel>();
         CreateMap<GameTypeDto, GameTypeViewModel>();

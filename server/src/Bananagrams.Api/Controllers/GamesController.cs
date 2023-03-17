@@ -1,5 +1,7 @@
 using System.Net;
 using AutoMapper;
+using Bananagrams.Api.Hubs;
+using Bananagrams.Api.Hubs.Clients;
 using Bananagrams.Api.ViewModels.Games;
 using Bananagrams.Api.ViewModels.GameTypes;
 using Bananagrams.Service.Dtos;
@@ -7,6 +9,7 @@ using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Bananagrams.Api.Controllers;
 
@@ -17,9 +20,11 @@ public class GamesController : BananagramsBaseController
     private readonly IGameService _gameService;
     private readonly IGameTypeService _gameTypeService;
     private readonly IMapper _mapper;
+    // private readonly IHubContext<NotificationHub> _notificationHub;
+    private readonly IHubContext<NotificationHub> _notificationHub;
 
-    public GamesController(IGameService gameService, IGameTypeService gameTypeService, IMapper mapper) =>
-        (_gameService, _gameTypeService, _mapper) = (gameService, gameTypeService, mapper);
+    public GamesController(IGameService gameService, IGameTypeService gameTypeService, IMapper mapper, IHubContext<NotificationHub> notificationHub) =>
+        (_gameService, _gameTypeService, _mapper, _notificationHub) = (gameService, gameTypeService, mapper, notificationHub);
 
     [HttpGet]
     public async Task<ActionResult<IList<GameViewModel>>> GetAll([FromQuery] string? title)
@@ -51,10 +56,10 @@ public class GamesController : BananagramsBaseController
         return OkOrNoNotFound(viewModel);
     }
 
-    [HttpGet("daily/{userId}")]
-    public async Task<ActionResult<GameDetailViewModel>> GetDaily(int userId)
+    [HttpGet("daily")]
+    public async Task<ActionResult<GameDetailViewModel>> GetDaily()
     {
-        var game = await _gameService.GetDaily(userId);
+        var game = await _gameService.GetDaily();
 
         var viewModel = _mapper.Map<GameDetailViewModel>(game);
 
@@ -66,7 +71,8 @@ public class GamesController : BananagramsBaseController
     public async Task<IActionResult> Create([FromBody] CreateGameViewModel gameDetails)
     {
         var id = await _gameService.Create(_mapper.Map<CreateGameDto>(gameDetails));
-
+        await _notificationHub.Clients.All.SendAsync("NotificationCount");
+        
         var response = new GameCreatedViewModel
         {
             Id = id

@@ -59,7 +59,7 @@ const Lobby = () => {
   }, [playersReady]);
 
   useEffect(() => {
-    if (timer <= 0) navigate("/games/1");
+    if (timer <= 0) navigate(`/games/${params.id}`);
   }, [timer]);
 
   return (

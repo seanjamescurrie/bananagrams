@@ -41,18 +41,20 @@ const CompletedGames = forwardRef((props, ref) => {
     });
     if (response.status === 200) {
       const data = await response.json();
-      let foundGames = data.map((game) => ({
-        id: game.id,
-        title: game.title,
-        dateCreated: game.dateCreated,
-        totalAnagrams: game.totalAnagrams,
-        users: game.gameUsers.map((user) => ({
-          username: user.username,
-          totalSolved: user.totalSolved,
-          totalAttempts: user.totalAttempts,
-        })),
-        expanded: false,
-      }));
+      let foundGames = data
+        .filter((game) => game.completed === true)
+        .map((game) => ({
+          id: game.id,
+          title: game.title,
+          dateCreated: game.dateCreated,
+          totalAnagrams: game.totalAnagrams,
+          users: game.gameUsers.map((user) => ({
+            username: user.username,
+            totalSolved: user.totalSolved,
+            totalAttempts: user.totalAttempts,
+          })),
+          expanded: false,
+        }));
       setGames(foundGames);
       setIsLoading(false);
     }

@@ -11,6 +11,7 @@ public class GameViewModel
     public DateTime DateCreated { get; set; }
     public string? Title { get; set; }
     public int TotalAnagrams { get; set; }
+    public bool Completed { get; set; }
     
     public GameAnagramTypeViewModel? GameAnagramType { get; set; }
     public UserViewModel[]? GameUsers { get; set; }

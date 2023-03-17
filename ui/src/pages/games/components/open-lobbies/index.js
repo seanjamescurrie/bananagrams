@@ -46,7 +46,9 @@ const OpenLobbies = forwardRef((props, ref) => {
     if (response.status === 200) {
       const data = await response.json();
       let foundGames = data
-        .filter((game) => game.gameAnagramType.id === 2)
+        .filter(
+          (game) => game.gameAnagramType.id === 2 && game.completed === false
+        )
         .map((game) => ({
           id: game.id,
           title: game.title,
@@ -59,7 +61,6 @@ const OpenLobbies = forwardRef((props, ref) => {
         }));
       setGames(foundGames);
       setIsLoading(false);
-      console.log(data);
     }
   }
 

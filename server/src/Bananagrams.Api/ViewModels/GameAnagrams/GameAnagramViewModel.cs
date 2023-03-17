@@ -5,7 +5,6 @@ namespace Bananagrams.Api.ViewModels.GameAnagrams;
 public class GameAnagramViewModel
 {
     public int Id { get; set; }
-    public string AnagramSolution { get; set; }
     public string AnagramWord { get; set; }
     public DateTime DateCreated { get; set; }
     public int Order { get; set; }

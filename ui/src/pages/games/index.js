@@ -15,12 +15,15 @@ import { useEffect, useRef, useState, TransitionGroup } from "react";
 import { Loader } from "../../components";
 import { OpenLobbies, CompletedGames } from "./components";
 import { Icon } from "../../components";
+import { useTheme } from "@emotion/react";
 
 const Games = () => {
   const [viewCompleted, setViewCompleted] = useState(false);
   const [games, setGames] = useState([]);
   const [checked, setChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  const theme = useTheme();
 
   const handleChange = () => {
     setChecked((prev) => !prev);

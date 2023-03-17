@@ -3,7 +3,7 @@ import DailyAnagramLoader from "../../../../../assets/daily-anagram-loop.gif";
 import FaceOffAnagramLoader from "../../../../../assets/face-off-loop.gif";
 
 function LoadingScreen({ type }) {
-  const loader = type == "Daily" ? DailyAnagramLoader : FaceOffAnagramLoader;
+  const loader = type == "daily" ? DailyAnagramLoader : FaceOffAnagramLoader;
   return (
     <>
       <Box

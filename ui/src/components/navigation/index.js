@@ -22,9 +22,9 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { useNavigate } from "react-router-dom";
-import Icon from "../icon/index";
-import Games from "../../pages/games";
 import { ThemeMode } from "./components";
+import { useNotification } from "../../contexts/notification-context";
+import { Badge } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -122,6 +122,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer({ children }) {
+  const { state } = useNotification();
+  console.log(JSON.stringify(state));
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -137,7 +139,14 @@ export default function MiniDrawer({ children }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ maxHeight: "70px" }}>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{
+          maxHeight: "70px",
+          backgroundColor: theme.palette.custom.appBar,
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -182,6 +191,17 @@ export default function MiniDrawer({ children }) {
                   px: 2.5,
                 }}
               >
+                {page.title === "Games" && (
+                  <Badge
+                    color="error"
+                    badgeContent={state.totalNotifications}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    sx={{ position: "absolute", ml: 3, mb: 2 }}
+                  ></Badge>
+                )}
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
@@ -191,6 +211,7 @@ export default function MiniDrawer({ children }) {
                 >
                   {page.icon}
                 </ListItemIcon>
+
                 <ListItemText
                   primary={page.title}
                   sx={{ opacity: open ? 1 : 0 }}

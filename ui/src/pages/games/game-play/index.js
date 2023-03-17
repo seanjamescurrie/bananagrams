@@ -1,35 +1,33 @@
 import { Container, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PlayerStatus,
   Timer,
   LoadingScreen,
   AnagramHandler,
 } from "./components";
-import { AnagramRowContext } from "../../../contexts/game-context";
-import {
-  GamePlayProvider,
-  useGamePlay,
-} from "../../../contexts/game-play-context";
+import { useGamePlay } from "../../../contexts/game-play-context";
+import { useParams } from "react-router-dom";
 
-const Game = ({ type }) => {
-  type = "Daily";
+const Game = () => {
+  const params = useParams();
+  const typeOrId = params.id;
 
-  // const [anagramRow, setAnagramRow] = useState(0);
-  // const row = useMemo(() => ({ anagramRow, setAnagramRow }), [anagramRow]);
-  const gamePlayContext = useGamePlay();
+  const { state } = useGamePlay();
 
   const [timer, setTimer] = useState(5);
   const [game, setGame] = useState({});
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:5016/games/daily/1", {
+    const response = await fetch(`http://localhost:5016/games/${typeOrId}`, {
       method: "GET",
     });
     if (response.status == 200) {
       const data = await response.json();
+
+      console.log(data);
       let foundGame = {
         id: data.id,
         title: data.title,
@@ -39,7 +37,7 @@ const Game = ({ type }) => {
           maxAttempts: data.gameAnagramType.maxAttempts,
           timeAllowed: data.gameAnagramType.timeAllowed,
         },
-        gameAnagrams: data.gameAnagrams.map((gameAnagram) => ({
+        gameAnagrams: data.gameAnagrams.map((gameAnagram, i) => ({
           anagramWord: gameAnagram.anagramWord,
           gameId: gameAnagram.gameId,
           id: gameAnagram.id,
@@ -68,7 +66,9 @@ const Game = ({ type }) => {
 
   useEffect(() => {
     fetchData();
-  }, [loading, gamePlayContext]);
+
+    console.log("state:" + JSON.stringify(state));
+  }, [loading, state.anagramRow, state.activeAnagramIndex]);
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
@@ -77,13 +77,20 @@ const Game = ({ type }) => {
   return (
     <>
       {loading || timer > 0 ? (
-        <LoadingScreen type={type}></LoadingScreen>
+        <LoadingScreen type={typeOrId}></LoadingScreen>
       ) : (
         <Container maxWidth={false}>
-          {type === "faceOff" ? <Timer></Timer> : <></>}
+          {typeOrId !== "daily" ? (
+            <Timer
+              totalAnagrams={game.gameAnagrams.length}
+              gameId={game.id}
+            ></Timer>
+          ) : (
+            <></>
+          )}
           <Grid container spacing={3}>
             <Grid item xs={1}>
-              {type === "faceOff" ? (
+              {typeOrId !== "daily" ? (
                 <Box
                   sx={{ mt: 2, display: "flex", justifyContent: "flex-start" }}
                 >
@@ -99,15 +106,14 @@ const Game = ({ type }) => {
                   {game.title}
                 </Typography>
                 <Typography variant="p" gutterBottom color={"text.secondary"}>
-                  {type}
+                  {typeOrId === "daily" ? "Daily" : "Face Off"}
                 </Typography>
-                {/* <AnagramRowContext.Provider value={row}> */}
+
                 <AnagramHandler game={game}></AnagramHandler>
-                {/* </AnagramRowContext> */}
               </Container>
             </Grid>
             <Grid item xs={1}>
-              {type === "faceOff" ? (
+              {typeOrId !== "daily" ? (
                 <>
                   <Box
                     sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}

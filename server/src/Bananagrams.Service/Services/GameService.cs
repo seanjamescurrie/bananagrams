@@ -47,7 +47,7 @@ public class GameService : IGameService
         return game ?? throw new NotFoundException($"Could not find game with id: {id}");
     }
 
-    public async Task<GameDto> GetDaily(int userId)
+    public async Task<GameDto> GetDaily()
     {
         var games = await _mapper.ProjectTo<GameDto>(_database
                 .Get<Game>()
@@ -56,9 +56,10 @@ public class GameService : IGameService
 
         if (games != null && games.Any())
         {
-            if (games.Any(x => x.GameUsers.Any(x => x.UserId == userId)))
+            if (games.Any(x => x.GameUsers.Any(x => x.UserId == 1)))
             {
-                return games.SingleOrDefault(x => x.GameUsers.Any(x => x.UserId == userId));
+                // TODO: Change userId to pull from authenticated user
+                return games.SingleOrDefault(x => x.GameUsers.Any(x => x.UserId == 1));
             }
             else
             {
@@ -66,7 +67,8 @@ public class GameService : IGameService
                 var newDailyGame = new CreateGameDto
                 {
                     GameAnagramTypeId = game.GameAnagramTypeId,
-                    PlayerIds = new[] { userId },
+                    // TODO: Change userId to pull from authenticated user
+                    PlayerIds = new[] { 1 },
                     Title = $"{DateTime.UtcNow.ToShortDateString()}",
                     DailyAnagram = _mapper.Map<GameAnagram>(game.GameAnagrams.FirstOrDefault())
                 };
@@ -77,7 +79,8 @@ public class GameService : IGameService
         {
             var newDailyGame = new CreateGameDto
             {
-                PlayerIds = new[] { userId },
+                // TODO: Change userId to pull from authenticated user
+                PlayerIds = new[] { 1 },
                 GameAnagramTypeId = 1,
                 Title = $"{DateTime.UtcNow.ToShortDateString()}",
                 TotalAnagrams = 1
@@ -88,7 +91,8 @@ public class GameService : IGameService
         return await _mapper.ProjectTo<GameDto>(_database
                 .Get<Game>()
                 .Where(new GameByDateSpec(DateTime.UtcNow).And(new GameByTypeSpec(1))
-                    .And(new GameByUserIdSpec(userId))))
+                    // TODO: Change userId to pull from authenticated user
+                    .And(new GameByUserIdSpec(1))))
             .SingleOrDefaultAsync();
     }
 
@@ -121,7 +125,8 @@ public class GameService : IGameService
 
         _database.Add(newGame);
         await _database.SaveChangesAsync();
-
+        
+        
         return newGame.Id;
     }
 

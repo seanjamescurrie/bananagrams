@@ -5,3 +5,4 @@ export { default as Games } from "./games";
 export { default as Game } from "./games/game-play";
 export { default as CreateGame } from "./games/create";
 export { default as Lobby } from "./games/lobby";
+export { default as Results } from "./games/results";

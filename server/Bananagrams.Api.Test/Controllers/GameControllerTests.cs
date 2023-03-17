@@ -1,17 +1,20 @@
 using System.Net;
 using AutoMapper;
 using Bananagrams.Api.Controllers;
+using Bananagrams.Api.Hubs;
+using Bananagrams.Api.Hubs.Clients;
 using Bananagrams.Api.Test.Extensions;
 using Bananagrams.Api.ViewModels.Games;
 using Bananagrams.Api.ViewModels.GameTypes;
-using Bananagrams.Api.ViewModels.GameUserGameAnagrams;
 using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.Games;
 using Bananagrams.Service.Dtos.GameTypes;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Interfaces;
 using FluentAssertions;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using Xunit;
@@ -23,6 +26,7 @@ public class GameControllerTests
     private readonly IGameService _gameService;
     private readonly IGameTypeService _gameTypeService;
     private readonly IMapper _mapper;
+    private readonly INotificationClient _notificationHub;
 
     public GameControllerTests() =>
         (_gameService, _gameTypeService, _mapper) = (Substitute.For<IGameService>(), Substitute.For<IGameTypeService>(), Substitute.For<IMapper>());
@@ -218,6 +222,6 @@ public class GameControllerTests
 
     private GamesController RetrieveController()
     {
-        return new GamesController(_gameService, _gameTypeService, _mapper);
+        return new GamesController(_gameService, _gameTypeService, _mapper, _notificationHub);
     }
 }

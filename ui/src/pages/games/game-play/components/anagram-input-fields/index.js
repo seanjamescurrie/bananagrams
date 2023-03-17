@@ -1,13 +1,15 @@
 import { useTheme } from "@emotion/react";
 import { Grid, TextField } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { AnagramAttemptContext } from "../../../../../contexts/game-context";
+import { red } from "@mui/material/colors";
+import { useEffect, useState } from "react";
+import { useGamePlay } from "../../../../../contexts/game-play-context";
 
-function splitAnagram(anagram, isAttempt) {
+function splitAnagram(anagram, previousAttempt) {
   let arr = [];
   for (let i = 0; i < anagram.length; i++) {
     let char = "";
-    if (!isAttempt) char = anagram.charAt(i);
+    if (previousAttempt != null && previousAttempt != "")
+      char = previousAttempt.charAt(i);
     arr.push(char);
   }
   return arr;
@@ -16,40 +18,44 @@ function splitAnagram(anagram, isAttempt) {
 function AnagramInputFields({
   anagram,
   isDisabled,
-  isAttempt,
   anagramId,
   attempts,
   currentRow,
+  previousAttempt,
 }) {
   const maxInputLength = 1;
 
-  const attempt = useContext(AnagramAttemptContext);
+  const { dispatch } = useGamePlay();
 
   const [anagramArray, setAnagramArray] = useState([]);
 
   useEffect(() => {
-    setAnagramArray(splitAnagram(anagram, isAttempt));
-  }, []);
+    setAnagramArray(splitAnagram(anagram, previousAttempt));
+  }, [previousAttempt]);
 
   function changeHandler(value, i) {
-    let updatedAttempt = {
-      attempt: "",
-      anagramId: anagramId,
-      attempts: attempts,
-    };
+    let attempt = "";
 
     anagramArray[i] = value;
     setAnagramArray(anagramArray);
     for (let letter of anagramArray) {
-      updatedAttempt.attempt += letter;
+      attempt += letter;
     }
-    attempt.setAnagramAttempt(updatedAttempt);
+    dispatch({
+      type: "updateAttempt",
+      payload: {
+        value: {
+          attempts: attempts + 1,
+          anagramId: anagramId,
+          attempt: attempt,
+        },
+      },
+    });
 
     if (value.length == maxInputLength) {
       const nextSibiling = document.getElementById(
         `${anagram}-row${currentRow}-char${i + 1}`
       );
-      console.log(nextSibiling);
       if (nextSibiling !== null) {
         nextSibiling.focus();
       }

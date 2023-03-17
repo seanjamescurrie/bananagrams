@@ -15,13 +15,17 @@ export const themes = [
           light: "#f8bbd0",
           dark: "#ffea00",
 
-          contrastText: "#fff",
+          contrastText: "#000",
         },
         info: {
           main: "#90caf9",
         },
         success: {
           main: "#69f0ae",
+        },
+        custom: {
+          appBar: "#121212",
+          themeMode: "#fff",
         },
       },
       typography: {
@@ -69,8 +73,10 @@ export const themes = [
       palette: {
         mode: "light",
         primary: {
-          main: "#00695c",
+          main: "#880E4F",
           light: "rgba(13,135,234,0.11)",
+
+          contrastText: "#fff",
         },
         secondary: {
           main: "#ff8a65",
@@ -79,12 +85,19 @@ export const themes = [
           contrastText: "#fff",
         },
         background: {
-          default: "#fffde7",
+          default: "#FDFBF1",
           paper: "rgba(255,255,255,0.75)",
         },
         text: {
           primary: "#00695c",
           secondary: "rgba(0,105,92,0.75)",
+        },
+        success: {
+          main: "#0ce87e",
+        },
+        custom: {
+          appBar: "#00695c",
+          themeMode: "#fff",
         },
       },
       typography: {

@@ -13,11 +13,13 @@ import { useNavigate } from "react-router-dom";
 import Icon from "../../../components/icon";
 import { SelectPlayers, DefineRules, ReviewGame } from "./components";
 import { useCreateGame } from "../../../contexts/create-game-context";
+import { useNotification } from "../../../contexts/notification-context";
 
 const steps = ["Search users", "Create rules", "Review"];
 
 const CreateGame = ({ type }) => {
   const game = useCreateGame();
+  const notificationContext = useNotification();
   const [activeStep, setActiveStep] = useState(0);
   const navigate = useNavigate();
 
@@ -48,9 +50,8 @@ const CreateGame = ({ type }) => {
     if (response.status === 201) {
       let data = await response.json();
       let newGameId = data.id;
-
-      console.log(data);
       console.log("success");
+
       navigate(`/games/${newGameId}/lobby`);
     } else {
       console.log("error");

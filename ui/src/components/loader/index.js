@@ -8,7 +8,7 @@ function Loader() {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
-        height: "80vh",
+        height: "60vh",
       }}
     >
       <CircularProgress />
