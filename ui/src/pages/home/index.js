@@ -2,7 +2,6 @@ import { useTheme } from "@emotion/react";
 import { Container, Grid, Typography } from "@mui/material";
 import Icon from "../../components/icon/index";
 import { GameCard } from "./components";
-import { Notify } from "./components/notifications";
 
 const Home = () => {
   const theme = useTheme();
@@ -38,7 +37,6 @@ const Home = () => {
           ></GameCard>
         </Grid>
       </Grid>
-
       {/* <Notify></Notify> */}
     </Container>
   );

@@ -17,6 +17,7 @@ import { forwardRef, useEffect, useState } from "react";
 import * as dayjs from "dayjs";
 import { useTheme } from "@emotion/react";
 import { Loader } from "../../../../components";
+import { GameService } from "../../../../services";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,11 +37,11 @@ const CompletedGames = forwardRef((props, ref) => {
   const [isLoading, setIsLoading] = useState(true);
 
   async function fetchData() {
-    const response = await fetch("http://localhost:5016/games", {
-      method: "GET",
-    });
+    const response = await GameService.getAll();
+
     if (response.status === 200) {
       const data = await response.json();
+      console.log(data);
       let foundGames = data
         .filter((game) => game.completed === true)
         .map((game) => ({
@@ -65,7 +66,6 @@ const CompletedGames = forwardRef((props, ref) => {
   }, []);
 
   const handleExpandClick = (id) => {
-    console.log(games);
     let updated = games.map((game) => ({
       id: game.id,
       title: game.title,

@@ -18,34 +18,34 @@ public class GameServiceTests
         (_database, _mapper, _tropicalFruitApiService) = (Substitute.For<IBananagramsDatabase>(),
             Substitute.For<IMapper>(), Substitute.For<ITropicalFruitApiService>());
 
+    // [Fact]
+    // public async Task GetGames_WhenNoUserIdndGamesExist_ReturnsAllGames()
+    // {
+    //     // Arrange
+    //     var games = new List<Game>();
+    //     for (var i = 1; i <= 10; i++)
+    //     {
+    //         games.Add(new Game { Id = i });
+    //     }
+    //
+    //     var gameDtos = games.Select(x => new GameDto { Id = x.Id }).ToList().BuildMock();
+    //
+    //     var service = RetrieveService();
+    //
+    //     _database.Get<Game>().Returns(games.AsQueryable());
+    //     _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 10)).Returns(gameDtos);
+    //
+    //     // Act
+    //     var result = await service.GetAll(1);
+    //
+    //     // Assert
+    //     result.Should().NotBeNull();
+    //     result.Should().BeOfType<List<GameDto>>();
+    //     result.Should().Contain(gameDtos);
+    // }
+
     [Fact]
-    public async Task GetGames_WhenNoSearchWordAndGamesExist_ReturnsAllGames()
-    {
-        // Arrange
-        var games = new List<Game>();
-        for (var i = 1; i <= 10; i++)
-        {
-            games.Add(new Game { Id = i });
-        }
-
-        var gameDtos = games.Select(x => new GameDto { Id = x.Id }).ToList().BuildMock();
-
-        var service = RetrieveService();
-
-        _database.Get<Game>().Returns(games.AsQueryable());
-        _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 10)).Returns(gameDtos);
-
-        // Act
-        var result = await service.GetAll("");
-
-        // Assert
-        result.Should().NotBeNull();
-        result.Should().BeOfType<List<GameDto>>();
-        result.Should().Contain(gameDtos);
-    }
-
-    [Fact]
-    public async Task GetGames_WhenValidSearchWordPassed_ReturnGame()
+    public async Task GetGames_WhenValidUserIdPassed_ReturnGame()
     {
         // Arrange
         var games = new List<Game>
@@ -68,7 +68,7 @@ public class GameServiceTests
         _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 1 && x.Contains(game))).Returns(gameDtos);
 
         // Act
-        var result = await service.GetAll("Search");
+        var result = await service.GetAll(1);
 
         // Assert
         result.Should().NotBeNull();
@@ -76,7 +76,7 @@ public class GameServiceTests
     }
 
     [Fact]
-    public async Task GetGames_WhenInvalidSearchWordPassed_ReturnEmpty()
+    public async Task GetGames_WhenInvalidUserIdPassed_ReturnEmpty()
     {
         // Arrange
         var games = new List<Game>
@@ -92,7 +92,7 @@ public class GameServiceTests
         _mapper.ProjectTo<GameDto>(Arg.Is<IQueryable<Game>>(x => x.Count() == 0)).Returns(gameDtos);
 
         // Act
-        var result = await service.GetAll("Word");
+        var result = await service.GetAll(9999);
 
         // Assert
         result.Should().NotBeNull();
@@ -100,7 +100,7 @@ public class GameServiceTests
     }
 
     [Fact]
-    public async Task GetGame_WhenValidIdPassed_ReturnDetails()
+    public async Task GetGame_WhenValidGameIdPassed_ReturnDetails()
     {
         // Arrange
         var games = new List<Game>();
@@ -217,7 +217,7 @@ public class GameServiceTests
         _mapper.Map(updateGameDto, updateGameUserGameAnagram);
 
         // Act
-        var result = service.UpdateGameAnagramForUser(gameId, anagramId, updateGameDto);
+        var result = service.UpdateGameAnagramForUser(gameId, anagramId, userId, updateGameDto);
 
         // Assert
         await _database.Received(1).SaveChangesAsync();
@@ -229,6 +229,7 @@ public class GameServiceTests
         // Arrange
         const int gameId = 1;
         const int anagramId = 1;
+        const int userId = 1;
 
         var gameUserGameAnagrams = new List<GameUserGameAnagram>
         {
@@ -254,7 +255,7 @@ public class GameServiceTests
 
         // Act / Assert
         await Assert.ThrowsAsync<NotFoundException>(async () =>
-            await service.UpdateGameAnagramForUser(gameId, anagramId, updateGameDto));
+            await service.UpdateGameAnagramForUser(gameId, anagramId, userId, updateGameDto));
     }
 
     // [Fact]

@@ -1,29 +1,12 @@
-import {
-  Typography,
-  Button,
-  Box,
-  Slide,
-  FormControlLabel,
-  Switch,
-  Grow,
-  Collapse,
-  Paper,
-  Grid,
-} from "@mui/material";
+import { Typography, Button, Box, Slide } from "@mui/material";
 import { Container } from "@mui/system";
-import { useEffect, useRef, useState, TransitionGroup } from "react";
-import { Loader } from "../../components";
+import { useRef, useState } from "react";
 import { OpenLobbies, CompletedGames } from "./components";
 import { Icon } from "../../components";
-import { useTheme } from "@emotion/react";
 
 const Games = () => {
   const [viewCompleted, setViewCompleted] = useState(false);
-  const [games, setGames] = useState([]);
   const [checked, setChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const theme = useTheme();
 
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -33,39 +16,10 @@ const Games = () => {
 
   const containerRef = useRef(null);
 
-  // const fetchData = async () => {
-  //   const response = await fetch("http://localhost:5016/games", {
-  //     method: "GET",
-  //   });
-  //   if (response.status === 200) {
-  //     const data = await response.json();
-  //     let foundGames = data.map((game) => ({
-  //       id: game.id,
-  //       title: game.title,
-  //       dateCreated: game.dateCreated,
-  //       users: game.gameUsers.map((user) => ({
-  //         username: user.username,
-  //       })),
-  //     }));
-  //     setGames(foundGames);
-  //   }
-  //   setIsLoading(false);
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  function UpdateList() {
-    setViewCompleted(!viewCompleted);
-  }
-
   return (
     <>
       <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
-        {!isLoading ? (
-          <Loader></Loader>
-        ) : viewCompleted ? (
+        {viewCompleted ? (
           <>
             <Button
               onClick={handleChange}
@@ -110,9 +64,7 @@ const Games = () => {
           </>
         )}
 
-        {!isLoading ? (
-          <Loader></Loader>
-        ) : (
+        {
           <Box
             sx={{
               display: "flex",
@@ -153,7 +105,7 @@ const Games = () => {
               </Box>
             </Slide>
           </Box>
-        )}
+        }
       </Container>
     </>
   );

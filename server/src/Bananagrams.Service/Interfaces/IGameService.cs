@@ -6,9 +6,9 @@ namespace Bananagrams.Service.Interfaces;
 
 public interface IGameService
 {
-    Task<IList<GameDto>> GetAll(string? searchWord = null);
+    Task<IList<GameDto>> GetAll(int userId, string? searchWord = null);
     Task<GameDto> Get(int id);
-    Task<GameDto> GetDaily();
+    Task<GameDto> GetDaily(int userId);
     Task<int> Create(CreateGameDto game);
-    Task<bool> UpdateGameAnagramForUser(int gameId, int anagramId, UpdateGameUserGameAnagramDto gameUserGameAnagram);
+    Task<bool> UpdateGameAnagramForUser(int gameId, int anagramId, int userId, UpdateGameUserGameAnagramDto gameUserGameAnagram);
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Bananagrams.Api.ViewModels.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using Bananagrams.Api.Authentication;
+using Bananagrams.Api.Authentication;
 
 namespace Bananagrams.Api.Controllers;
 
@@ -32,7 +33,7 @@ public class AuthenticationController : BananagramsBaseController
         
         return Ok(new AuthenticationResultViewModel
         {
-            AccessToken = GenerateToken(account, 600), RefreshToken = GenerateToken(account, 18000)
+            AccessToken = GenerateToken(account, 10000), RefreshToken = GenerateToken(account, 18000)
         });
     }
     
@@ -60,5 +61,20 @@ public class AuthenticationController : BananagramsBaseController
          
         var tokenString = tokenHandler.WriteToken(jwtToken);
         return tokenString;
+    }
+    
+    [HttpGet("refresh")]
+    public async Task<ActionResult<AuthenticationResultViewModel>> Refresh([FromServices] IAuthorizedAccountProvider authorizedAccountProvider)
+    {
+
+        var account = await authorizedAccountProvider.GetLoggedInAccount();
+    
+        if (account is null) return Unauthorized();
+    
+        return new AuthenticationResultViewModel
+        {
+            AccessToken = GenerateToken(account, 10000), 
+            RefreshToken = GenerateToken(account, 18000)
+        };
     }
 }

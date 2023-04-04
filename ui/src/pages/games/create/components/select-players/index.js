@@ -3,14 +3,19 @@ import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { useCreateGame } from "../../../../../contexts/create-game-context";
+import { UserService } from "../../../../../services";
+import { AuthContext } from "../../../../../contexts";
+import { LoginUtils } from "../../../../../utils";
 
 function SelectPlayers() {
   const game = useCreateGame();
+  const { authState } = AuthContext.useLogin();
 
   const [rows, setRows] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchUser, setSearchUser] = useState("");
-  console.log(JSON.stringify(game));
+
+  const currentUserId = LoginUtils.getAccountId(authState.accessToken);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -35,19 +40,21 @@ function SelectPlayers() {
   ];
 
   const getUsers = async () => {
-    const response = await fetch("http://localhost:5016/users", {
-      method: "GET",
-    });
+    const response = await UserService.getAll();
+
     if (response.status === 200) {
       const data = await response.json();
-      let foundUsers = data.map((user) => ({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        username: user.username,
-      }));
+      let foundUsers = data
+        .filter((user) => user.id != currentUserId)
+        .map((user) => ({
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          username: user.username,
+        }));
       setRows(foundUsers);
       setUsers(foundUsers);
+      console.log("success");
     } else {
       console.log("error");
     }

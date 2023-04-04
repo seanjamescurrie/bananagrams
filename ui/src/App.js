@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import {
   Home,
   Login,
@@ -13,13 +13,43 @@ import { Navigation } from "./components";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { useMemo, useState } from "react";
 import { ThemeContext, themes } from "./contexts/theme-context";
-
 import { CreateGameProvider } from "./contexts/create-game-context";
 import { GamePlayProvider } from "./contexts/game-play-context";
 import { NotificationProvider } from "./contexts/notification-context";
+import { AuthContext } from "./contexts/";
+import { LoginUtils } from "./utils";
+
+const authenticatedRoutes = () => {
+  return (
+    <>
+      <Route path="/" element={<Home />} />
+      <Route path="/games" element={<Games />} />
+      <Route path="/games/:id" element={<Game />} />
+      <Route path="/games/create" element={<CreateGame type="create" />} />
+      <Route path="/games/:id/lobby/" element={<Lobby />} />
+      <Route path="/games/:id/results/" element={<Results />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </>
+  );
+};
+
+const unAuthenticatedRoutes = () => {
+  return (
+    <>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="*" element={<Navigate to="/login" />} />
+    </>
+  );
+};
 
 function App() {
+  const { authState } = AuthContext.useLogin();
   const [mode, setMode] = useState(themes[0].theme);
+
+  const loggedIn =
+    authState.accessToken && !LoginUtils.isTokenExpired(authState);
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -43,17 +73,8 @@ function App() {
               <CreateGameProvider>
                 <GamePlayProvider>
                   <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/games" element={<Games />} />
-                    <Route path="/games/:id" element={<Game />} />
-                    <Route
-                      path="/games/create"
-                      element={<CreateGame type="create" />}
-                    />
-                    <Route path="/games/:id/lobby/" element={<Lobby />} />
-                    <Route path="/games/:id/results/" element={<Results />} />
+                    {!loggedIn && unAuthenticatedRoutes()}
+                    {loggedIn && authenticatedRoutes()}
                   </Routes>
                 </GamePlayProvider>
               </CreateGameProvider>

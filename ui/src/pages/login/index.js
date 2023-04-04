@@ -14,8 +14,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts";
+import { AuthenticationService, StorageService } from "../../services";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { authDispatch } = AuthContext.useLogin();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,11 +46,36 @@ const Login = () => {
     if (response.status === 200) {
       const data = await response.json();
       console.log(data);
+      StorageService.setLocalStorage("auth", data);
+      StorageService.setLocalStorage("email", email);
+      authDispatch({
+        type: "authentication",
+        ...data,
+      });
+      toast.success("Successfully logged in!");
       navigate("/");
     } else {
       console.log("error");
     }
   };
+
+  // const authentication = async () => {
+  //   const response = await AuthenticationService.authenticate(email, password);
+  //   if (response.status === 200) {
+  //     const loginResult = await response.json();
+  //     StorageService.setLocalStorage(loginResult, StorageTypes.AUTH);
+  //     StorageService.setLocalStorage(email, StorageTypes.EMAIL);
+  //     dispatch({
+  //       type: "authentication",
+  //       ...loginResult,
+  //     });
+  //     toast.success("Successfully logged in!");
+  //     navigate(NavigationRoutes.Home);
+  //   } else {
+  //     toast.error("Failed to logged in!");
+  //     navigate(NavigationRoutes.Login);
+  //   }
+  // };
 
   return (
     <Container maxWidth="sm" sx={{ textAlign: "center", mt: 5 }}>

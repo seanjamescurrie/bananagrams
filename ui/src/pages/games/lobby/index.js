@@ -1,18 +1,28 @@
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import { Avatar, Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Loader } from "../../../components";
+import { Loader, Notification } from "../../../components";
+import { useGamePlay } from "../../../contexts/game-play-context";
+import { AuthContext } from "../../../contexts";
+import { LoginUtils, FetchUtils } from "../../../utils";
 
 const Lobby = () => {
   const params = useParams();
+  const { authState } = AuthContext.useLogin();
+  const { gamePlayState, gamePlayDispatch } = useGamePlay();
 
   const [game, setGame] = useState({});
   const [timer, setTimer] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
+  const [connection, setConnection] = useState();
+  const [playersReady, setPlayersReady] = useState(false);
+  const [userJoinedLobby, setUserJoinedLobby] = useState(false);
+  const [notification, setNotification] = useState("");
 
+  const currentUserId = LoginUtils.getAccountId(authState.accessToken);
   const navigate = useNavigate();
-  const playersReady = false;
 
   const getGame = async () => {
     const response = await fetch(`http://localhost:5016/games/${params.id}`, {
@@ -61,6 +71,60 @@ const Lobby = () => {
   useEffect(() => {
     if (timer <= 0) navigate(`/games/${params.id}`);
   }, [timer]);
+
+  useEffect(() => {
+    if (game.id) {
+      const connect = new HubConnectionBuilder()
+        .withUrl(
+          `http://localhost:5016/hub/game?userId=${currentUserId}&gameId=${game.id}`
+        )
+        .withAutomaticReconnect()
+        .build();
+      setConnection(connect);
+
+      return () => {
+        connect.stop();
+      };
+    }
+  }, [game]);
+
+  useEffect(() => {
+    if (connection) {
+      connection
+        .start()
+        .then(() => {
+          console.log("connected");
+          connection.on("StartGame", (gameId) => {
+            gamePlayDispatch({
+              type: "startGame",
+              payload: {
+                value: gameId,
+              },
+            });
+            console.log("start game");
+          });
+          connection.on("UserJoinedLobby", (message) => {
+            console.log(message);
+            setUserJoinedLobby(false);
+            setNotification(message);
+            setUserJoinedLobby(true);
+            // let n = notification.map((m) => m);
+            // setNotifications(n.push(message));
+          });
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [connection]);
+
+  useEffect(() => {
+    if (gamePlayState.startMultiplayerGameId == game.id) {
+      setPlayersReady(true);
+    }
+  }, [gamePlayState]);
+
+  const showNotification = (notification) => {
+    return <Notification message={notification} display={true}></Notification>;
+  };
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
@@ -149,7 +213,7 @@ const Lobby = () => {
               </Typography>
               <Stack direction="row">
                 {game.users.map((user) => (
-                  <Box sx={{ m: "auto", mt: 1 }}>
+                  <Box sx={{ m: "auto", mt: 1 }} key={user.username}>
                     <Avatar sx={{ m: "auto", mb: 1 }}></Avatar>
                     <Typography variant="body1">{user.username}</Typography>
                   </Box>
@@ -186,6 +250,11 @@ const Lobby = () => {
           ) : (
             <></>
           )}
+
+          {userJoinedLobby && showNotification(notification)}
+          {/* {notifications.map((note) => (
+            <Notification message={note} display={true}></Notification>
+          ))} */}
         </>
       )}
     </Container>

@@ -1,7 +1,5 @@
 import {
-  Avatar,
   Divider,
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -59,13 +57,11 @@ const Results = () => {
         totalPossibleAttempts:
           data.gameAnagramType.maxAttempts * data.gameAnagrams.length,
       };
-      console.log(data);
       setGame(foundGame);
     }
   };
 
   useEffect(() => {
-    console.log(timer);
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
     if (timer <= 0) {
       setIsLoading(false);
@@ -112,7 +108,7 @@ const Results = () => {
                 <TableBody>
                   {game.users.map((user) => (
                     <TableRow
-                      key={user.title}
+                      key={user.username}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row" align="center">

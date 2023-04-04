@@ -46,9 +46,13 @@ public class GameProfile : Profile
             .ForMember(x => x.LastName,opt => opt
                 .MapFrom( src => src.User.LastName))
             .ForMember(x => x.Username,opt => opt
-                .MapFrom( src => src.User.Username));
+                .MapFrom( src => src.User.Username))
+            .ForMember(d => d.Id, o => o
+                .MapFrom(s => s.UserId));
         CreateMap<GameAnagramDto, GameAnagramViewModel>();
-        CreateMap<GameUserGameAnagramDto, GameUserGameAnagramViewModel>();
+        CreateMap<GameUserGameAnagramDto, GameUserGameAnagramViewModel>()
+            .ForMember(s => s.UserId, o => o
+                .MapFrom(d => d.GameUser.UserId));
         CreateMap<GameAnagramTypeDto, GameAnagramTypeViewModel>();
         CreateMap<GameTypeDto, GameTypeViewModel>();
         CreateMap<WordDto, WordViewModel>();

@@ -1,9 +1,11 @@
 using System.Net;
 using AutoMapper;
+using Bananagrams.Api.Authentication;
 using Bananagrams.Api.Hubs;
 using Bananagrams.Api.Hubs.Clients;
 using Bananagrams.Api.ViewModels.Games;
 using Bananagrams.Api.ViewModels.GameTypes;
+using Bananagrams.Api.ViewModels.GameUserGameAnagrams;
 using Bananagrams.Service.Dtos;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Interfaces;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace Bananagrams.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class GamesController : BananagramsBaseController
 {
@@ -22,14 +25,17 @@ public class GamesController : BananagramsBaseController
     private readonly IMapper _mapper;
     // private readonly IHubContext<NotificationHub> _notificationHub;
     private readonly IHubContext<NotificationHub> _notificationHub;
+    private readonly IHubContext<GameHub> _gameHub;
+    private readonly IAuthorizedAccountProvider _authorize;
 
-    public GamesController(IGameService gameService, IGameTypeService gameTypeService, IMapper mapper, IHubContext<NotificationHub> notificationHub) =>
-        (_gameService, _gameTypeService, _mapper, _notificationHub) = (gameService, gameTypeService, mapper, notificationHub);
+    public GamesController(IGameService gameService, IGameTypeService gameTypeService, IMapper mapper, IHubContext<NotificationHub> notificationHub, IHubContext<GameHub> gameHub, IAuthorizedAccountProvider authorize) =>
+        (_gameService, _gameTypeService, _mapper, _notificationHub, _gameHub, _authorize) = (gameService, gameTypeService, mapper, notificationHub, gameHub, authorize);
 
     [HttpGet]
     public async Task<ActionResult<IList<GameViewModel>>> GetAll([FromQuery] string? title)
     {
-        var games = await _gameService.GetAll(title);
+        var loggedInUser = await _authorize.GetLoggedInAccount();
+        var games = await _gameService.GetAll(loggedInUser.Id, title);
 
         var viewModel = _mapper.Map<List<GameViewModel>>(games);
 
@@ -59,7 +65,8 @@ public class GamesController : BananagramsBaseController
     [HttpGet("daily")]
     public async Task<ActionResult<GameDetailViewModel>> GetDaily()
     {
-        var game = await _gameService.GetDaily();
+        var loggedInUser = await _authorize.GetLoggedInAccount();
+        var game = await _gameService.GetDaily(loggedInUser.Id);
 
         var viewModel = _mapper.Map<GameDetailViewModel>(game);
 
@@ -70,6 +77,7 @@ public class GamesController : BananagramsBaseController
     [AllowAnonymous]
     public async Task<IActionResult> Create([FromBody] CreateGameViewModel gameDetails)
     {
+        var loggedInUser = await _authorize.GetLoggedInAccount();
         var id = await _gameService.Create(_mapper.Map<CreateGameDto>(gameDetails));
         await _notificationHub.Clients.All.SendAsync("NotificationCount");
         
@@ -85,9 +93,19 @@ public class GamesController : BananagramsBaseController
     public async Task<ActionResult<bool>> UpdateGameUserGameAnagramAttempt(int id, int anagramId, [FromBody] UpdateGameViewModel gameDetails)
     {
         var updateGame = _mapper.Map<UpdateGameUserGameAnagramDto>(gameDetails);
+        var loggedInUser = await _authorize.GetLoggedInAccount();
         
-        var isSolved = await _gameService.UpdateGameAnagramForUser(id, anagramId, updateGame);
-        
+        var isSolved = await _gameService.UpdateGameAnagramForUser(id, anagramId, loggedInUser.Id, updateGame);
+        var update = new GameUserGameAnagramResponseViewModel
+        {
+            Attempts = gameDetails.Attempts,
+            isSolved = isSolved,
+            GameAnagramId = anagramId,
+            GameId = id,
+            UserId = loggedInUser.Id
+        };
+        await _gameHub.Clients.Group(id.ToString()).SendAsync("SendUpdate", update);
+        // await _gameHub.Clients.All.SendAsync("SendUpdate");
         return OkOrNoNotFound(isSolved);
     }
 }

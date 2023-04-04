@@ -10,5 +10,5 @@ public class GameUserGameAnagramViewModel
     public DateTime? DatePlayed { get; set; }
     public DateTime? DateSolved { get; set; }
     public int GameAnagramId { get; set; }
-    public int GameUserId { get; set; }
+    public int UserId { get; set; }
 }

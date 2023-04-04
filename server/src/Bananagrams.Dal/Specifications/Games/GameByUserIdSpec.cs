@@ -11,6 +11,6 @@ public class GameByUserIdSpec : Specification<Game>
 
     public override Expression<Func<Game, bool>> BuildExpression()
     {
-        return x => x.GameUsers.FirstOrDefault().UserId == _userId;
+        return x => x.GameUsers.Any(x => x.UserId == _userId);
     }
 }

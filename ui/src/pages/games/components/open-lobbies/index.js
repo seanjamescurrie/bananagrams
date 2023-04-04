@@ -19,6 +19,7 @@ import * as dayjs from "dayjs";
 import { useTheme } from "@emotion/react";
 import { Loader } from "../../../../components";
 import { useNavigate } from "react-router-dom";
+import { GameService } from "../../../../services";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -33,16 +34,13 @@ const ExpandMore = styled((props) => {
 
 const OpenLobbies = forwardRef((props, ref) => {
   const theme = useTheme();
-  const [expanded, setExpanded] = useState(false);
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
   async function fetchData() {
-    const response = await fetch("http://localhost:5016/games", {
-      method: "GET",
-    });
+    const response = await GameService.getAll();
     if (response.status === 200) {
       const data = await response.json();
       let foundGames = data
@@ -149,7 +147,6 @@ const OpenLobbies = forwardRef((props, ref) => {
                     <ExpandMore
                       expand={game.expanded}
                       onClick={() => handleExpandClick(game.id)}
-                      aria-expanded={expanded}
                       aria-label="show more"
                       sx={{ p: 0, mr: 2 }}
                     >

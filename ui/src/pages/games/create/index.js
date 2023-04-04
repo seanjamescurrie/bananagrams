@@ -13,13 +13,15 @@ import { useNavigate } from "react-router-dom";
 import Icon from "../../../components/icon";
 import { SelectPlayers, DefineRules, ReviewGame } from "./components";
 import { useCreateGame } from "../../../contexts/create-game-context";
-import { useNotification } from "../../../contexts/notification-context";
+import { AuthContext } from "../../../contexts";
+import { GameService } from "../../../services";
+import { LoginUtils } from "../../../utils";
 
 const steps = ["Search users", "Create rules", "Review"];
 
-const CreateGame = ({ type }) => {
+const CreateGame = () => {
   const game = useCreateGame();
-  const notificationContext = useNotification();
+  const { authState } = AuthContext.useLogin();
   const [activeStep, setActiveStep] = useState(0);
   const navigate = useNavigate();
 
@@ -34,24 +36,22 @@ const CreateGame = ({ type }) => {
   };
 
   async function createGame() {
-    const response = await fetch("http://localhost:5016/games", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        gameAnagramTypeId: game.state.gameAnagramTypeId,
-        playerIds: game.state.userIds,
-        title: game.state.title,
-        totalAnagrams: game.state.totalAnagrams,
-        totalAttempts: game.state.totalAttempts,
-      }),
-    });
+    const newGame = {
+      gameAnagramTypeId: game.state.gameAnagramTypeId,
+      playerIds: game.state.userIds,
+      title: game.state.title,
+      totalAnagrams: game.state.totalAnagrams,
+      totalAttempts: game.state.totalAttempts,
+    };
+    const currentUserId = LoginUtils.getAccountId(authState.accessToken);
+    newGame.playerIds.push(currentUserId);
+    const response = await GameService.create(newGame);
+
     if (response.status === 201) {
       let data = await response.json();
       let newGameId = data.id;
       console.log("success");
-
+      game.dispatch({ type: "reset" });
       navigate(`/games/${newGameId}/lobby`);
     } else {
       console.log("error");

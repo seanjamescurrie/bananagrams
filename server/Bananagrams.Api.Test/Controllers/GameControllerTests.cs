@@ -1,5 +1,6 @@
 using System.Net;
 using AutoMapper;
+using Bananagrams.Api.Authentication;
 using Bananagrams.Api.Controllers;
 using Bananagrams.Api.Hubs;
 using Bananagrams.Api.Hubs.Clients;
@@ -12,9 +13,8 @@ using Bananagrams.Service.Dtos.GameTypes;
 using Bananagrams.Service.Dtos.GameUserGameAnagrams;
 using Bananagrams.Service.Interfaces;
 using FluentAssertions;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using Xunit;
@@ -26,7 +26,9 @@ public class GameControllerTests
     private readonly IGameService _gameService;
     private readonly IGameTypeService _gameTypeService;
     private readonly IMapper _mapper;
-    private readonly INotificationClient _notificationHub;
+    private readonly IHubContext<NotificationHub> _notificationHub;
+    private readonly IHubContext<GameHub> _gameHub;
+    private readonly IAuthorizedAccountProvider _authorize;
 
     public GameControllerTests() =>
         (_gameService, _gameTypeService, _mapper) = (Substitute.For<IGameService>(), Substitute.For<IGameTypeService>(), Substitute.For<IMapper>());
@@ -45,7 +47,7 @@ public class GameControllerTests
         };
         var controller = RetrieveController();
     
-        _gameService.GetAll("").Returns(gameDtos);
+        _gameService.GetAll(1).Returns(gameDtos);
         _mapper.Map<List<GameViewModel>>(gameDtos).Returns(gameViewModels);
     
     
@@ -57,7 +59,7 @@ public class GameControllerTests
     
         result.Should().BeSameAs(gameViewModels);
     
-        await _gameService.Received(1).GetAll("");
+        await _gameService.Received(1).GetAll(1);
         _mapper.Received(1).Map<List<GameViewModel>>(gameDtos);
     }
     
@@ -197,6 +199,7 @@ public class GameControllerTests
         // Arrange
         var gameId = 1;
         var anagramId = 1;
+        var userId = 1;
         var updateGameUserGameAnagramDto = new UpdateGameUserGameAnagramDto
         {
             Attempts = 500,
@@ -206,7 +209,7 @@ public class GameControllerTests
 
         var controller = RetrieveController();
 
-        await _gameService.UpdateGameAnagramForUser(gameId, anagramId, updateGameUserGameAnagramDto);
+        await _gameService.UpdateGameAnagramForUser(gameId, anagramId, userId, updateGameUserGameAnagramDto);
         _mapper.Map<UpdateGameViewModel>(updateGameUserGameAnagramDto).Returns(updateGameUserGameAnagramViewModel);
 
         // Act
@@ -216,12 +219,12 @@ public class GameControllerTests
         // Assert
         actionResult.AssertResult<bool, OkObjectResult>();
 
-        await _gameService.Received(1).UpdateGameAnagramForUser(gameId, anagramId, updateGameUserGameAnagramDto);
+        await _gameService.Received(1).UpdateGameAnagramForUser(gameId, anagramId, userId, updateGameUserGameAnagramDto);
         _mapper.Received(1).Map<UpdateGameUserGameAnagramDto>(updateGameUserGameAnagramViewModel);
     }
 
     private GamesController RetrieveController()
     {
-        return new GamesController(_gameService, _gameTypeService, _mapper, _notificationHub);
+        return new GamesController(_gameService, _gameTypeService, _mapper, _notificationHub, _gameHub, _authorize);
     }
 }

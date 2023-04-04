@@ -25,6 +25,15 @@ function createGameReducer(state, action) {
         ...state,
         totalAttempts: action.payload.value,
       };
+    case "reset":
+      return {
+        ...state,
+        userIds: [],
+        title: "",
+        totalAnagrams: 5,
+        totalAttempts: 3,
+        gameAnagramTypeId: 2,
+      };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }

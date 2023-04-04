@@ -27,11 +27,11 @@ public class GameService : IGameService
         ITropicalFruitApiService tropicalFruitApiService) =>
         (_database, _mapper, _tropicalFruitApiService) = (database, mapper, tropicalFruitApiService);
 
-    public async Task<IList<GameDto>> GetAll(string? searchWord = null)
+    public async Task<IList<GameDto>> GetAll(int userId, string? searchWord = null)
     {
         var games = await _mapper.ProjectTo<GameDto>(_database
                 .Get<Game>()
-                .Where(new GameByTitleSpec(searchWord)))
+                .Where(new GameByTitleSpec(searchWord).And(new GameByUserIdSpec(userId))))
             .ToListAsync();
 
         return games;
@@ -47,7 +47,7 @@ public class GameService : IGameService
         return game ?? throw new NotFoundException($"Could not find game with id: {id}");
     }
 
-    public async Task<GameDto> GetDaily()
+    public async Task<GameDto> GetDaily(int userId)
     {
         var games = await _mapper.ProjectTo<GameDto>(_database
                 .Get<Game>()
@@ -56,19 +56,17 @@ public class GameService : IGameService
 
         if (games != null && games.Any())
         {
-            if (games.Any(x => x.GameUsers.Any(x => x.UserId == 1)))
+            if (games.Any(x => x.GameUsers.Any(x => x.UserId == userId)))
             {
-                // TODO: Change userId to pull from authenticated user
-                return games.SingleOrDefault(x => x.GameUsers.Any(x => x.UserId == 1));
+                return games.SingleOrDefault(x => x.GameUsers.Any(x => x.UserId == userId));
             }
             else
             {
                 var game = games.FirstOrDefault();
                 var newDailyGame = new CreateGameDto
                 {
-                    GameAnagramTypeId = game.GameAnagramTypeId,
-                    // TODO: Change userId to pull from authenticated user
-                    PlayerIds = new[] { 1 },
+                    GameAnagramTypeId = 1,
+                    PlayerIds = new[] { userId },
                     Title = $"{DateTime.UtcNow.ToShortDateString()}",
                     DailyAnagram = _mapper.Map<GameAnagram>(game.GameAnagrams.FirstOrDefault())
                 };
@@ -79,8 +77,7 @@ public class GameService : IGameService
         {
             var newDailyGame = new CreateGameDto
             {
-                // TODO: Change userId to pull from authenticated user
-                PlayerIds = new[] { 1 },
+                PlayerIds = new[] { userId },
                 GameAnagramTypeId = 1,
                 Title = $"{DateTime.UtcNow.ToShortDateString()}",
                 TotalAnagrams = 1
@@ -91,8 +88,7 @@ public class GameService : IGameService
         return await _mapper.ProjectTo<GameDto>(_database
                 .Get<Game>()
                 .Where(new GameByDateSpec(DateTime.UtcNow).And(new GameByTypeSpec(1))
-                    // TODO: Change userId to pull from authenticated user
-                    .And(new GameByUserIdSpec(1))))
+                    .And(new GameByUserIdSpec(userId))))
             .SingleOrDefaultAsync();
     }
 
@@ -151,7 +147,7 @@ public class GameService : IGameService
     //     await _database.SaveChangesAsync();
     // }
 
-    public async Task<bool> UpdateGameAnagramForUser(int gameId, int anagramId,
+    public async Task<bool> UpdateGameAnagramForUser(int gameId, int anagramId, int userId,
         UpdateGameUserGameAnagramDto gameUserGameAnagram)
     {
         var isSolved = false;
@@ -160,7 +156,7 @@ public class GameService : IGameService
             .ThenInclude(x => x.Word)
             .Include(x => x.GameUser)
             .Where(new GameUserGameAnagramByGameIdSpec(gameId).And(new GameUserGameAnagramAnagramIdSpec(anagramId))
-                .And(new GameUserGameAnagramByUserIdSpec(1)))
+                .And(new GameUserGameAnagramByUserIdSpec(userId)))
             .SingleOrDefaultAsync();
 
         if (existingGameUserGameAnagram == null)

@@ -25,10 +25,13 @@ import { useNavigate } from "react-router-dom";
 import { ThemeMode } from "./components";
 import { useNotification } from "../../contexts/notification-context";
 import { Badge } from "@mui/material";
+import { AuthContext } from "../../contexts";
+import { LoginUtils } from "../../utils";
+import { useState, useEffect } from "react";
 
 const drawerWidth = 240;
 
-const pages = [
+const authenticatedPages = [
   {
     title: "Home",
     navigation: "/",
@@ -40,6 +43,14 @@ const pages = [
     icon: <SportsEsportsIcon />,
   },
   {
+    title: "Logout",
+    navigation: "/login",
+    icon: <LogoutIcon />,
+  },
+];
+
+const unAuthenticatedPages = [
+  {
     title: "Login",
     navigation: "/login",
     icon: <LoginIcon />,
@@ -48,11 +59,6 @@ const pages = [
     title: "Sign Up",
     navigation: "/signup",
     icon: <AssignmentIcon />,
-  },
-  {
-    title: "Logout",
-    navigation: "/login",
-    icon: <LogoutIcon />,
   },
 ];
 
@@ -123,10 +129,15 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer({ children }) {
   const { state } = useNotification();
-  console.log(JSON.stringify(state));
+  const auth = AuthContext.useLogin();
+  const loggedIn =
+    auth.authState != null &&
+    auth.authState.accessToken &&
+    !LoginUtils.isTokenExpired(auth.authState);
   const navigate = useNavigate();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [pages, setPages] = useState([]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -135,6 +146,14 @@ export default function MiniDrawer({ children }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (loggedIn) {
+      setPages(authenticatedPages);
+    } else {
+      setPages(unAuthenticatedPages);
+    }
+  }, [auth]);
 
   return (
     <Box sx={{ display: "flex" }}>

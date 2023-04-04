@@ -45,7 +45,6 @@ function NotificationProvider({ children }) {
       connection
         .start()
         .then(() => {
-          console.log("connected");
           connection.on("NotificationCount", () => {
             dispatch({
               type: "notificationCount",

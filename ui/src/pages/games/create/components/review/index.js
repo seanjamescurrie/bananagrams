@@ -2,15 +2,14 @@ import { Avatar, Divider, Grid, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useCreateGame } from "../../../../../contexts/create-game-context";
+import { UserService } from "../../../../../services";
 
 function ReviewGame() {
   const game = useCreateGame();
   const [users, setUsers] = useState([]);
 
   const getUsers = async () => {
-    const response = await fetch("http://localhost:5016/users", {
-      method: "GET",
-    });
+    const response = await UserService.getAll();
     if (response.status === 200) {
       const data = await response.json();
       let foundUsers = data.map((user) => ({
@@ -24,7 +23,7 @@ function ReviewGame() {
         }
       });
       setUsers(filteredUsers);
-      console.log(users);
+      console.log("success");
     } else {
       console.log("error");
     }

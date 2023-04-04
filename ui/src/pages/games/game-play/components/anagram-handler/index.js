@@ -5,14 +5,17 @@ import { forwardRef, useEffect, useState } from "react";
 import { AnagramInputFields } from "..";
 import AnagramDisplayField from "../anagram-display-field";
 import { useGamePlay } from "../../../../../contexts/game-play-context";
+import { AuthContext } from "../../../../../contexts";
 import * as dayjs from "dayjs";
+import { GameService } from "../../../../../services";
+import { LoginUtils } from "../../../../../utils";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;
 });
 
 function AnagramHandler({ game }) {
-  const { state, dispatch } = useGamePlay();
+  const { gamePlayState, gamePlayDispatch } = useGamePlay();
 
   const [isGuessCorrect, setIsGuessCorrect] = useState(null);
   const [open, setOpen] = useState(false);
@@ -21,8 +24,10 @@ function AnagramHandler({ game }) {
     attempts: [],
   });
   const [activeAnagram, setActiveAnagram] = useState(
-    game.gameAnagrams[state.activeAnagramIndex]
+    game.gameAnagrams[gamePlayState.activeAnagramIndex]
   );
+  const { authState } = AuthContext.useLogin();
+  const currentUser = LoginUtils.getAccountId(authState.accessToken);
 
   const displayAttempts = (anagram) => {
     let content = [];
@@ -58,34 +63,35 @@ function AnagramHandler({ game }) {
   };
 
   const updateAnagramAttempts = async () => {
-    const response = await fetch(
-      `http://localhost:5016/games/${game.id}/attempt/${state.updateAttempt.anagramId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          attempts: state.updateAttempt.attempts,
-          attempt: state.updateAttempt.attempt,
-        }),
-      }
+    const response = await GameService.updateAnagramAttempt(
+      game.id,
+      gamePlayState.updateAttempt
     );
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data);
 
       setIsGuessCorrect(data);
       console.log("success");
 
-      dispatch({
+      gamePlayDispatch({
         type: "incrementAnagramRow",
       });
 
+      // if (game.gameType.id == 2) {
+      //   gamePlayDispatch({
+      //     type: "updateMultiplayerUserAttempts",
+      //     value: {
+      //       userid: 1,
+      //       attempts: gamePlayState.updateAttempt,
+      //       isSolved: data,
+      //     },
+      //   });
+      // }
+
       if (game.gameType.id == 1) {
         let arr = locallyStoredAttempts.attempts.map((x) => x);
-        arr.push(state.updateAttempt.attempt);
+        arr.push(gamePlayState.updateAttempt.attempt);
         setLocallyStoredAttempts({
           date: dayjs().format("DD/MM/YYYY"),
           attempts: arr,
@@ -109,7 +115,7 @@ function AnagramHandler({ game }) {
   }, [isGuessCorrect]);
 
   useEffect(() => {
-    setActiveAnagram(game.gameAnagrams[state.activeAnagramIndex]);
+    setActiveAnagram(game.gameAnagrams[gamePlayState.activeAnagramIndex]);
   }, [game]);
 
   useEffect(() => {
@@ -145,8 +151,8 @@ function AnagramHandler({ game }) {
   }, [locallyStoredAttempts]);
 
   useEffect(() => {
-    setActiveAnagram(game.gameAnagrams[state.activeAnagramIndex]);
-  }, [state.activeAnagramIndex]);
+    setActiveAnagram(game.gameAnagrams[gamePlayState.activeAnagramIndex]);
+  }, [gamePlayState.activeAnagramIndex]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -158,7 +164,9 @@ function AnagramHandler({ game }) {
 
   return (
     <>
-      <Box key={`round${state.activeAnagramIndex}-anagram${activeAnagram.id}`}>
+      <Box
+        key={`round${gamePlayState.activeAnagramIndex}-anagram${activeAnagram.id}`}
+      >
         <Box sx={{ mt: 5 }}>
           <Typography variant="h5" sx={{ mb: 0 }}>
             Challenge

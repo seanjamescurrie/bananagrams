@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Grid, TextField } from "@mui/material";
+import { Grid, Input, TextField } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 import { useGamePlay } from "../../../../../contexts/game-play-context";
@@ -25,7 +25,7 @@ function AnagramInputFields({
 }) {
   const maxInputLength = 1;
 
-  const { dispatch } = useGamePlay();
+  const { gamePlayDispatch } = useGamePlay();
 
   const [anagramArray, setAnagramArray] = useState([]);
 
@@ -41,7 +41,7 @@ function AnagramInputFields({
     for (let letter of anagramArray) {
       attempt += letter;
     }
-    dispatch({
+    gamePlayDispatch({
       type: "updateAttempt",
       payload: {
         value: {
@@ -61,6 +61,15 @@ function AnagramInputFields({
       }
     }
   }
+
+  useEffect(() => {
+    const nextSibiling = document.getElementById(
+      `${anagram}-row${currentRow}-char0`
+    );
+    if (nextSibiling !== null) {
+      nextSibiling.focus();
+    }
+  }, [currentRow, anagram]);
 
   return (
     <Grid

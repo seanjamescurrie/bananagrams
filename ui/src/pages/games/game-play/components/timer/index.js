@@ -31,17 +31,16 @@ LinearProgressWithLabel.propTypes = {
 };
 
 function Timer({ totalAnagrams, gameId }) {
-  const { state, dispatch } = useGamePlay();
+  const { gamePlayState, gamePlayDispatch } = useGamePlay();
   const [timer, setTimer] = useState(100);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(timer);
     timer > 0 && setTimeout(() => setTimer(timer - 3.333), 1000);
-    if (state.activeAnagramIndex == totalAnagrams - 1 && timer <= 0) {
+    if (gamePlayState.activeAnagramIndex == totalAnagrams - 1 && timer <= 0) {
       navigate(`/games/${gameId}/results`);
     } else if (timer <= 0) {
-      dispatch({ type: "incrementActiveAnagramIndex" });
+      gamePlayDispatch({ type: "incrementActiveAnagramIndex" });
       setTimer(100);
     }
   }, [timer]);
