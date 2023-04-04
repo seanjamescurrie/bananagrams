@@ -33,16 +33,19 @@ const Login = () => {
   };
 
   const login = async () => {
-    const response = await fetch("http://localhost:5016/authentication", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    // const response = await fetch("http://localhost:5016/authentication", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: password,
+    //   }),
+    // });
+
+    const response = await AuthenticationService.authenticate(email, password);
+
     if (response.status === 200) {
       const data = await response.json();
       console.log(data);
