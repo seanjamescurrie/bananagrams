@@ -26,11 +26,12 @@ jobs:
       - name: ✅ Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
       - name: npm build
         id: build-ui
         env:
           CI: false
+          REACT_APP_API_URL: ${{ secrets.API_URL }}
         run: npm i && npm run-script build
       - name: updated app to s3
         run: aws s3 sync build s3://bananagrams/
