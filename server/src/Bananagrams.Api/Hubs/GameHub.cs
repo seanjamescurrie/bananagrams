@@ -31,7 +31,7 @@ public class GameHub : Hub
         
         await Groups.AddToGroupAsync(Context.ConnectionId, gameId);
         
-        await Clients.Group(gameId).SendAsync("UserJoinedLobby", user.Username + " joined lobby");
+        await Clients.Group(gameId).SendAsync("UserJoinedLobby", user.Username);
         
         // grouConnection convention = userId--connectionId
         if (_groupConnections.TryGetValue(gameId, out var value))

@@ -1,5 +1,13 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import { Avatar, Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Divider,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +22,7 @@ const Lobby = () => {
   const { gamePlayState, gamePlayDispatch } = useGamePlay();
 
   const [game, setGame] = useState({});
+  const [users, setUsers] = useState([]);
   const [timer, setTimer] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
   const [connection, setConnection] = useState();
@@ -39,18 +48,21 @@ const Lobby = () => {
         totalAnagrams: data.gameAnagrams.length,
         users: data.gameUsers.map((user) => ({
           username: user.username,
+          ready: false,
         })),
       };
       setGame(foundGame);
+      setUsers(foundGame.users);
       console.log("success");
     } else {
       console.log("error");
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
     getGame();
+
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -105,11 +117,13 @@ const Lobby = () => {
           });
           connection.on("UserJoinedLobby", (message) => {
             console.log(message);
-            setUserJoinedLobby(false);
-            setNotification(message);
+            setNotification(message + " joined lobby");
             setUserJoinedLobby(true);
-            // let n = notification.map((m) => m);
-            // setNotifications(n.push(message));
+            const newUserList = users.map((user) => ({
+              username: user.username,
+              ready: user.username === message ? true : user.ready,
+            }));
+            setUsers(newUserList);
           });
         })
         .catch((error) => console.log(error));
@@ -212,9 +226,19 @@ const Lobby = () => {
                 Users
               </Typography>
               <Stack direction="row">
-                {game.users.map((user) => (
+                {users.map((user) => (
                   <Box sx={{ m: "auto", mt: 1 }} key={user.username}>
-                    <Avatar sx={{ m: "auto", mb: 1 }}></Avatar>
+                    <Badge
+                      variant="dot"
+                      overlap="circular"
+                      color={user.ready ? "success" : "error"}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                    >
+                      <Avatar sx={{ m: "auto", mb: 1 }}></Avatar>
+                    </Badge>
                     <Typography variant="body1">{user.username}</Typography>
                   </Box>
                 ))}
