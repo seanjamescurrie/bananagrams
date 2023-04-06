@@ -102,8 +102,8 @@ app.UseCors(
         .AllowAnyHeader()
         .AllowAnyOrigin()
         // .SetIsOriginAllowed(origin => true)
-        // .WithOrigins("http://localhost:3000")
-        // .AllowCredentials()
+        .WithOrigins("http://localhost:3000")
+        .AllowCredentials()
 );
 
 app.MapHub<NotificationHub>("/hub");
