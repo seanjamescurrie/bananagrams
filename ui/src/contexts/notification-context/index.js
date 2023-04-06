@@ -31,6 +31,7 @@ function NotificationProvider({ children }) {
   useEffect(() => {
     const connect = new HubConnectionBuilder()
       .withUrl(`${baseUrl}/hub`)
+      .shouldSkipNegotiate(true)
       .withAutomaticReconnect()
       .build();
 
