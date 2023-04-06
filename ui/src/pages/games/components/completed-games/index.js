@@ -18,6 +18,7 @@ import * as dayjs from "dayjs";
 import { useTheme } from "@emotion/react";
 import { Loader } from "../../../../components";
 import { GameService } from "../../../../services";
+import Icon from "../../../../components/icon";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -57,12 +58,12 @@ const CompletedGames = forwardRef((props, ref) => {
           expanded: false,
         }));
       setGames(foundGames);
-      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     fetchData();
+    setIsLoading(false);
   }, []);
 
   const handleExpandClick = (id) => {
@@ -90,7 +91,7 @@ const CompletedGames = forwardRef((props, ref) => {
 
         {isLoading ? (
           <Loader></Loader>
-        ) : (
+        ) : games.length > 0 ? (
           <>
             {games.map((game) => (
               <Box
@@ -217,6 +218,13 @@ const CompletedGames = forwardRef((props, ref) => {
               </Box>
             ))}
           </>
+        ) : (
+          <Box sx={{ mt: 10 }}>
+            <Icon.Banana width="200" height="200"></Icon.Banana>
+            <Typography variant="h5" color={"text.secondary"}>
+              No games completed
+            </Typography>
+          </Box>
         )}
       </Container>
     </Box>

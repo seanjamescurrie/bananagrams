@@ -20,6 +20,7 @@ import { useTheme } from "@emotion/react";
 import { Loader } from "../../../../components";
 import { useNavigate } from "react-router-dom";
 import { GameService } from "../../../../services";
+import Icon from "../../../../components/icon";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -58,12 +59,12 @@ const OpenLobbies = forwardRef((props, ref) => {
           expanded: false,
         }));
       setGames(foundGames);
-      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     fetchData();
+    setIsLoading(false);
   }, []);
 
   const handleExpandClick = (id) => {
@@ -85,14 +86,9 @@ const OpenLobbies = forwardRef((props, ref) => {
   return (
     <Box ref={ref} {...props} width="1">
       <Container sx={{ textAlign: "center", mt: 5 }}>
-        {/* <Typography variant="h2">Lobbies</Typography>
-      <Typography variant="p" color={"text.secondary"}>
-        Game lobbies waiting on player replies
-      </Typography> */}
-
         {isLoading ? (
           <Loader></Loader>
-        ) : (
+        ) : games.count > 0 ? (
           <>
             {games.map((game) => (
               <Box
@@ -196,6 +192,13 @@ const OpenLobbies = forwardRef((props, ref) => {
               </Box>
             ))}
           </>
+        ) : (
+          <Box sx={{ mt: 10 }}>
+            <Icon.Banana width="200" height="200"></Icon.Banana>
+            <Typography variant="h5" color={"text.secondary"}>
+              No open lobbies
+            </Typography>
+          </Box>
         )}
       </Container>
     </Box>
