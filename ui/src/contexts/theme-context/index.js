@@ -73,13 +73,13 @@ export const themes = [
       palette: {
         mode: "light",
         primary: {
-          main: "#02b8a2",
+          main: "#4287f5",
           light: "rgba(13,135,234,0.11)",
 
           contrastText: "#fff",
         },
         secondary: {
-          main: "#ff8a65",
+          main: "#7b50e6",
           light: "#f06292",
           dark: "#ffea00",
           contrastText: "#fff",

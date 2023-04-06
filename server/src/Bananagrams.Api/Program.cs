@@ -86,8 +86,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -101,8 +99,9 @@ app.UseCors(
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowAnyOrigin()
+        // .DisallowCredentials()
         // .SetIsOriginAllowed(origin => true)
-        .WithOrigins("http://localhost:3000")
+        // .WithOrigins("http://localhost:3000")
         .AllowCredentials()
 );
 

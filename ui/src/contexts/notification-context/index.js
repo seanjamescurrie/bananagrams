@@ -22,6 +22,7 @@ function notificationReducer(state, action) {
 
 function NotificationProvider({ children }) {
   const [connection, setConnection] = useState();
+  const baseUrl = process.env.REACT_APP_API_URL ?? "http://localhost:5016";
 
   const [state, dispatch] = useReducer(notificationReducer, {
     totalNotifications: 0,
@@ -29,7 +30,7 @@ function NotificationProvider({ children }) {
 
   useEffect(() => {
     const connect = new HubConnectionBuilder()
-      .withUrl("http://localhost:5016/hub")
+      .withUrl(`${baseUrl}/hub`)
       .withAutomaticReconnect()
       .build();
 
