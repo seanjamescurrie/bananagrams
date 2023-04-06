@@ -1,4 +1,4 @@
-import { HubConnectionBuilder } from "@microsoft/signalr";
+import * as signalR from "@microsoft/signalr";
 import {
   Avatar,
   Badge,
@@ -30,11 +30,19 @@ const Lobby = () => {
   const [userJoinedLobby, setUserJoinedLobby] = useState(false);
   const [notification, setNotification] = useState("");
 
+  const baseUrl = process.env.REACT_APP_API_URL ?? "http://localhost:5016";
   const currentUserId = LoginUtils.getAccountId(authState.accessToken);
   const navigate = useNavigate();
 
   const getGame = async () => {
-    const response = await fetch(`http://localhost:5016/games/${params.id}`, {
+    // const response = await fetch(`http://localhost:5016/games/${params.id}`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+
+    const response = await FetchUtils.fetchInstance(`games/${params.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -86,9 +94,13 @@ const Lobby = () => {
 
   useEffect(() => {
     if (game.id) {
-      const connect = new HubConnectionBuilder()
+      const connect = new signalR.HubConnectionBuilder()
         .withUrl(
-          `http://localhost:5016/hub/game?userId=${currentUserId}&gameId=${game.id}`
+          `${baseUrl}/hub/game?userId=${currentUserId}&gameId=${game.id}`,
+          {
+            skipNegotiation: true,
+            transport: signalR.HttpTransportType.WebSockets,
+          }
         )
         .withAutomaticReconnect()
         .build();
@@ -275,7 +287,7 @@ const Lobby = () => {
             <></>
           )}
 
-          {userJoinedLobby && showNotification(notification)}
+          {showNotification(notification)}
           {/* {notifications.map((note) => (
             <Notification message={note} display={true}></Notification>
           ))} */}

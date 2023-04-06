@@ -1,4 +1,4 @@
-import { HubConnectionBuilder } from "@microsoft/signalr";
+import * as signalR from "@microsoft/signalr";
 import {
   createContext,
   useContext,
@@ -29,9 +29,11 @@ function NotificationProvider({ children }) {
   });
 
   useEffect(() => {
-    const connect = new HubConnectionBuilder()
-      .withUrl(`${baseUrl}/hub`)
-      .shouldSkipNegotiate(true)
+    const connect = new signalR.HubConnectionBuilder()
+      .withUrl(`${baseUrl}/hub`, {
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets,
+      })
       .withAutomaticReconnect()
       .build();
 
