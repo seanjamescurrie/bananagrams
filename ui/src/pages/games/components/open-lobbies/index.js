@@ -88,7 +88,7 @@ const OpenLobbies = forwardRef((props, ref) => {
       <Container sx={{ textAlign: "center", mt: 5 }}>
         {isLoading ? (
           <Loader></Loader>
-        ) : games.count > 0 ? (
+        ) : games.length > 0 ? (
           <>
             {games.map((game) => (
               <Box

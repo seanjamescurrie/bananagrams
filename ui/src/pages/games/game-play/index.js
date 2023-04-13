@@ -98,6 +98,7 @@ const Game = () => {
   };
 
   useEffect(() => {
+    console.log("fetching");
     fetchData();
   }, [loading, gamePlayState.anagramRow, gamePlayState.activeAnagramIndex]);
 

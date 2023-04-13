@@ -9,6 +9,7 @@ import { AuthContext } from "../../../../../contexts";
 import * as dayjs from "dayjs";
 import { GameService } from "../../../../../services";
 import { LoginUtils } from "../../../../../utils";
+import { Notification } from "../../../../../components";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;
@@ -26,6 +27,7 @@ function AnagramHandler({ game }) {
   const [activeAnagram, setActiveAnagram] = useState(
     game.gameAnagrams[gamePlayState.activeAnagramIndex]
   );
+  const [notificationCount, setNotificationCount] = useState(1);
   const { authState } = AuthContext.useLogin();
   const currentUser = LoginUtils.getAccountId(authState.accessToken);
 
@@ -78,6 +80,8 @@ function AnagramHandler({ game }) {
         type: "incrementAnagramRow",
       });
 
+      setNotificationCount(notificationCount + 1);
+
       // if (game.gameType.id == 2) {
       //   gamePlayDispatch({
       //     type: "updateMultiplayerUserAttempts",
@@ -106,13 +110,15 @@ function AnagramHandler({ game }) {
     updateAnagramAttempts();
   }
 
-  function showToast() {
-    if (isGuessCorrect != null) setOpen(true);
-  }
+  // function showToast() {
+  //   if (isGuessCorrect != null) {
+  //     setOpen(true);
+  //   }
+  // // }
 
-  useEffect(() => {
-    showToast();
-  }, [isGuessCorrect]);
+  // useEffect(() => {
+  //   showToast();
+  // }, [notificationCount]);
 
   useEffect(() => {
     setActiveAnagram(game.gameAnagrams[gamePlayState.activeAnagramIndex]);
@@ -154,13 +160,31 @@ function AnagramHandler({ game }) {
     setActiveAnagram(game.gameAnagrams[gamePlayState.activeAnagramIndex]);
   }, [gamePlayState.activeAnagramIndex]);
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+  // const handleClose = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
 
-    setOpen(false);
-  };
+  //   setOpen(false);
+  // };
+
+  // const showNotification = () => {
+  //   debugger;
+  //   if (open)
+  //     return (
+  //       <Notification
+  //         message={
+  //           isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"
+  //         }
+  //         variant={isGuessCorrect ? "success" : "error"}
+  //         newNotificationCount={notificationCount}
+  //       ></Notification>
+  //     );
+  // };
+
+  // useEffect(() => {
+  //   showNotification();
+  // }, [notificationCount]);
 
   return (
     <>
@@ -208,72 +232,13 @@ function AnagramHandler({ game }) {
         </Stack>
       </Box>
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={isGuessCorrect ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"}
-        </Alert>
-      </Snackbar>
-
-      {/* {game.gameAnagrams.map((anagram, i) => (
-        <Box
-          key={`round${i}-anagram${anagram.id}`}
-          hidden={state.activeAnagramIndex != i}
-        >
-          <Box sx={{ mt: 5 }}>
-            <Typography variant="h5" sx={{ mb: 0 }}>
-              Challenge
-            </Typography>
-            <AnagramDisplayField
-              anagram={anagram.anagramWord}
-            ></AnagramDisplayField>
-          </Box>
-
-          <Box sx={{ mt: 5 }}>
-            <Typography variant="h5" sx={{ mb: 0 }}>
-              Attempts
-            </Typography>
-
-            {displayAttempts(anagram, i)}
-          </Box>
-        </Box>
-      ))}
-
-      <Box sx={{ width: 1 / 4, m: "auto", mt: 5 }}>
-        <Stack>
-          <Button
-            onClick={() => submitAttempt()}
-            variant="contained"
-            sx={{
-              mb: 2,
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            variant="outlined"
-            width="lg"
-            sx={{
-              mb: 2,
-            }}
-          >
-            Clear
-          </Button>
-        </Stack>
-      </Box>
-
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={isGuessCorrect ? "success" : "error"}
-          sx={{ width: "100%" }}
-        >
-          {isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"}
-        </Alert>
-      </Snackbar> */}
+      <Notification
+        message={
+          isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"
+        }
+        variant={isGuessCorrect ? "success" : "error"}
+        newNotificationCount={notificationCount}
+      ></Notification>
     </>
   );
 }

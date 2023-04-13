@@ -27,21 +27,14 @@ const Lobby = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [connection, setConnection] = useState();
   const [playersReady, setPlayersReady] = useState(false);
-  const [userJoinedLobby, setUserJoinedLobby] = useState(false);
   const [notification, setNotification] = useState("");
+  const [notificationCount, setNotificationCount] = useState(1);
 
   const baseUrl = process.env.REACT_APP_API_URL ?? "http://localhost:5016";
   const currentUserId = LoginUtils.getAccountId(authState.accessToken);
   const navigate = useNavigate();
 
   const getGame = async () => {
-    // const response = await fetch(`http://localhost:5016/games/${params.id}`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-
     const response = await FetchUtils.fetchInstance(`games/${params.id}`, {
       method: "GET",
       headers: {
@@ -129,8 +122,8 @@ const Lobby = () => {
           });
           connection.on("UserJoinedLobby", (message) => {
             console.log(message);
+            setNotificationCount(notificationCount + 1);
             setNotification(message + " joined lobby");
-            setUserJoinedLobby(true);
             const newUserList = users.map((user) => ({
               username: user.username,
               ready: user.username === message ? true : user.ready,
@@ -148,9 +141,21 @@ const Lobby = () => {
     }
   }, [gamePlayState]);
 
-  const showNotification = (notification) => {
-    return <Notification message={notification} display={true}></Notification>;
-  };
+  // const showNotification = () => {
+  //   return (
+  //     notification && (
+  //       <Notification
+  //         message={notification}
+  //         variant="info"
+  //         newNotificationCount={notificationCount}
+  //       ></Notification>
+  //     )
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   showNotification();
+  // }, [notificationCount]);
 
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
@@ -286,12 +291,15 @@ const Lobby = () => {
           ) : (
             <></>
           )}
-
-          {showNotification(notification)}
-          {/* {notifications.map((note) => (
-            <Notification message={note} display={true}></Notification>
-          ))} */}
         </>
+      )}
+
+      {notification && (
+        <Notification
+          message={notification}
+          variant="info"
+          newNotificationCount={notificationCount}
+        ></Notification>
       )}
     </Container>
   );

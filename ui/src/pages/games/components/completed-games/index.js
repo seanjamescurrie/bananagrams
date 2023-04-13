@@ -86,9 +86,6 @@ const CompletedGames = forwardRef((props, ref) => {
   return (
     <Box ref={ref} {...props} width="1">
       <Container maxWidth="lg" sx={{ textAlign: "center", mt: 5 }}>
-        {/* <Typography variant="h2">Completed Games</Typography>
-      <Typography variant="p">Game details of completed games</Typography> */}
-
         {isLoading ? (
           <Loader></Loader>
         ) : games.length > 0 ? (

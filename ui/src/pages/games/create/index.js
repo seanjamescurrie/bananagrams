@@ -23,6 +23,7 @@ const CreateGame = () => {
   const game = useCreateGame();
   const { authState } = AuthContext.useLogin();
   const [activeStep, setActiveStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -36,6 +37,7 @@ const CreateGame = () => {
   };
 
   async function createGame() {
+    setIsLoading(true);
     const newGame = {
       gameAnagramTypeId: game.state.gameAnagramTypeId,
       playerIds: game.state.userIds,
@@ -56,6 +58,7 @@ const CreateGame = () => {
     } else {
       console.log("error");
     }
+    setIsLoading(false);
   }
 
   return (
@@ -107,7 +110,7 @@ const CreateGame = () => {
               sx={{
                 mb: 2,
               }}
-              disabled={game.state.userIds <= 0}
+              disabled={game.state.userIds <= 0 || isLoading}
             >
               {activeStep === steps.length - 1 ? "Finish" : "Continue"}
 
