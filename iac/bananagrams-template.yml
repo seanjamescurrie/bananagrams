@@ -9,6 +9,7 @@ Parameters:
   RootDomainName:
     Description: Domain name for your website (example.com)
     Type: String
+    Default: bananagrams.net
 
 Resources:
   Database:
