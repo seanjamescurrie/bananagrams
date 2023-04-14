@@ -50,14 +50,13 @@ Resources:
       EngineVersion: "12.9"
       MasterUsername: postgres
       MasterUserPassword: !Ref DBPassword
-#   APIContainer:
-#     Type: AWS::Lightsail::Container
-#     Properties:
-#       IsDisabled: false
-#       Power: micro
-#       Scale: 1
-#       ServiceName: bananagrams-api-container
-
+  APIContainer:
+    Type: AWS::Lightsail::Container
+    Properties:
+      IsDisabled: false
+      Power: micro
+      Scale: 1
+      ServiceName: bananagrams-api-container
 #   RootBucket:
 #     Type: AWS::S3::Bucket
 #     Properties:
