@@ -49,7 +49,7 @@ const SignUp = () => {
 
       const response = await UserService.create(newUser);
 
-      if (response === 201) {
+      if (response.status === 201) {
         navigate("/login");
       }
     } else {

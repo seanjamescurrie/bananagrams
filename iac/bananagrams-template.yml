@@ -42,7 +42,7 @@ Resources:
   Database:
     Type: "AWS::RDS::DBInstance"
     Properties:
-      DBInstanceIdentifier: bananagrams
+      DBInstanceIdentifier: bananagramsdb3
       DBInstanceClass: db.t2.micro
       AllocatedStorage: 20
       PubliclyAccessible: true
@@ -50,105 +50,104 @@ Resources:
       EngineVersion: "12.9"
       MasterUsername: postgres
       MasterUserPassword: !Ref DBPassword
+#   APIContainer:
+#     Type: AWS::Lightsail::Container
+#     Properties:
+#       IsDisabled: false
+#       Power: micro
+#       Scale: 1
+#       ServiceName: bananagrams-api-container
 
-  APIContainer:
-    Type: AWS::Lightsail::Container
-    Properties:
-      IsDisabled: false
-      Power: micro
-      Scale: 1
-      ServiceName: bananagrams-api-container
+#   RootBucket:
+#     Type: AWS::S3::Bucket
+#     Properties:
+#       BucketName: !Ref RootDomainName
+#       AccessControl: PublicRead
+#       WebsiteConfiguration:
+#         IndexDocument: index.html
+#         ErrorDocument: 404.html
 
-  RootBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Ref RootDomainName
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        ErrorDocument: 404.html
+#   WWWBucket:
+#     Type: AWS::S3::Bucket
+#     Properties:
+#       BucketName: !Sub
+#         - www.${Domain}
+#         - Domain: !Ref RootDomainName
+#       AccessControl: BucketOwnerFullControl
+#       WebsiteConfiguration:
+#         RedirectAllRequestsTo:
+#           HostName: !Ref RootBucket
 
-  WWWBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub
-        - www.${Domain}
-        - Domain: !Ref RootDomainName
-      AccessControl: BucketOwnerFullControl
-      WebsiteConfiguration:
-        RedirectAllRequestsTo:
-          HostName: !Ref RootBucket
+#   myDNS:
+#     Type: AWS::Route53::RecordSetGroup
+#     Properties:
+#       HostedZoneName: !Sub
+#         - ${Domain}.
+#         - Domain: !Ref RootDomainName
+#       Comment: Zone apex alias.
+#       RecordSets:
+#         - Name: !Ref RootDomainName
+#           Type: A
+#           AliasTarget:
+#             HostedZoneId:
+#               !FindInMap [RegionMap, !Ref "AWS::Region", S3hostedzoneID]
+#             DNSName: !FindInMap [RegionMap, !Ref "AWS::Region", websiteendpoint]
+#         - Name: !Sub
+#             - www.${Domain}
+#             - Domain: !Ref RootDomainName
+#           Type: CNAME
+#           TTL: 900
+#           ResourceRecords:
+#             - !GetAtt WWWBucket.DomainName
 
-  myDNS:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneName: !Sub
-        - ${Domain}.
-        - Domain: !Ref RootDomainName
-      Comment: Zone apex alias.
-      RecordSets:
-        - Name: !Ref RootDomainName
-          Type: A
-          AliasTarget:
-            HostedZoneId:
-              !FindInMap [RegionMap, !Ref "AWS::Region", S3hostedzoneID]
-            DNSName: !FindInMap [RegionMap, !Ref "AWS::Region", websiteendpoint]
-        - Name: !Sub
-            - www.${Domain}
-            - Domain: !Ref RootDomainName
-          Type: CNAME
-          TTL: 900
-          ResourceRecords:
-            - !GetAtt WWWBucket.DomainName
+#   myDistribution:
+#     Type: AWS::CloudFront::Distribution
+#     Properties:
+#       DistributionConfig:
+#         Origins:
+#           - DomainName: mybucket.s3.amazonaws.com
+#             Id: myS3Origin
+#             S3OriginConfig:
+#               OriginAccessIdentity: origin-access-identity/cloudfront/E127EXAMPLE51Z
+#         Enabled: "true"
+#         Comment: Some comment
+#         DefaultRootObject: index.html
+#         Logging:
+#           IncludeCookies: "false"
+#           Bucket: mylogs.s3.amazonaws.com
+#           Prefix: myprefix
+#         Aliases:
+#           - mysite.example.com
+#           - yoursite.example.com
+#         DefaultCacheBehavior:
+#           AllowedMethods:
+#             - DELETE
+#             - GET
+#             - HEAD
+#             - OPTIONS
+#             - PATCH
+#             - POST
+#             - PUT
+#           TargetOriginId: myS3Origin
+#           ForwardedValues:
+#             QueryString: "false"
+#             Cookies:
+#               Forward: none
+#           TrustedSigners:
+#             - 1234567890EX
+#             - 1234567891EX
+#           ViewerProtocolPolicy: allow-all
+#         PriceClass: PriceClass_200
+#         Restrictions:
+#           GeoRestriction:
+#             RestrictionType: whitelist
+#             Locations:
+#               - AQ
+#               - CV
+#         ViewerCertificate:
+#           CloudFrontDefaultCertificate: "true"
 
-  myDistribution:
-    Type: AWS::CloudFront::Distribution
-    Properties:
-      DistributionConfig:
-        Origins:
-          - DomainName: mybucket.s3.amazonaws.com
-            Id: myS3Origin
-            S3OriginConfig:
-              OriginAccessIdentity: origin-access-identity/cloudfront/E127EXAMPLE51Z
-        Enabled: "true"
-        Comment: Some comment
-        DefaultRootObject: index.html
-        Logging:
-          IncludeCookies: "false"
-          Bucket: mylogs.s3.amazonaws.com
-          Prefix: myprefix
-        Aliases:
-          - mysite.example.com
-          - yoursite.example.com
-        DefaultCacheBehavior:
-          AllowedMethods:
-            - DELETE
-            - GET
-            - HEAD
-            - OPTIONS
-            - PATCH
-            - POST
-            - PUT
-          TargetOriginId: myS3Origin
-          ForwardedValues:
-            QueryString: "false"
-            Cookies:
-              Forward: none
-          TrustedSigners:
-            - 1234567890EX
-            - 1234567891EX
-          ViewerProtocolPolicy: allow-all
-        PriceClass: PriceClass_200
-        Restrictions:
-          GeoRestriction:
-            RestrictionType: whitelist
-            Locations:
-              - AQ
-              - CV
-        ViewerCertificate:
-          CloudFrontDefaultCertificate: "true"
-
-Outputs:
-  WebsiteURL:
-    Value: !GetAtt RootBucket.WebsiteURL
-    Description: URL for website hosted on S3
+# Outputs:
+#   WebsiteURL:
+#     Value: !GetAtt RootBucket.WebsiteURL
+#     Description: URL for website hosted on S3
