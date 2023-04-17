@@ -57,25 +57,52 @@ Resources:
       Power: micro
       Scale: 1
       ServiceName: bananagrams-api-container
-  RootBucket:
-    Type: AWS::S3::Bucket
+
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
     Properties:
-      BucketName: !Ref RootDomainName
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
-        ErrorDocument: 404.html
-
-  WWWBucket:
-    Type: AWS::S3::Bucket
+        ErrorDocument: index.html
+    DeletionPolicy: Retain
+  BucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
     Properties:
-      BucketName: !Sub
-        - www.${Domain}
-        - Domain: !Ref RootDomainName
-      AccessControl: BucketOwnerFullControl
-      WebsiteConfiguration:
-        RedirectAllRequestsTo:
-          HostName: !Ref RootBucket
+      PolicyDocument:
+        Id: MyPolicy
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal: "*"
+            Action: "s3:GetObject"
+            Resource: !Join
+              - ""
+              - - "arn:aws:s3:::"
+                - !Ref S3Bucket
+                - /*
+      Bucket: !Ref S3Bucket
+
+  # RootBucket:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: !Ref RootDomainName
+  #     AccessControl: PublicRead
+  #     WebsiteConfiguration:
+  #       IndexDocument: index.html
+  #       ErrorDocument: index.html
+
+  # WWWBucket:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: !Sub
+  #       - www.${Domain}
+  #       - Domain: !Ref RootDomainName
+  #     AccessControl: BucketOwnerFullControl
+  #     WebsiteConfiguration:
+  #       RedirectAllRequestsTo:
+  #         HostName: !Ref RootBucket
 #   myDNS:
 #     Type: AWS::Route53::RecordSetGroup
 #     Properties:
@@ -149,3 +176,18 @@ Resources:
 #   WebsiteURL:
 #     Value: !GetAtt RootBucket.WebsiteURL
 #     Description: URL for website hosted on S3
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt
+      - S3Bucket
+      - WebsiteURL
+    Description: URL for website hosted on S3
+  S3BucketSecureURL:
+    Value: !Join
+      - ""
+      - - "https://"
+        - !GetAtt
+          - S3Bucket
+          - DomainName
+    Description: Name of S3 bucket to hold website content
