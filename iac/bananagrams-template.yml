@@ -191,4 +191,4 @@ Outputs:
         - !GetAtt
           - S3Bucket
           - DomainName
-    Description: Name of S3 bucket to hold website content
+    Description: Name of S3 bucket to hold website content.
