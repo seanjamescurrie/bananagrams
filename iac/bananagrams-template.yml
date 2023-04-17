@@ -57,26 +57,25 @@ Resources:
       Power: micro
       Scale: 1
       ServiceName: bananagrams-api-container
-#   RootBucket:
-#     Type: AWS::S3::Bucket
-#     Properties:
-#       BucketName: !Ref RootDomainName
-#       AccessControl: PublicRead
-#       WebsiteConfiguration:
-#         IndexDocument: index.html
-#         ErrorDocument: 404.html
+  RootBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref RootDomainName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
 
-#   WWWBucket:
-#     Type: AWS::S3::Bucket
-#     Properties:
-#       BucketName: !Sub
-#         - www.${Domain}
-#         - Domain: !Ref RootDomainName
-#       AccessControl: BucketOwnerFullControl
-#       WebsiteConfiguration:
-#         RedirectAllRequestsTo:
-#           HostName: !Ref RootBucket
-
+  WWWBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub
+        - www.${Domain}
+        - Domain: !Ref RootDomainName
+      AccessControl: BucketOwnerFullControl
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Ref RootBucket
 #   myDNS:
 #     Type: AWS::Route53::RecordSetGroup
 #     Properties:
