@@ -61,6 +61,7 @@ Resources:
   S3Bucket:
     Type: "AWS::S3::Bucket"
     Properties:
+      BucketName: !Ref RootDomainName
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
