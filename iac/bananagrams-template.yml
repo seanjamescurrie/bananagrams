@@ -42,7 +42,7 @@ Resources:
   Database:
     Type: "AWS::RDS::DBInstance"
     Properties:
-      DBInstanceIdentifier: bananagramsdb3
+      DBInstanceIdentifier: bananagramsdb
       DBInstanceClass: db.t2.micro
       AllocatedStorage: 20
       PubliclyAccessible: true
@@ -57,7 +57,6 @@ Resources:
       Power: micro
       Scale: 1
       ServiceName: bananagrams-api-container
-
   S3Bucket:
     Type: "AWS::S3::Bucket"
     Properties:
