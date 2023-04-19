@@ -2,5 +2,9 @@
     {
         "ParameterKey": "DBPassword",
         "ParameterValue": "Password123!"
+    },
+    {
+        "ParameterKey": "RootDomainName",
+        "ParameterValue": "bananagrams.net"
     }
 ]

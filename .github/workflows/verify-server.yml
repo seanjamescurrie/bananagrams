@@ -6,8 +6,6 @@ on:
     paths:
       - "server/**"
 
-  workflow_dispatch:
-
 defaults:
   run:
     working-directory: ./server
