@@ -15,10 +15,14 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Notification } from "../../components";
-import { UserService } from "../../services";
+import { UserService, AuthenticationService } from "../../services";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { LoadingScreen } from "../games/game-play/components";
+import { AuthContext } from "../../contexts";
 
 const SignUp = () => {
+  const { authDispatch } = AuthContext.useLogin();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -28,6 +32,7 @@ const SignUp = () => {
   const [message, setMessage] = useState("");
   const [displayMessage, setDisplayMessage] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,6 +43,7 @@ const SignUp = () => {
   };
 
   const createUser = async () => {
+    setIsLoading(true);
     if (password === confirmPassword) {
       const newUser = {
         emailAddress: email,
@@ -50,9 +56,25 @@ const SignUp = () => {
       const response = await UserService.create(newUser);
 
       if (response.status === 201) {
-        navigate("/login");
+        const response = await AuthenticationService.authenticate(
+          email,
+          password
+        );
+
+        if (response.status === 200) {
+          const data = await response.json();
+          StorageService.setLocalStorage("auth", data);
+          StorageService.setLocalStorage("email", email);
+          authDispatch({
+            type: "authentication",
+            ...data,
+          });
+          toast.success("Successfully logged in!");
+          navigate("/");
+        }
       }
     } else {
+      setIsLoading(false);
       setMessage("Passwords do not match");
       setDisplayMessage(true);
     }
@@ -60,6 +82,13 @@ const SignUp = () => {
 
   return (
     <Container maxWidth="sm" sx={{ textAlign: "center", mt: 5 }}>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+        onClick={handleClose}
+      >
+        <LoadingScreen />
+      </Backdrop>
       <Typography variant="h2" gutterBottom>
         Sign Up
       </Typography>
