@@ -35,7 +35,7 @@ const Results = () => {
   const [timer, setTimer] = useState(10);
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:5016/games/${params.id}`, {
+    const response = await FetchUtils.fetchInstance(`games/${params.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -59,11 +59,15 @@ const Results = () => {
       };
       setGame(foundGame);
     }
+
+    if (timer <= 0 && game.users) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     timer > 0 && setTimeout(() => setTimer(timer - 1), 1000);
-    if (timer <= 0) {
+    if (timer <= 0 && game.users) {
       setIsLoading(false);
     }
   }, [timer]);
