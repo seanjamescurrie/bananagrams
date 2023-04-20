@@ -92,9 +92,9 @@ const Game = () => {
           })),
         },
       });
-
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -141,12 +141,6 @@ const Game = () => {
           console.log("connected");
           connection.on("SendUpdate", (updateUserAttempt) => {
             console.log(updateUserAttempt);
-            // gamePlayDispatch({
-            //   type: "updateMultiplayerUserAttempts",
-            //   payload: {
-            //     value: updateUserAttempt,
-            //   },
-            // });
           });
         })
         .catch((error) => console.log(error));
@@ -206,19 +200,6 @@ const Game = () => {
                       <PlayerStatus user={user}></PlayerStatus>
                     </Box>
                   ))}
-                  {/* {[...Array(gamePlayState.users.length)].map((x, i) => (
-                    <Box
-                      sx={{
-                        mt: 2,
-                        display: "flex",
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <PlayerStatus
-                        user={gamePlayState.users[i]}
-                      ></PlayerStatus>
-                    </Box>
-                  ))} */}
                 </>
               ) : (
                 <></>

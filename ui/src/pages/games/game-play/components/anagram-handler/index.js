@@ -19,7 +19,6 @@ function AnagramHandler({ game }) {
   const { gamePlayState, gamePlayDispatch } = useGamePlay();
 
   const [isGuessCorrect, setIsGuessCorrect] = useState(null);
-  const [open, setOpen] = useState(false);
   const [locallyStoredAttempts, setLocallyStoredAttempts] = useState({
     date: "",
     attempts: [],
@@ -82,17 +81,6 @@ function AnagramHandler({ game }) {
 
       setNotificationCount(notificationCount + 1);
 
-      // if (game.gameType.id == 2) {
-      //   gamePlayDispatch({
-      //     type: "updateMultiplayerUserAttempts",
-      //     value: {
-      //       userid: 1,
-      //       attempts: gamePlayState.updateAttempt,
-      //       isSolved: data,
-      //     },
-      //   });
-      // }
-
       if (game.gameType.id == 1) {
         let arr = locallyStoredAttempts.attempts.map((x) => x);
         arr.push(gamePlayState.updateAttempt.attempt);
@@ -109,16 +97,6 @@ function AnagramHandler({ game }) {
   function submitAttempt() {
     updateAnagramAttempts();
   }
-
-  // function showToast() {
-  //   if (isGuessCorrect != null) {
-  //     setOpen(true);
-  //   }
-  // // }
-
-  // useEffect(() => {
-  //   showToast();
-  // }, [notificationCount]);
 
   useEffect(() => {
     setActiveAnagram(game.gameAnagrams[gamePlayState.activeAnagramIndex]);
@@ -160,32 +138,6 @@ function AnagramHandler({ game }) {
     setActiveAnagram(game.gameAnagrams[gamePlayState.activeAnagramIndex]);
   }, [gamePlayState.activeAnagramIndex]);
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-
-  //   setOpen(false);
-  // };
-
-  // const showNotification = () => {
-  //   debugger;
-  //   if (open)
-  //     return (
-  //       <Notification
-  //         message={
-  //           isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"
-  //         }
-  //         variant={isGuessCorrect ? "success" : "error"}
-  //         newNotificationCount={notificationCount}
-  //       ></Notification>
-  //     );
-  // };
-
-  // useEffect(() => {
-  //   showNotification();
-  // }, [notificationCount]);
-
   return (
     <>
       <Box
@@ -217,10 +169,14 @@ function AnagramHandler({ game }) {
             sx={{
               mb: 2,
             }}
+            disabled={
+              activeAnagram.gameUserGameAnagrams[0].attempts >=
+              game.gameType.maxAttempts
+            }
           >
             Submit
           </Button>
-          <Button
+          {/* <Button
             variant="outlined"
             width="lg"
             sx={{
@@ -228,17 +184,19 @@ function AnagramHandler({ game }) {
             }}
           >
             Clear
-          </Button>
+          </Button> */}
         </Stack>
       </Box>
 
-      <Notification
-        message={
-          isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"
-        }
-        variant={isGuessCorrect ? "success" : "error"}
-        newNotificationCount={notificationCount}
-      ></Notification>
+      {isGuessCorrect !== null && (
+        <Notification
+          message={
+            isGuessCorrect ? "Congratulations, anagram solved!" : "Try again!"
+          }
+          variant={isGuessCorrect ? "success" : "error"}
+          newNotificationCount={notificationCount}
+        ></Notification>
+      )}
     </>
   );
 }
