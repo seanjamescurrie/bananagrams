@@ -176,7 +176,7 @@ function AnagramHandler({ game }) {
                 game.gameType.maxAttempts || activeAnagram.isSolved
             }
           >
-            ({activeAnagram.isSolved} ? Solved : Submit)
+            {activeAnagram.isSolved ? "Solved" : "Submit"}
           </Button>
           {/* <Button
             variant="outlined"
