@@ -918,6 +918,6 @@ Response: `200 Ok`
 ## Commands
 
 ### Docker
-docker compose up
-docker compose down
-docker vloume prune --force
+docker compose up <br />
+docker compose down <br />
+docker vloume prune --force <br />
