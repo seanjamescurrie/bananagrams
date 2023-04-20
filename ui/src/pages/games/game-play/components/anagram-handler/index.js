@@ -147,9 +147,11 @@ function AnagramHandler({ game }) {
           <Typography variant="h5" sx={{ mb: 0 }}>
             Challenge
           </Typography>
-          <AnagramDisplayField
-            anagram={activeAnagram.anagramWord}
-          ></AnagramDisplayField>
+          {activeAnagram.anagramWord && (
+            <AnagramDisplayField
+              anagram={activeAnagram.anagramWord}
+            ></AnagramDisplayField>
+          )}
         </Box>
 
         <Box sx={{ mt: 5 }}>
