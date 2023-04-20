@@ -914,3 +914,10 @@ Response: `200 Ok`
 
 ---
 ---
+
+## Commands
+
+### Docker
+docker compose up
+docker compose down
+docker vloume prune --force
