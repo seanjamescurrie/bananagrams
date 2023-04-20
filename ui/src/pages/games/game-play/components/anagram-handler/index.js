@@ -173,10 +173,10 @@ function AnagramHandler({ game }) {
             }}
             disabled={
               activeAnagram.gameUserGameAnagrams[0].attempts >=
-              game.gameType.maxAttempts
+                game.gameType.maxAttempts || activeAnagram.isSolved
             }
           >
-            Submit
+            ({activeAnagram.isSolved} ? Solved : Submit)
           </Button>
           {/* <Button
             variant="outlined"
