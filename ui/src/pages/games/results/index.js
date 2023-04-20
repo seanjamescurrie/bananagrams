@@ -12,7 +12,7 @@ import {
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { FetchUtils } from "../../../utils";
 import Paper from "@mui/material/Paper";
 import styled from "@emotion/styled";
 import { Loader } from "../../../components";

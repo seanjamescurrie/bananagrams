@@ -28,6 +28,7 @@ import { Badge } from "@mui/material";
 import { AuthContext } from "../../contexts";
 import { LoginUtils } from "../../utils";
 import { useState, useEffect } from "react";
+import { StorageService } from "../../services";
 
 const drawerWidth = 240;
 
@@ -147,6 +148,11 @@ export default function MiniDrawer({ children }) {
     setOpen(false);
   };
 
+  const logout = () => {
+    auth.authDispatch({ type: "logout" });
+    navigate("/login");
+  };
+
   useEffect(() => {
     if (loggedIn) {
       setPages(authenticatedPages);
@@ -203,7 +209,9 @@ export default function MiniDrawer({ children }) {
           {pages.map((page, index) => (
             <ListItem key={page.title} disablePadding sx={{ display: "block" }}>
               <ListItemButton
-                onClick={() => navigate(page.navigation)}
+                onClick={() =>
+                  page.title === "Logout" ? logout() : navigate(page.navigation)
+                }
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",

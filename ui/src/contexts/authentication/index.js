@@ -13,7 +13,13 @@ function authReducer(state, action) {
       };
     }
     case "logout": {
-      return {};
+      StorageService.removeLocalStorage("auth");
+      StorageService.removeLocalStorage("email");
+      return {
+        ...state,
+        accessToken: "",
+        refreshToken: "",
+      };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

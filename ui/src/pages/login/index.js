@@ -16,6 +16,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts";
 import { AuthenticationService, StorageService } from "../../services";
+import Backdrop from "@mui/material/Backdrop";
+import { Loader } from "../../components/";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -23,8 +25,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -33,17 +35,7 @@ const Login = () => {
   };
 
   const login = async () => {
-    // const response = await fetch("http://localhost:5016/authentication", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: password,
-    //   }),
-    // });
-
+    setIsLoading(true);
     const response = await AuthenticationService.authenticate(email, password);
 
     if (response.status === 200) {
@@ -58,30 +50,19 @@ const Login = () => {
       toast.success("Successfully logged in!");
       navigate("/");
     } else {
-      console.log("error");
+      toast.error("Failed to logged in!");
     }
+    setIsLoading(false);
   };
-
-  // const authentication = async () => {
-  //   const response = await AuthenticationService.authenticate(email, password);
-  //   if (response.status === 200) {
-  //     const loginResult = await response.json();
-  //     StorageService.setLocalStorage(loginResult, StorageTypes.AUTH);
-  //     StorageService.setLocalStorage(email, StorageTypes.EMAIL);
-  //     dispatch({
-  //       type: "authentication",
-  //       ...loginResult,
-  //     });
-  //     toast.success("Successfully logged in!");
-  //     navigate(NavigationRoutes.Home);
-  //   } else {
-  //     toast.error("Failed to logged in!");
-  //     navigate(NavigationRoutes.Login);
-  //   }
-  // };
 
   return (
     <Container maxWidth="sm" sx={{ textAlign: "center", mt: 5 }}>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <Loader />
+      </Backdrop>
       <Typography variant="h2" gutterBottom>
         Login
       </Typography>

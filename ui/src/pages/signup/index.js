@@ -15,10 +15,16 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Notification } from "../../components";
-import { UserService, AuthenticationService } from "../../services";
+import {
+  UserService,
+  AuthenticationService,
+  StorageService,
+} from "../../services";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { LoadingScreen } from "../games/game-play/components";
+import Backdrop from "@mui/material/Backdrop";
+import { Loader } from "../../components/";
 import { AuthContext } from "../../contexts";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const { authDispatch } = AuthContext.useLogin();
@@ -74,10 +80,10 @@ const SignUp = () => {
         }
       }
     } else {
-      setIsLoading(false);
       setMessage("Passwords do not match");
       setDisplayMessage(true);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -85,9 +91,8 @@ const SignUp = () => {
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
-        onClick={handleClose}
       >
-        <LoadingScreen />
+        <Loader />
       </Backdrop>
       <Typography variant="h2" gutterBottom>
         Sign Up
