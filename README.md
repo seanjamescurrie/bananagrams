@@ -920,4 +920,4 @@ Response: `200 Ok`
 ### Docker
 docker compose up <br />
 docker compose down <br />
-docker vloume prune --force <br />
+docker volume prune --force <br />
