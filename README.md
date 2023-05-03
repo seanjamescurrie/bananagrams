@@ -362,6 +362,7 @@ Response: `200 OK`
     "email_address": "sean.currie@unosquare.com",
     "first_name": "Sean",
     "last_name": "Currie"
+    "username": "seancurrie123"
   }
 ```
 
@@ -377,6 +378,7 @@ Request:
     "first_name": "John",
     "last_name": "Currie",
     "password": "password"
+    "username": "johncurrie123"
   }
 ```
 
