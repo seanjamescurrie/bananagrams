@@ -923,3 +923,12 @@ Response: `200 Ok`
 docker compose up <br />
 docker compose down <br />
 docker volume prune --force <br />
+
+### Github Secrets
+
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+DEV_DB_USER
+DEV_DB_PASSWORD
+DEV_DB_URL (i.e. jdbc:postgresql://login-java.cvyacp0tw1lq.eu-west-1.rds.amazonaws.com:5432/)
+API_DB_URL (i.e. Server=SomeDbUrl,5432;Database=DbName;User Id=admin;Password=password;)
