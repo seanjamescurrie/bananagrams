@@ -924,7 +924,9 @@ docker compose up <br />
 docker compose down <br />
 docker volume prune --force <br />
 
-### Github Secrets
+## AWS & Github
+
+### Github Action Secrets
 
 AWS_ACCESS_KEY_ID <br />
 AWS_SECRET_ACCESS_KEY <br />
@@ -932,3 +934,11 @@ DEV_DB_USER <br />
 DEV_DB_PASSWORD <br />
 DEV_DB_URL (i.e. jdbc:postgresql://login-java.cvyacp0tw1lq.eu-west-1.rds.amazonaws.com:5432/) <br />
 API_DB_URL (i.e. Server=SomeDbUrl,5432;Database=DbName;User Id=admin;Password=password;) <br />
+
+### AWS Resources
+
+Database: RDS
+Server/backend: Lightsail
+UI/frontend: S3
+DIstribution: Cloudfront
+IaC: Cloudformation
