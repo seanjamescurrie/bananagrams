@@ -937,8 +937,8 @@ API_DB_URL (i.e. Server=SomeDbUrl,5432;Database=DbName;User Id=admin;Password=pa
 
 ### AWS Resources
 
-Database: RDS
-Server/backend: Lightsail
-UI/frontend: S3
-DIstribution: Cloudfront
-IaC: Cloudformation
+Database: RDS <br />
+Server/backend: Lightsail <br />
+UI/frontend: S3 <br />
+DIstribution: Cloudfront <br />
+IaC: Cloudformation <br />
