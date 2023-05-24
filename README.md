@@ -917,12 +917,21 @@ Response: `200 Ok`
 ---
 ---
 
-## Commands
+## Useful Commands
 
 ### Docker
 docker compose up <br />
 docker compose down <br />
 docker volume prune --force <br />
+
+### Github
+git status <br />
+git add . <br />
+git commit -m "some message" <br />
+git push <br />
+
+---
+---
 
 ## AWS & Github
 
