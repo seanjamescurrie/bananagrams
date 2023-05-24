@@ -933,7 +933,7 @@ git push <br />
 ---
 ---
 
-## AWS & Github
+## Deployment
 
 ### Github Action Secrets
 
