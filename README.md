@@ -40,13 +40,14 @@ flowchart
   User --- UserBattle
   Battle --- UserBattle
 ```
+
 <!--
 ## Entity Relationship Diargram v1
 
 ```mermaid
 erDiagram
 
-  DailyBrainTeaser ||--|| BrainTeaser : ""  
+  DailyBrainTeaser ||--|| BrainTeaser : ""
   BrainTeaserType ||--|| BrainTeaser : ""
   Solution ||--|| BrainTeaser : ""
   Solution ||--|| ObjectReference : ""
@@ -57,24 +58,24 @@ erDiagram
   User ||--o{ UserBattle : ""
   BattleBrainTeaser }|--|| Battle : ""
   Battle ||--|{ UserBattle : ""
-  
+
   DailyBrainTeaser {
     int id PK
     time_stamp created_on
     int brain_teaser_id FK
   }
-  
+
   BrainTeaserType {
     int id PK
     string name
   }
-  
+
   Solution {
     int id PK
     int object_reference_id FK
     int brain_teaser_id FK
   }
-  
+
   ObjectReference {
     int id PK
     string name
@@ -82,7 +83,7 @@ erDiagram
     string image_url
     int solution_id FK
   }
-  
+
   BrainTeaser {
     int id PK
     string anagram
@@ -91,7 +92,7 @@ erDiagram
     array attempts
     array battle_brain_teasers
   }
-  
+
   Attempts {
     int id PK
     int total_attempts
@@ -99,7 +100,7 @@ erDiagram
     int brain_teaser_id FK
     int user_id FK
   }
-  
+
   User {
     int id PK
     string first_name
@@ -111,7 +112,7 @@ erDiagram
     array user_battles
     array attempts
   }
-  
+
   Stats {
     int id PK
     int total_brain_teasers_solved
@@ -121,26 +122,26 @@ erDiagram
     int total_daily_brain_teasers_played
     int longest_daily_brain_teasers_streak
   }
-  
+
   Battle {
     int id PK
     array battle_brain_teasers
     array user_battles
   }
-  
+
   BattleBrainTeaser {
     int id PK
     int battle FK
     int brain_teaser FK
   }
-  
+
   UserBattle {
     int id PK
     int user_id FK
     int battle_id FK
   }
-  
-  
+
+
 
 ```
 
@@ -149,20 +150,20 @@ erDiagram
 ```mermaid
 erDiagram
 
-  bt_anagram }o--|| brain_teaser : ""  
+  bt_anagram }o--|| brain_teaser : ""
   bt_anagram }o--|| bt_anagram_type : ""
   app_user_anagram ||--|| app_user : ""
   app_user_anagram ||--|| bt_anagram : ""
   face_off_user_anagram }|--|| face_off : ""
   face_off_user_anagram }|--|| bt_anagram : ""
   face_off_user_anagram }|--|| app_user : ""
-  
+
   brain_teaser {
     int id PK
     string name
     string description
   }
-  
+
   bt_anagram {
     int id PK
     string anagram_word
@@ -173,14 +174,14 @@ erDiagram
     int bt_anagram_type FK
     int brain_teaser_id FK
   }
-  
+
   bt_anagram_type {
     int id PK
     int max_attempts
     string name
     int time_allowed
   }
-  
+
   app_user_anagram {
     int id PK
     int attempts
@@ -190,13 +191,13 @@ erDiagram
     int bt_anagram_id FK
     int user_id FK
   }
-  
+
   face_off {
     int id PK
     string name
     date_time date_created
   }
-  
+
   app_user {
     int id PK
     time_stamp date_created
@@ -204,7 +205,7 @@ erDiagram
     string first_name
     string last_name
   }
-  
+
   face_off_user_anagram {
     int face_off_id FK
     int bt_anagram_id FK
@@ -227,34 +228,34 @@ erDiagram
   game_anagrams ||--|| words : ""
   game_anagrams ||--|{ game_anagram_types : ""
   words ||--|| daily_words : ""
-  
+
   game_anagram_types {
     int id PK
     string title
     int max_attempts
     int time_allowed
   }
-  
+
   games {
     int id PK
     string title
     date_time date_created
   }
-  
+
   words {
     int id PK
     string title
     string description
     string image_location
   }
-  
+
   daily_words {
     int id PK
     string anagram
     date_time date_created
     int word_id FK
   }
-  
+
   game_anagrams {
     int id PK
     string anagram_word
@@ -264,7 +265,7 @@ erDiagram
     int word_id FK
     int game_anagram_type_id FK
   }
-  
+
   users {
     int id PK
     time_stamp date_created
@@ -272,13 +273,13 @@ erDiagram
     string first_name
     string last_name
   }
-  
+
   game_users {
     int id PK
     int game_id FK
     int user_id FK
   }
-  
+
   game_user_game_anagrams {
     int id PK
     int attempts
@@ -287,8 +288,8 @@ erDiagram
     int game_anagram_id FK
     int game_user_id FK
   }
-  
-  
+
+
 
 ```
 
@@ -297,7 +298,7 @@ erDiagram
 
 ### Users
 
-`GET /users` 
+`GET /users`
 ###### Returns a list of users
 
 Response: `200 OK`
@@ -324,7 +325,7 @@ Response: `200 OK`
 
 ---
 
-`GET /users?user-name={name}` 
+`GET /users?user-name={name}`
 ###### Returns a list of users based on search word
 
 Response: `200 OK`
@@ -351,7 +352,7 @@ Response: `200 OK`
 
 ---
 
-`GET /users/{id}` 
+`GET /users/{id}`
 ###### Returns a user
 
 Response: `200 OK`
@@ -633,10 +634,12 @@ Response: `201 Created`
 
 ### Users
 
-`GET /users` 
+`GET /users`
+
 ###### Returns a list of users
 
 Response: `200 OK`
+
 ```json
 [
   {
@@ -660,10 +663,12 @@ Response: `200 OK`
 
 ---
 
-`GET /users?user-name={name}` 
+`GET /users?user-name={name}`
+
 ###### Returns a list of users based on search word
 
 Response: `200 OK`
+
 ```json
 [
   {
@@ -687,33 +692,37 @@ Response: `200 OK`
 
 ---
 
-`GET /users/{id}` 
+`GET /users/{id}`
+
 ###### Returns a user
 
 Response: `200 OK`
+
 ```json
 {
-    "id": 1,
-    "date_created": "2023-01-11 10:27:21.240752",
-    "email_address": "sean.currie@unosquare.com",
-    "first_name": "Sean",
-    "last_name": "Currie"
-  }
+  "id": 1,
+  "date_created": "2023-01-11 10:27:21.240752",
+  "email_address": "sean.currie@unosquare.com",
+  "first_name": "Sean",
+  "last_name": "Currie"
+}
 ```
 
 ---
 
 `POST /users`
+
 ###### Creates a user
 
 Request:
+
 ```json
-  {
-    "email_address": "sean.currie+john@unosquare.com",
-    "first_name": "John",
-    "last_name": "Currie",
-    "password": "password"
-  }
+{
+  "email_address": "sean.currie+john@unosquare.com",
+  "first_name": "John",
+  "last_name": "Currie",
+  "password": "password"
+}
 ```
 
 Response: `201 Created`
@@ -721,15 +730,17 @@ Response: `201 Created`
 ---
 
 `PUT /users/{id}`
+
 ###### Updates user by id
 
 Request:
+
 ```json
-  {
-    "email_address": "sean.currie+david@unosquare.com",
-    "first_name": "David Mark",
-    "last_name": "Currie Powder"
-  }
+{
+  "email_address": "sean.currie+david@unosquare.com",
+  "first_name": "David Mark",
+  "last_name": "Currie Powder"
+}
 ```
 
 Response: `200 OK`
@@ -737,19 +748,23 @@ Response: `200 OK`
 ---
 
 `DELETE /users/{id}`
+
 ###### Deletes a user by id
 
 Response: `200 OK`
 
 ---
+
 ---
 
 ### Games
 
 `GET /users/{id}/games`
+
 ###### Gets a list of all games for a user
 
 Response: `200 OK`
+
 ```json
   {
     [
@@ -825,9 +840,11 @@ Response: `200 OK`
 ---
 
 `GET /users/{id}/games/{id}`
+
 ###### Gets a competitive face off game by an id
 
 Response: `200 OK`
+
 ```json
   {
     "id": 1,
@@ -878,9 +895,11 @@ Response: `200 OK`
 ---
 
 `CREATE /users/{id}/games`
+
 ###### Creates a competitive game with another user
 
 Request:
+
 ```json
   {
     "title": "Sean Vs David"
@@ -903,34 +922,41 @@ Response: `201 Created`
 ---
 
 `POST /user/{id}/games/{id}/guess/{id}`
+
 ###### Updates a record of a user's attempt at an anagram
 
 Request:
+
 ```json
-  {
-    "attempts": "3",
-    "solved": "2023-01-11 10:32:21.240752"
-  }
+{
+  "attempts": "3",
+  "solved": "2023-01-11 10:32:21.240752"
+}
 ```
+
 Response: `200 Ok`
 
 ---
+
 ---
 
 ## Useful Commands
 
 ### Docker
+
 docker compose up <br />
 docker compose down <br />
 docker volume prune --force <br />
 
 ### Github
+
 git status <br />
 git add . <br />
 git commit -m "some message" <br />
 git push <br />
 
 ---
+
 ---
 
 ## Deployment
